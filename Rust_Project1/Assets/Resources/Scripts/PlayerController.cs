@@ -19,6 +19,7 @@ struct DeactivatePlayer
 struct FollowCommand
 {
     public Vector3 point;
+    public Transform trans;
 }
 struct StayCommand
 {
@@ -108,6 +109,7 @@ public class PlayerController : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.F))
                 {
                     FollowCommand fc;
+                    fc.trans = transform;
                     fc.point = GetPlayerPosition();
                     FFMessage<FollowCommand>.SendToLocal(fc);
                 }

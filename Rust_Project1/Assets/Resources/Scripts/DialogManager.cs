@@ -130,14 +130,14 @@ public class DialogManager : FFComponent
         }
     }
     
-    private void OnCustomDialogOff(CustomDialogOff e)
+    private void OnCustomDialogOff(CustomEventOff e)
     {
         if (CustomStatus.ContainsKey(e.tag))
         {
             CustomStatus[e.tag] = false;
         }
     }
-    private void OnCustomDialogOn(CustomDialogOn e)
+    private void OnCustomDialogOn(CustomEventOn e)
     {
         if (CustomStatus.ContainsKey(e.tag))
         {
@@ -180,8 +180,8 @@ public class DialogManager : FFComponent
         {
             if(cond.type == CharacterDialog.Dialog.Condition.Type.Custom)
             {
-                FFMessageBoard<CustomDialogOn> .Box(cond.identifier).Connect(OnCustomDialogOn);
-                FFMessageBoard<CustomDialogOff>.Box(cond.identifier).Connect(OnCustomDialogOff);
+                FFMessageBoard<CustomEventOn> .Box(cond.identifier).Connect(OnCustomDialogOn);
+                FFMessageBoard<CustomEventOff>.Box(cond.identifier).Connect(OnCustomDialogOff);
             }
         }
     }
@@ -430,8 +430,8 @@ public class DialogManager : FFComponent
     }
     void SendCustomDialogEvent(object text)
     {
-        var box = FFMessageBoard<CustomDialogOn>.Box((string)text);
-        CustomDialogOn cdo;
+        var box = FFMessageBoard<CustomEventOn>.Box((string)text);
+        CustomEventOn cdo;
         cdo.tag = (string)text;
         box.SendToLocal(cdo);
     }

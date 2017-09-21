@@ -58,11 +58,11 @@ public struct LeaveArea
 
 
 
-struct CustomDialogOn
+public struct CustomEventOn
 {
     public string tag;
 }
-struct CustomDialogOff
+public struct CustomEventOff
 {
     public string tag;
 }

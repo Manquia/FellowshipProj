@@ -23,9 +23,9 @@ public class TriggerArea : MonoBehaviour
         if (character != null &&
            (SpecifyPerson == DialogManager.OratorNames.None) /* || @TODO Add non specific character requirement*/)
         {
-            CustomDialogOn cdo;
+            CustomEventOn cdo;
             cdo.tag = tag;
-            var box = FFMessageBoard<CustomDialogOn>.Box(name);
+            var box = FFMessageBoard<CustomEventOn>.Box(tag);
             box.SendToLocal(cdo);
         }
     }
@@ -36,9 +36,9 @@ public class TriggerArea : MonoBehaviour
         if (character != null &&
            (SpecifyPerson == DialogManager.OratorNames.None) /* || @TODO Add non specific character requirement*/)
         {
-            CustomDialogOff cdo;
+            CustomEventOff cdo;
             cdo.tag = tag;
-            var box = FFMessageBoard<CustomDialogOff>.Box(name);
+            var box = FFMessageBoard<CustomEventOff>.Box(tag);
             box.SendToLocal(cdo);
         }
     }

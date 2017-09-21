@@ -12,19 +12,7 @@ public class Sandbox : FFComponent {
 	void Start ()
     {
         seq = action.Sequence();
-
-        seq.Sync();
-        seq.Call(begin);
-        seq.Sync();
-        seq.Sync();
-        seq.Sync();
-        seq.Delay(2.5f);
-        seq.Sync();
-        seq.Sync();
-        seq.Sync();
-        seq.Call(middle);
-        seq.Sync();
-        seq.Call(end);
+        
 		
 	}
 
