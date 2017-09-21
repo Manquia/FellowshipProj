@@ -5,6 +5,7 @@ using System;
 public enum CameraState
 {
     Player,     // Height always enabled
+    Menu,
     Transition, // Height sometimes enabled
     Cinimatic,  // Height always disabled
 }
@@ -39,7 +40,8 @@ public class CameraController : FFComponent {
     FFAction.ActionSequence HeightSequence;
     FFAction.ActionSequence TransitionSequence;
 
-    CameraState state = CameraState.Player;
+    public CameraState state = CameraState.Menu;
+
     Camera cameraComp;
     Transform cameraTrans;
 
