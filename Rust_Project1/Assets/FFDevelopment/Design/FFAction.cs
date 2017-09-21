@@ -712,220 +712,178 @@ public class FFAction : MonoBehaviour
         var actionSequenceListCopy = new List<ActionSequence>(ActionSequenceList);
         for (int i = 0; i < actionSequenceListCopy.Count; ++i)
         {
-            double currentTime = FFSystem.time; // TODO change this time signature be based frame constant time so all sequences behave the same.
-            while (currentTime >= actionSequenceListCopy[i].seqTime)
+            //const double timeEpsilon = 0.0001f;
+            float dt = Time.fixedDeltaTime; // Mathf.Min(Time.fixedDeltaTime, (float)((double)(currentTime - actionSequenceListCopy[i].seqTime) + timeEpsilon));
+            if (actionSequenceListCopy[i].seqData != null && actionSequenceListCopy[i].seqData.Count != 0)
             {
-                // TODO test this with a large currentTime
-                const double timeEpsilon = 0.0001f;
-                float dt = Mathf.Min(Time.fixedDeltaTime, (float)((double)(currentTime - actionSequenceListCopy[i].seqTime) + timeEpsilon));
-                if (actionSequenceListCopy[i].seqData != null && actionSequenceListCopy[i].seqData.Count != 0)
-                {
-                    bool finishedSet = true;
-                    var seq = actionSequenceListCopy[i];
-                    var actSet = seq.seqData;
+                bool finishedSet = true;
+                var seq = actionSequenceListCopy[i];
+                var actSet = seq.seqData;
 
-                    // Paused Sequences do do not get updated
-                    if (seq.active == false)
-                        break;
+                // Paused Sequences do do not get updated
+                if (seq.active == false)
+                    break;
 
-                    // Calls (must be first)
-                    finishedSet = ActionUpdateCalls(actSet[first]);
-                    #region Calls
-                    // OLD VERSION
-                    /*
-                    // store count so that added calls aren't called
-                    int voidCallCount;
-                    if (actSet[first].as_VoidCalls != null)
-                        voidCallCount = actSet[first].as_VoidCalls.Count;
-                    else
-                        voidCallCount = 0;
-
-                    // store count so that added calls aren't called
-                    int objectCallCount;
-                    if (actSet[first].as_ObjectCalls != null)
-                        objectCallCount = actSet[first].as_ObjectCalls.Count;
-                    else
-                        objectCallCount = 0;
-
-                    // Void Calls
-                    for (int j = 0; j < voidCallCount && actSet[first].as_VoidCalls != null; ++j)
-                    {
-                        actSet[first].as_VoidCalls.Dequeue()(); // call dequed function
-                    }
-
-                    // if any calls were added durring these calls, the set is not complete
-                    if (actSet[first].as_VoidCalls != null && actSet[first].as_VoidCalls.Count > 0)
-                        finishedSet = false;
-
-
-                    // Object Calls
-                    for (int j = 0; j < objectCallCount && actSet[first].as_ObjectCalls != null; ++j)
-                    {
-                        var caller = actSet[first].as_ObjectCalls.Dequeue(); // deque caller
-                        caller.call(caller.obj);
-                    }
-
-                    // if any calls were added durring these calls, the set is not complete
-                    if (actSet[first].as_ObjectCalls != null && actSet[first].as_ObjectCalls.Count > 0)
-                        finishedSet = false;
-                    */
-                    #endregion Calls
+                // Calls (must be first)
+                finishedSet = ActionUpdateCalls(actSet[first]);
                     
-                    //Delays
-                    #region delays
-                    actSet[first].as_DelayTime -= Time.deltaTime;
-                    if (actSet[first].as_DelayTime <= 0)
-                    {
-                        actSet[first].as_DelayTime = 0;
-                    }
-                    else
-                    {
-                        finishedSet = false;
-                    }
-                    #endregion delays
-
-                    // Properties
-                    #region int
-                    if (actSet[first].as_intProperties != null)
-                    {
-                        int countIncomplete = 0;
-                        for (int j = 0; j < actSet[first].as_intProperties.Count; ++j)
-                        {
-                            if (FFActionUpdaterInt(actSet[first].as_intProperties[j], dt))
-                            {
-                                ++countIncomplete; // true == incomplete
-                            }
-                            else
-                            {
-                                actSet[first].as_intProperties.RemoveAt(j);
-                                --j;
-                            }
-                        }
-                        if (countIncomplete > 0)
-                            finishedSet = false;
-                    }
-                    #endregion Int
-
-                    #region float
-                    if (actSet[first].as_floatProperties != null)
-                    {
-                        int countIncomplete = 0;
-                        for (int j = 0; j < actSet[first].as_floatProperties.Count; ++j)
-                        {
-                            if (FFActionUpdaterFloat(actSet[first].as_floatProperties[j], dt))
-                            {
-                                ++countIncomplete; // true == incomplete
-                            }
-                            else
-                            {
-                                actSet[first].as_floatProperties.RemoveAt(j);
-                                --j;
-                            }
-                        }
-                        if (countIncomplete > 0)
-                            finishedSet = false;
-                    }
-                    #endregion float
-
-                    #region Vector2
-                    if (actSet[first].as_Vector2Properties != null)
-                    {
-                        int countIncomplete = 0;
-                        for (int j = 0; j < actSet[first].as_Vector2Properties.Count; ++j)
-                        {
-                            if (FFActionUpdaterVector2(actSet[first].as_Vector2Properties[j], dt))
-                            {
-                                ++countIncomplete; // true == incomplete
-                            }
-                            else
-                            {
-                                actSet[first].as_Vector2Properties.RemoveAt(j);
-                                --j;
-                            }
-                        }
-                        if (countIncomplete > 0)
-                            finishedSet = false;
-                    }
-                    #endregion Vector2
-
-                    #region Vector3
-                    if (actSet[first].as_Vector3Properties != null)
-                    {
-                        int countIncomplete = 0;
-                        for (int j = 0; j < actSet[first].as_Vector3Properties.Count; ++j)
-                        {
-                            if (FFActionUpdaterVector3(actSet[first].as_Vector3Properties[j], dt))
-                            {
-                                ++countIncomplete; // true == incomplete
-                            }
-                            else
-                            {
-                                actSet[first].as_Vector3Properties.RemoveAt(j);
-                                --j;
-                            }
-                        }
-                        if (countIncomplete > 0)
-                            finishedSet = false;
-                    }
-                    #endregion Vector3
-
-                    #region Vector4
-                    if (actSet[first].as_Vector4Properties != null)
-                    {
-                        int countIncomplete = 0;
-                        for (int j = 0; j < actSet[first].as_Vector4Properties.Count; ++j)
-                        {
-                            if (FFActionUpdaterVector4(actSet[first].as_Vector4Properties[j], dt))
-                            {
-                                ++countIncomplete; // true == incomplete
-                            }
-                            else
-                            {
-                                actSet[first].as_Vector4Properties.RemoveAt(j);
-                                --j;
-                            }
-                        }
-                        if (countIncomplete > 0)
-                            finishedSet = false;
-                    }
-                    #endregion Vector4
-
-                    #region Color
-                    if (actSet[first].as_ColorProperties != null)
-                    {
-                        int countIncomplete = 0;
-                        for (int j = 0; j < actSet[first].as_ColorProperties.Count; ++j)
-                        {
-                            if (FFActionUpdaterColor(actSet[first].as_ColorProperties[j], dt))
-                            {
-                                ++countIncomplete; // true == incomplete
-                            }
-                            else
-                            {
-                                actSet[first].as_ColorProperties.RemoveAt(j);
-                                --j;
-                            }
-                        }
-                        if (countIncomplete > 0)
-                            finishedSet = false;
-                    }
-                    #endregion
-
-                    if (finishedSet && ActionSequenceList[i].seqData.Count > 1)
-                    {
-                        ActionSequenceList[i].seqData.RemoveAt(first);
-                        InitFFActionSet(ActionSequenceList[i].seqData[first]);
-
-                        // Calls of the new set are called this frame since they aren't dependent on time
-                        bool finishedCalls;
-                        do
-                        {
-                            finishedCalls = ActionUpdateCalls(ActionSequenceList[i].seqData[first]);
-                        } while (finishedCalls == false);
-                    }
+                //Delays
+                #region delays
+                actSet[first].as_DelayTime -= Time.deltaTime;
+                if (actSet[first].as_DelayTime <= 0)
+                {
+                    actSet[first].as_DelayTime = 0;
                 }
-                ActionSequenceList[i].seqTime += dt;
+                else
+                {
+                    finishedSet = false;
+                }
+                #endregion delays
+
+                // Properties
+                #region int
+                if (actSet[first].as_intProperties != null)
+                {
+                    int countIncomplete = 0;
+                    for (int j = 0; j < actSet[first].as_intProperties.Count; ++j)
+                    {
+                        if (FFActionUpdaterInt(actSet[first].as_intProperties[j], dt))
+                        {
+                            ++countIncomplete; // true == incomplete
+                        }
+                        else
+                        {
+                            actSet[first].as_intProperties.RemoveAt(j);
+                            --j;
+                        }
+                    }
+                    if (countIncomplete > 0)
+                        finishedSet = false;
+                }
+                #endregion Int
+
+                #region float
+                if (actSet[first].as_floatProperties != null)
+                {
+                    int countIncomplete = 0;
+                    for (int j = 0; j < actSet[first].as_floatProperties.Count; ++j)
+                    {
+                        if (FFActionUpdaterFloat(actSet[first].as_floatProperties[j], dt))
+                        {
+                            ++countIncomplete; // true == incomplete
+                        }
+                        else
+                        {
+                            actSet[first].as_floatProperties.RemoveAt(j);
+                            --j;
+                        }
+                    }
+                    if (countIncomplete > 0)
+                        finishedSet = false;
+                }
+                #endregion float
+
+                #region Vector2
+                if (actSet[first].as_Vector2Properties != null)
+                {
+                    int countIncomplete = 0;
+                    for (int j = 0; j < actSet[first].as_Vector2Properties.Count; ++j)
+                    {
+                        if (FFActionUpdaterVector2(actSet[first].as_Vector2Properties[j], dt))
+                        {
+                            ++countIncomplete; // true == incomplete
+                        }
+                        else
+                        {
+                            actSet[first].as_Vector2Properties.RemoveAt(j);
+                            --j;
+                        }
+                    }
+                    if (countIncomplete > 0)
+                        finishedSet = false;
+                }
+                #endregion Vector2
+
+                #region Vector3
+                if (actSet[first].as_Vector3Properties != null)
+                {
+                    int countIncomplete = 0;
+                    for (int j = 0; j < actSet[first].as_Vector3Properties.Count; ++j)
+                    {
+                        if (FFActionUpdaterVector3(actSet[first].as_Vector3Properties[j], dt))
+                        {
+                            ++countIncomplete; // true == incomplete
+                        }
+                        else
+                        {
+                            actSet[first].as_Vector3Properties.RemoveAt(j);
+                            --j;
+                        }
+                    }
+                    if (countIncomplete > 0)
+                        finishedSet = false;
+                }
+                #endregion Vector3
+
+                #region Vector4
+                if (actSet[first].as_Vector4Properties != null)
+                {
+                    int countIncomplete = 0;
+                    for (int j = 0; j < actSet[first].as_Vector4Properties.Count; ++j)
+                    {
+                        if (FFActionUpdaterVector4(actSet[first].as_Vector4Properties[j], dt))
+                        {
+                            ++countIncomplete; // true == incomplete
+                        }
+                        else
+                        {
+                            actSet[first].as_Vector4Properties.RemoveAt(j);
+                            --j;
+                        }
+                    }
+                    if (countIncomplete > 0)
+                        finishedSet = false;
+                }
+                #endregion Vector4
+
+                #region Color
+                if (actSet[first].as_ColorProperties != null)
+                {
+                    int countIncomplete = 0;
+                    for (int j = 0; j < actSet[first].as_ColorProperties.Count; ++j)
+                    {
+                        if (FFActionUpdaterColor(actSet[first].as_ColorProperties[j], dt))
+                        {
+                            ++countIncomplete; // true == incomplete
+                        }
+                        else
+                        {
+                            actSet[first].as_ColorProperties.RemoveAt(j);
+                            --j;
+                        }
+                    }
+                    if (countIncomplete > 0)
+                        finishedSet = false;
+                }
+                #endregion
+
+                if (finishedSet && ActionSequenceList[i].seqData.Count > 1)
+                {
+                    ActionSequenceList[i].seqData.RemoveAt(first);
+
+                    // Calls of the new set are called this frame since they aren't dependent on time
+                    bool finishedCalls;
+                    do
+                    {
+                        finishedCalls = ActionUpdateCalls(ActionSequenceList[i].seqData[first]);
+                    } while (finishedCalls == false);
+
+                    InitFFActionSet(ActionSequenceList[i].seqData[first]);
+                
+                }
             }
+            ActionSequenceList[i].seqTime += dt;
+            
         }
         ActionSequenceList.RemoveAll(item => item == null);
     }
@@ -1092,7 +1050,7 @@ public class FFAction : MonoBehaviour
     }
     #endregion FFActionUpdaters
 
-    // calls (must be first)
+    // calls (must be first thing to update)
     bool ActionUpdateCalls(FFActionSet set)
     {
         bool finishedSet = true;
@@ -1110,7 +1068,7 @@ public class FFAction : MonoBehaviour
             objectcallcount = set.as_ObjectCalls.Count;
         else
             objectcallcount = 0;
-
+        
         // void calls
         for (int j = 0; j < voidcallcount && set.as_VoidCalls != null; ++j)
         {

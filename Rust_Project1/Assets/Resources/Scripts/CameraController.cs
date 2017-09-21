@@ -186,7 +186,9 @@ public class CameraController : FFComponent {
 	}
 
 
-    
+
+    public float panSpeed = 8.4f;
+
     void UpdatePan()
     {
         // Get the direction we want to move
@@ -199,20 +201,20 @@ public class CameraController : FFComponent {
             var vecRight2D = Vector3.Cross(vecForward, Vector3.down);
             var vecUp2D = Vector3.Cross(Vector3.down, vecRight2D);
 
-            Debug.DrawLine(cameraTrans.position, cameraTrans.position + vecRight2D, Color.red); // Debug
-            Debug.DrawLine(cameraTrans.position, cameraTrans.position + vecUp2D, Color.green);  // Debug
+            //Debug.DrawLine(cameraTrans.position, cameraTrans.position + vecRight2D, Color.red); // Debug
+            //Debug.DrawLine(cameraTrans.position, cameraTrans.position + vecUp2D, Color.green);  // Debug
 
             // Apply horizontal movement
             cameraTrans.position = new Vector3(
-                cameraTrans.position.x + (moveVector.x * vecRight2D.x),
+                cameraTrans.position.x + (moveVector.x * vecRight2D.x) * panSpeed * Time.fixedDeltaTime,
                 cameraTrans.position.y,
-                cameraTrans.position.z + (moveVector.x * vecRight2D.z));
+                cameraTrans.position.z + (moveVector.x * vecRight2D.z) * panSpeed * Time.fixedDeltaTime);
 
             // Apply Vertical movement
             cameraTrans.position = new Vector3(
-                cameraTrans.position.x + (moveVector.z * vecUp2D.x),
+                cameraTrans.position.x + (moveVector.z * vecUp2D.x) * panSpeed * Time.fixedDeltaTime,
                 cameraTrans.position.y,
-                cameraTrans.position.z + (moveVector.z * vecUp2D.z));
+                cameraTrans.position.z + (moveVector.z * vecUp2D.z) * panSpeed * Time.fixedDeltaTime);
         }
     }
     Vector3 MoveVector()
