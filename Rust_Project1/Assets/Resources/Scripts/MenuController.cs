@@ -145,7 +145,7 @@ public class MenuController : FFComponent
     }
     static void ClearStates()
     {
-        //states.Clear();
-        //states.Add(MenuState.None);
+        states.Clear();
+        states.Add(MenuState.None);
     }
 }

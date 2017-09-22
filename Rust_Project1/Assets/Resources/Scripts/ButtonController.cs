@@ -42,7 +42,6 @@ public class ButtonController : FFComponent
         {
             Deactivate();
         }
-
     }
     private void OnPopMenuState(PopMenuState e)
     {
@@ -163,7 +162,6 @@ public class ButtonController : FFComponent
     public void ACT_Play()
     {
         MenuController.ClearMenuStates();
-        //@ TODO Activate GAme!?
     }
 
     #endregion
