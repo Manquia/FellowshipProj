@@ -52,17 +52,30 @@ public class MenuController : FFComponent
         
 
         FFMessage<PushMenuState>.Connect(OnPushMenuState);
-        FFMessage<PushMenuState>.Connect(OnPopMenuState);
+        FFMessage<PopMenuState>.Connect(OnPopMenuState);
 
         StartSeq = action.Sequence();
         // Call on first FixedUpdate
         // Start on MainMenu
         StartSeq.Call(BeginMenu);
     }
+
     void OnDestroy()
     {
         FFMessage<PushMenuState>.Disconnect(OnPushMenuState);
-        FFMessage<PushMenuState>.Disconnect(OnPopMenuState);
+        FFMessage<PopMenuState>.Disconnect(OnPopMenuState);
+        Update();
+    }
+
+    void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.P))
+        {
+            // Send out message for everything to start happenings
+            PushMenuState pms = new PushMenuState(MenuState.MainMenu);
+            FFMessage<PushMenuState>.SendToLocal(pms);
+        }
+        Debug.Log("Current State " + GetState());
     }
 
     void BeginMenu()
@@ -72,7 +85,7 @@ public class MenuController : FFComponent
         FFMessage<PushMenuState>.SendToLocal(pms);
     }
 
-    private void OnPopMenuState(PushMenuState e)
+    private void OnPopMenuState(PopMenuState e)
     {
         PopState();
     }
@@ -119,16 +132,20 @@ public class MenuController : FFComponent
 
     static void PushState(MenuState state)
     {
+        Debug.Log("Pushed" + state); // DEBUG
         states.Add(state);
     }
     static void PopState()
     {
         if (states.Count > 1)
+        {
+            Debug.Log("Poped "  + states[states.Count - 1]); // DEBUG
             states.RemoveAt(states.Count - 1);
+        }
     }
     static void ClearStates()
     {
-        states.Clear();
-        states.Add(MenuState.None);
+        //states.Clear();
+        //states.Add(MenuState.None);
     }
 }

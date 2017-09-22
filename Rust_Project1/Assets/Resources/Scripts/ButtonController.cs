@@ -34,16 +34,25 @@ public class ButtonController : FFComponent
 
     private void OnPushMenuState(PushMenuState e)
     {
-        if (e.newState != ActiveState) // new state is our state
+        if (e.newState == ActiveState) // new state is our state
         {
             Activate();
         }
+        if(e.prevState == ActiveState)
+        {
+            Deactivate();
+        }
+
     }
     private void OnPopMenuState(PopMenuState e)
     {
         if (e.popedState == ActiveState) // poped state was ours
         {
             Deactivate();
+        }
+        if(e.newState == ActiveState)
+        {
+            Activate();
         }
     }
 
