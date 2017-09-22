@@ -34,15 +34,14 @@ public class ButtonController : FFComponent
 
     private void OnPushMenuState(PushMenuState e)
     {
-        if (e.newState == ActiveState) // new state is our state
+        if (e.newState != ActiveState) // new state is our state
         {
             Activate();
         }
     }
-
     private void OnPopMenuState(PopMenuState e)
     {
-        if (e.newState == ActiveState) // new state is our state
+        if (e.popedState == ActiveState) // poped state was ours
         {
             Deactivate();
         }
@@ -102,13 +101,61 @@ public class ButtonController : FFComponent
     }
 
 
-    #region MenuState Changes
+    #region Menu GOTO
     
+    public void GOTO_BACK()
+    {
+        PopMenuState pms = new PopMenuState();
 
+        Debug.Log("poped State" + pms.popedState);
+        Debug.Log("New State" + pms.newState);
 
+        FFMessage<PopMenuState>.SendToLocal(pms);
+    }
 
+    public void GOTO_MAINMENU()
+    {
+        MenuController.ClearMenuStates();
+        PushMenuState pms = new PushMenuState(MenuState.MainMenu);
+        FFMessage<PushMenuState>.SendToLocal(pms);
+    }
+    public void GOTO_CONTROLS()
+    {
+        PushMenuState pms = new PushMenuState(MenuState.Controls);
+        FFMessage<PushMenuState>.SendToLocal(pms);
+    }
 
+    public void GOTO_GAMEMENU()
+    {
+        MenuController.ClearMenuStates();
+        PushMenuState pms = new PushMenuState(MenuState.GameMenu);
+        FFMessage<PushMenuState>.SendToLocal(pms);
+    }
 
+    public void GOTO_QUITDIALOG()
+    {
+        PushMenuState pms = new PushMenuState(MenuState.QuitDialog);
+        FFMessage<PushMenuState>.SendToLocal(pms);
+    }
+    public void GOTO_RESTARTDIALOG()
+    {
+        PushMenuState pms = new PushMenuState(MenuState.RestartDialog);
+        FFMessage<PushMenuState>.SendToLocal(pms);
+    }
+
+    #endregion
+
+    #region Menu ACT
+
+    public void ACT_QUIT()
+    {
+        Application.Quit();
+    }
+    public void ACT_Play()
+    {
+        MenuController.ClearMenuStates();
+        //@ TODO Activate GAme!?
+    }
 
     #endregion
 }

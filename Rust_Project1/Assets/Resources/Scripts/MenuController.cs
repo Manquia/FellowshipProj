@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,6 +8,7 @@ public enum MenuState
     None,
     MainMenu,
     QuitDialog,
+    RestartDialog,
     Controls,
 
     Game,
@@ -19,15 +21,21 @@ public enum MenuState
 public class PushMenuState
 {
     public MenuState newState;
+    public MenuState prevState;
+
     public PushMenuState(MenuState state_)
-    { newState = state_; }
+    {
+        newState = state_;
+        prevState = MenuController.GetState();
+    }
 }
 
 public class PopMenuState
 {
     public MenuState popedState;
     public MenuState newState;
-    PopMenuState()
+
+    public PopMenuState()
     {
         popedState = MenuController.GetState();
         newState = MenuController.GetPrevState();
@@ -40,9 +48,21 @@ public class MenuController : FFComponent
     FFAction.ActionSequence StartSeq;
     private void Start()
     {
+        MenuController.GetReady();
+        
+
+        FFMessage<PushMenuState>.Connect(OnPushMenuState);
+        FFMessage<PushMenuState>.Connect(OnPopMenuState);
+
         StartSeq = action.Sequence();
         // Call on first FixedUpdate
+        // Start on MainMenu
         StartSeq.Call(BeginMenu);
+    }
+    void OnDestroy()
+    {
+        FFMessage<PushMenuState>.Disconnect(OnPushMenuState);
+        FFMessage<PushMenuState>.Disconnect(OnPopMenuState);
     }
 
     void BeginMenu()
@@ -52,9 +72,22 @@ public class MenuController : FFComponent
         FFMessage<PushMenuState>.SendToLocal(pms);
     }
 
+    private void OnPopMenuState(PushMenuState e)
+    {
+        PopState();
+    }
+
+    private void OnPushMenuState(PushMenuState e)
+    {
+        PushState(e.newState);
+    }
+    
 
 
-
+    static public void ClearMenuStates()
+    {
+        ClearStates();
+    }
 
     static bool Ready = false;
     static public void GetReady()
@@ -68,6 +101,8 @@ public class MenuController : FFComponent
     }
 
     static List<MenuState> states = new List<MenuState>();
+
+
     public static MenuState GetState(){
         if (states.Count > 0)
             return states[states.Count - 1];
@@ -80,8 +115,20 @@ public class MenuController : FFComponent
         else
             return MenuState.None;
     }
-    static void PushState(MenuState state){
+
+
+    static void PushState(MenuState state)
+    {
         states.Add(state);
     }
-    static void PopState() { if(states.Count > 1) states.RemoveAt(states.Count - 1); }
+    static void PopState()
+    {
+        if (states.Count > 1)
+            states.RemoveAt(states.Count - 1);
+    }
+    static void ClearStates()
+    {
+        states.Clear();
+        states.Add(MenuState.None);
+    }
 }
