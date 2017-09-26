@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: f6f531be3e6e5fd4d8440bdad2b1d8f9
+timeCreated: 1506235024
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Tribal
+  fontNames:
+  - Tribal
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

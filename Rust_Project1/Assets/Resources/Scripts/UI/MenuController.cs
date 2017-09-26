@@ -69,13 +69,11 @@ public class MenuController : FFComponent
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.P))
+        if(Input.GetKeyDown(KeyCode.Escape) && GetPrevState() != MenuState.None)
         {
-            // Send out message for everything to start happenings
-            PushMenuState pms = new PushMenuState(MenuState.MainMenu);
-            FFMessage<PushMenuState>.SendToLocal(pms);
+            PopMenuState pms = new PopMenuState();
+            FFMessage<PopMenuState>.SendToLocal(pms);
         }
-        Debug.Log("Current State " + GetState());
     }
 
     void BeginMenu()

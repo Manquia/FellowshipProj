@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 079916bdf91b7814cb23de1010dc4449
+timeCreated: 1506235023
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Mary Jane Cavazos
+  fontNames:
+  - Mary Jane Cavazos
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

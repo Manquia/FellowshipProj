@@ -1,0 +1,6 @@
+These two weights of Ritalin were done because of popular email demand.
+The true type versions are unicode fonts that support the same 6 languages initially supported by the original Ritalin weight. The type 1 versions are just the basic latin 256 character latin set.
+
+Have a blast.
+
+'

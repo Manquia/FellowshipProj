@@ -3,16 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ButtonController : FFComponent
+public class ButtonController : UIBase
 {
-
-    public MenuState ActiveState;
-
     Color ButtonColorSave;
     Color TextColorSave;
-
     FFAction.ActionSequence FadeSeq;
     // Use this for initialization
+
+
     void Start()
     {
         FadeSeq = action.Sequence();
@@ -24,6 +22,7 @@ public class ButtonController : FFComponent
         ButtonColorSave = RefButtonColor().Val;
         TextColorSave = RefTextColor().Val;
 
+        buttonActive = false;
         gameObject.SetActive(false);
     }
     private void OnDestroy()
@@ -31,30 +30,7 @@ public class ButtonController : FFComponent
         FFMessage<PopMenuState>.Disconnect(OnPopMenuState);
         FFMessage<PushMenuState>.Disconnect(OnPushMenuState);
     }
-
-    private void OnPushMenuState(PushMenuState e)
-    {
-        if (e.newState == ActiveState) // new state is our state
-        {
-            Activate();
-        }
-        if(e.prevState == ActiveState)
-        {
-            Deactivate();
-        }
-    }
-    private void OnPopMenuState(PopMenuState e)
-    {
-        if (e.popedState == ActiveState) // poped state was ours
-        {
-            Deactivate();
-        }
-        if(e.newState == ActiveState)
-        {
-            Activate();
-        }
-    }
-
+    
     public FFRef<Color> RefButtonColor()
     {
         return new FFRef<Color>(() => transform.GetComponent<UnityEngine.UI.Image>().color, (v) => { transform.GetComponent<UnityEngine.UI.Image>().color = v; });
@@ -64,9 +40,12 @@ public class ButtonController : FFComponent
         return new FFRef<Color>(() => transform.Find("Text").GetComponent<UnityEngine.UI.Text>().color, (v) => { transform.Find("Text").GetComponent<UnityEngine.UI.Text>().color = v; });
     }
 
-    float fadeTime = 1.2f;
+    float fadeTime = 1.0f;
+    bool buttonActive = false;
     void FadeIn()
     {
+        FadeSeq.ClearSequence();
+        buttonActive = true;
         var buttonColor = RefButtonColor();
         var textColor = RefTextColor();
 
@@ -80,75 +59,87 @@ public class ButtonController : FFComponent
     }
     void FadeOut()
     {
+        buttonActive = false;
         FadeSeq.ClearSequence();
 
         var buttonColor = RefButtonColor();
         var textColor = RefTextColor();
+        
+        buttonColor.Setter(ButtonColorSave);
+        textColor.Setter(TextColorSave);
 
-        FadeSeq.Property(buttonColor, Color.clear, FFEase.E_SmoothStart, fadeTime * 0.4f);
-        FadeSeq.Property(textColor, Color.clear, FFEase.E_SmoothStart, fadeTime * 0.4f);
+        FadeSeq.Property(buttonColor, Color.clear, FFEase.E_SmoothStart, fadeTime * 0.12f);
+        FadeSeq.Property(textColor, Color.clear, FFEase.E_SmoothStart, fadeTime * 0.12f);
         FadeSeq.Sync();
         FadeSeq.Call(ObjectActive, false);
     }
-    void Deactivate()
+
+    public override void Deactivate()
     {
         var button = GetComponent<UnityEngine.UI.Selectable>();
         button.enabled = false;
         FadeOut();
     }
-    void Activate()
+    public override void Activate()
     {
         var button = GetComponent<UnityEngine.UI.Selectable>();
         button.enabled = true;
         FadeIn();
     }
 
-    void ObjectActive(object active)
+    public void PopMenuState()
     {
-        gameObject.SetActive((bool)active);
+        if (buttonActive)
+        {
+            PopMenuState pms = new PopMenuState();
+            FFMessage<PopMenuState>.SendToLocal(pms);
+        }
+    }
+    public void PushMenuState(MenuState state)
+    {
+        if (buttonActive && state != MenuController.GetState())
+        {
+            PushMenuState pms = new PushMenuState(state);
+            FFMessage<PushMenuState>.SendToLocal(pms);
+        }
+    }
+    public void SquashMenuState(MenuState state)
+    {
+        if (buttonActive)
+        {
+            MenuController.ClearMenuStates();
+            PushMenuState(MenuState.MainMenu);
+        }
     }
 
-
     #region Menu GOTO
-    
+
     public void GOTO_BACK()
     {
-        PopMenuState pms = new PopMenuState();
-
-        Debug.Log("poped State" + pms.popedState);
-        Debug.Log("New State" + pms.newState);
-
-        FFMessage<PopMenuState>.SendToLocal(pms);
+        PopMenuState();
     }
 
     public void GOTO_MAINMENU()
     {
-        MenuController.ClearMenuStates();
-        PushMenuState pms = new PushMenuState(MenuState.MainMenu);
-        FFMessage<PushMenuState>.SendToLocal(pms);
+        SquashMenuState(MenuState.MainMenu);
     }
     public void GOTO_CONTROLS()
     {
-        PushMenuState pms = new PushMenuState(MenuState.Controls);
-        FFMessage<PushMenuState>.SendToLocal(pms);
+        PushMenuState(MenuState.Controls);
     }
 
     public void GOTO_GAMEMENU()
     {
-        MenuController.ClearMenuStates();
-        PushMenuState pms = new PushMenuState(MenuState.GameMenu);
-        FFMessage<PushMenuState>.SendToLocal(pms);
+        SquashMenuState(MenuState.GameMenu);
     }
 
     public void GOTO_QUITDIALOG()
     {
-        PushMenuState pms = new PushMenuState(MenuState.QuitDialog);
-        FFMessage<PushMenuState>.SendToLocal(pms);
+        PushMenuState(MenuState.QuitDialog);
     }
     public void GOTO_RESTARTDIALOG()
     {
-        PushMenuState pms = new PushMenuState(MenuState.RestartDialog);
-        FFMessage<PushMenuState>.SendToLocal(pms);
+        PushMenuState(MenuState.RestartDialog);
     }
 
     #endregion
@@ -157,44 +148,14 @@ public class ButtonController : FFComponent
 
     public void ACT_QUIT()
     {
-        Application.Quit();
+        if(buttonActive)
+            Application.Quit();
     }
     public void ACT_Play()
     {
-        MenuController.ClearMenuStates();
+        if (buttonActive)
+            MenuController.ClearMenuStates();
     }
 
     #endregion
 }
-
-
-// Boiler for Push Pop menu
-/*
-// Use this for initialization
-void Start()
-{
-    FFMessage<PopMenuState>.Connect(OnPopMenuState);
-    FFMessage<PushMenuState>.Connect(OnPushMenuState);
-}
-private void OnDestroy()
-{
-    FFMessage<PopMenuState>.Disconnect(OnPopMenuState);
-    FFMessage<PushMenuState>.Disconnect(OnPushMenuState);
-}
-
-private void OnPushMenuState(PushMenuState e)
-{
-    throw new NotImplementedException();
-}
-
-private void OnPopMenuState(PopMenuState e)
-{
-    throw new NotImplementedException();
-}
-
-// Update is called once per frame
-void Update()
-{
-
-}
-*/

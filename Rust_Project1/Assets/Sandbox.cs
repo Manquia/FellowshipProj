@@ -12,8 +12,6 @@ public class Sandbox : FFComponent {
 	void Start ()
     {
         seq = action.Sequence();
-        
-		
 	}
 
     private void middle()
