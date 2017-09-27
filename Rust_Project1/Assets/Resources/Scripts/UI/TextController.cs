@@ -8,18 +8,19 @@ public class TextController : UIBase {
     Color TextColorSave;
     FFAction.ActionSequence FadeSeq;
 
+    private void Awake()
+    {
+        // Save color
+        TextColorSave = RefTextColor().Val;
+    }
     // Use this for initialization
     void Start()
     {
         FadeSeq = action.Sequence();
         FFMessage<PopMenuState>.Connect(OnPopMenuState);
         FFMessage<PushMenuState>.Connect(OnPushMenuState);
-
-
-        //Save Color
-        TextColorSave = RefTextColor().Val;
         
-        gameObject.SetActive(false);
+        FadeSeq.Call(ObjectActive, false);
     }
     private void OnDestroy()
     {
@@ -48,6 +49,7 @@ public class TextController : UIBase {
     {
         FadeSeq.ClearSequence();
         var textColor = RefTextColor();
+
         textColor.Setter(Color.clear);
 
         ObjectActive(true);

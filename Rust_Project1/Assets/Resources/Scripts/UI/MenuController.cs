@@ -15,6 +15,7 @@ public enum MenuState
     GameMenu,
     GameControls,
     GameQuit,
+    Options,
 }
 
 
@@ -143,7 +144,8 @@ public class MenuController : FFComponent
     }
     static void ClearStates()
     {
+        PushMenuState pms = new PushMenuState(MenuState.None);
+        FFMessage<PushMenuState>.SendToLocal(pms);
         states.Clear();
-        states.Add(MenuState.None);
     }
 }

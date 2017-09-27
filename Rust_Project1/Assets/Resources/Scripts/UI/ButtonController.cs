@@ -10,7 +10,12 @@ public class ButtonController : UIBase
     FFAction.ActionSequence FadeSeq;
     // Use this for initialization
 
-
+    private void Awake()
+    {
+        //Save Color
+        ButtonColorSave = RefButtonColor().Val;
+        TextColorSave = RefTextColor().Val;
+    }
     void Start()
     {
         FadeSeq = action.Sequence();
@@ -23,7 +28,7 @@ public class ButtonController : UIBase
         TextColorSave = RefTextColor().Val;
 
         buttonActive = false;
-        gameObject.SetActive(false);
+        FadeSeq.Call(ObjectActive, false);
     }
     private void OnDestroy()
     {
@@ -45,7 +50,6 @@ public class ButtonController : UIBase
     void FadeIn()
     {
         FadeSeq.ClearSequence();
-        buttonActive = true;
         var buttonColor = RefButtonColor();
         var textColor = RefTextColor();
 
@@ -59,7 +63,6 @@ public class ButtonController : UIBase
     }
     void FadeOut()
     {
-        buttonActive = false;
         FadeSeq.ClearSequence();
 
         var buttonColor = RefButtonColor();
@@ -78,12 +81,14 @@ public class ButtonController : UIBase
     {
         var button = GetComponent<UnityEngine.UI.Selectable>();
         button.enabled = false;
+        buttonActive = false;
         FadeOut();
     }
     public override void Activate()
     {
         var button = GetComponent<UnityEngine.UI.Selectable>();
         button.enabled = true;
+        buttonActive = true;
         FadeIn();
     }
 
