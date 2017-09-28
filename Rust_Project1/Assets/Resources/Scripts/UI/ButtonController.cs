@@ -2,13 +2,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class ButtonController : UIBase
 {
     Color ButtonColorSave;
     Color TextColorSave;
     FFAction.ActionSequence FadeSeq;
+    float fadeTime = 1.0f;
+
+    [NonSerialized]
+    public bool buttonActive = false;
     // Use this for initialization
+
+
+    public MenuState ButtonGoesTo;
 
     private void Awake()
     {
@@ -18,7 +26,7 @@ public class ButtonController : UIBase
     }
     void Start()
     {
-        FadeSeq = action.Sequence();
+        FadeSeq = transform.GetOrAddComponent<FFAction>().Sequence();
 
         FFMessage<PopMenuState>.Connect(OnPopMenuState);
         FFMessage<PushMenuState>.Connect(OnPushMenuState);
@@ -44,9 +52,7 @@ public class ButtonController : UIBase
     {
         return new FFRef<Color>(() => transform.Find("Text").GetComponent<UnityEngine.UI.Text>().color, (v) => { transform.Find("Text").GetComponent<UnityEngine.UI.Text>().color = v; });
     }
-
-    float fadeTime = 1.0f;
-    bool buttonActive = false;
+    
     void FadeIn()
     {
         FadeSeq.ClearSequence();
@@ -91,76 +97,4 @@ public class ButtonController : UIBase
         buttonActive = true;
         FadeIn();
     }
-
-    public void PopMenuState()
-    {
-        if (buttonActive)
-        {
-            PopMenuState pms = new PopMenuState();
-            FFMessage<PopMenuState>.SendToLocal(pms);
-        }
-    }
-    public void PushMenuState(MenuState state)
-    {
-        if (buttonActive && state != MenuController.GetState())
-        {
-            PushMenuState pms = new PushMenuState(state);
-            FFMessage<PushMenuState>.SendToLocal(pms);
-        }
-    }
-    public void SquashMenuState(MenuState state)
-    {
-        if (buttonActive)
-        {
-            MenuController.ClearMenuStates();
-            PushMenuState(MenuState.MainMenu);
-        }
-    }
-
-    #region Menu GOTO
-
-    public void GOTO_BACK()
-    {
-        PopMenuState();
-    }
-
-    public void GOTO_MAINMENU()
-    {
-        SquashMenuState(MenuState.MainMenu);
-    }
-    public void GOTO_CONTROLS()
-    {
-        PushMenuState(MenuState.Controls);
-    }
-
-    public void GOTO_GAMEMENU()
-    {
-        SquashMenuState(MenuState.GameMenu);
-    }
-
-    public void GOTO_QUITDIALOG()
-    {
-        PushMenuState(MenuState.QuitDialog);
-    }
-    public void GOTO_RESTARTDIALOG()
-    {
-        PushMenuState(MenuState.RestartDialog);
-    }
-
-    #endregion
-
-    #region Menu ACT
-
-    public void ACT_QUIT()
-    {
-        if(buttonActive)
-            Application.Quit();
-    }
-    public void ACT_Play()
-    {
-        if (buttonActive)
-            MenuController.ClearMenuStates();
-    }
-
-    #endregion
 }

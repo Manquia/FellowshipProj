@@ -11,11 +11,13 @@ public enum MenuState
     RestartDialog,
     Controls,
 
-    Game,
+    Game,     // return from Game menu
+    PlayGame, // first time
     GameMenu,
     GameControls,
     GameQuit,
     Options,
+    Back,
 }
 
 

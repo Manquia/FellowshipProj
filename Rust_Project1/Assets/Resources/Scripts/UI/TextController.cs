@@ -16,7 +16,7 @@ public class TextController : UIBase {
     // Use this for initialization
     void Start()
     {
-        FadeSeq = action.Sequence();
+        FadeSeq = transform.GetOrAddComponent<FFAction>().Sequence();
         FFMessage<PopMenuState>.Connect(OnPopMenuState);
         FFMessage<PushMenuState>.Connect(OnPushMenuState);
         
