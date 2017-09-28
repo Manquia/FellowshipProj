@@ -59,8 +59,8 @@ public class ButtonController : UIBase
         var buttonColor = RefButtonColor();
         var textColor = RefTextColor();
 
-        buttonColor.Setter(Color.clear);
-        textColor.Setter(Color.clear);
+        buttonColor.Setter(ButtonColorSave.MakeClear());
+        textColor.Setter(TextColorSave.MakeClear());
 
         ObjectActive(true);
         FadeSeq.Property(buttonColor, ButtonColorSave, FFEase.E_SmoothEnd, fadeTime);
@@ -77,8 +77,8 @@ public class ButtonController : UIBase
         buttonColor.Setter(ButtonColorSave);
         textColor.Setter(TextColorSave);
 
-        FadeSeq.Property(buttonColor, Color.clear, FFEase.E_SmoothStart, fadeTime * 0.12f);
-        FadeSeq.Property(textColor, Color.clear, FFEase.E_SmoothStart, fadeTime * 0.12f);
+        FadeSeq.Property(buttonColor, ButtonColorSave.MakeClear(), FFEase.E_SmoothStart, fadeTime * 0.12f);
+        FadeSeq.Property(textColor, TextColorSave.MakeClear(), FFEase.E_SmoothStart, fadeTime * 0.12f);
         FadeSeq.Sync();
         FadeSeq.Call(ObjectActive, false);
     }

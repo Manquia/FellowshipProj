@@ -74,9 +74,9 @@ public class SliderController : UIBase {
         var fillColor = RefFillColor();
         var handleColor = RefHandleColor();
 
-        backgroundColor.Setter(Color.clear);
-        fillColor.Setter(Color.clear);
-        handleColor.Setter(Color.clear);
+        backgroundColor.Setter(BackgroundColorSave.MakeClear());
+        fillColor.Setter(FillColorSave.MakeClear());
+        handleColor.Setter(HandleColorSave.MakeClear());
 
         ObjectActive(true);
         FadeSeq.Property(backgroundColor, BackgroundColorSave, FFEase.E_SmoothEnd, fadeTime);
@@ -96,9 +96,9 @@ public class SliderController : UIBase {
         fillColor.Setter(FillColorSave);
         handleColor.Setter(HandleColorSave);
 
-        FadeSeq.Property(backgroundColor, Color.clear, FFEase.E_SmoothStart, fadeTime * 0.12f);
-        FadeSeq.Property(fillColor, Color.clear, FFEase.E_SmoothStart, fadeTime * 0.12f);
-        FadeSeq.Property(handleColor, Color.clear, FFEase.E_SmoothStart, fadeTime * 0.12f);
+        FadeSeq.Property(backgroundColor, BackgroundColorSave.MakeClear(), FFEase.E_SmoothStart, fadeTime * 0.12f);
+        FadeSeq.Property(fillColor, FillColorSave.MakeClear(), FFEase.E_SmoothStart, fadeTime * 0.12f);
+        FadeSeq.Property(handleColor, HandleColorSave.MakeClear(), FFEase.E_SmoothStart, fadeTime * 0.12f);
         FadeSeq.Sync();
         FadeSeq.Call(ObjectActive, false);
     }

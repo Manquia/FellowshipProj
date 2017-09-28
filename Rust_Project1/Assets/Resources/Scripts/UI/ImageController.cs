@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class ImageController : UIBase {
 
-    Color TextColorSave;
+    Color ImageColorSave;
     FFAction.ActionSequence FadeSeq;
 
     private void Awake()
     {
         // Save color
-        TextColorSave = RefImageColor().Val;
+        ImageColorSave = RefImageColor().Val;
     }
     // Use this for initialization
     void Start()
@@ -49,19 +49,19 @@ public class ImageController : UIBase {
         FadeSeq.ClearSequence();
         var imageColor = RefImageColor();
 
-        imageColor.Setter(Color.clear);
+        imageColor.Setter(ImageColorSave.MakeClear());
 
         ObjectActive(true);
-        FadeSeq.Property(imageColor, TextColorSave, FFEase.E_SmoothEnd, fadeTime);
+        FadeSeq.Property(imageColor, ImageColorSave, FFEase.E_SmoothEnd, fadeTime);
         FadeSeq.Sync();
     }
     void FadeOut()
     {
         FadeSeq.ClearSequence();
         var imageColor = RefImageColor();
-        imageColor.Setter(TextColorSave);
+        imageColor.Setter(ImageColorSave);
 
-        FadeSeq.Property(imageColor, Color.clear, FFEase.E_SmoothStart, fadeTime * 0.1f);
+        FadeSeq.Property(imageColor, ImageColorSave.MakeClear(), FFEase.E_SmoothStart, fadeTime * 0.1f);
         FadeSeq.Sync();
         FadeSeq.Call(ObjectActive, false);
     }

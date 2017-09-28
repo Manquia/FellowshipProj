@@ -50,7 +50,7 @@ public class TextController : UIBase {
         FadeSeq.ClearSequence();
         var textColor = RefTextColor();
 
-        textColor.Setter(Color.clear);
+        textColor.Setter(TextColorSave.MakeClear());
 
         ObjectActive(true);
         FadeSeq.Property(textColor, TextColorSave, FFEase.E_SmoothEnd, fadeTime);
@@ -62,7 +62,7 @@ public class TextController : UIBase {
         var textColor = RefTextColor();
         textColor.Setter(TextColorSave);
 
-        FadeSeq.Property(textColor, Color.clear, FFEase.E_SmoothStart, fadeTime * 0.1f);
+        FadeSeq.Property(textColor, TextColorSave.MakeClear(), FFEase.E_SmoothStart, fadeTime * 0.1f);
         FadeSeq.Sync();
         FadeSeq.Call(ObjectActive, false);
     }

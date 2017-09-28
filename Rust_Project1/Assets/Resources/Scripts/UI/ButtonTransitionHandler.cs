@@ -209,6 +209,8 @@ public class ButtonTransitionHandler : EventTrigger {
 
     public override void OnPointerEnter(PointerEventData data)
     {
+        base.OnPointerEnter(data);
+
         ButtonHover bh;
         bh.button = GetComponent<RectTransform>();
         bh.over = true;
@@ -217,6 +219,8 @@ public class ButtonTransitionHandler : EventTrigger {
 
     public override void OnPointerExit(PointerEventData data)
     {
+        base.OnPointerExit(data);
+
         ButtonHover bh;
         bh.button = GetComponent<RectTransform>(); ;
         bh.over = false;
