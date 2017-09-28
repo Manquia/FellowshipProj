@@ -138,7 +138,11 @@ public class ButtonTransitionHandler : EventTrigger {
         if (buttonActive)
         {
             RemoveMenuSelectionVisuals();
+#if UNITYEDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#else
             Application.Quit();
+#endif
         }
     }
     public void ACT_Play()
@@ -153,9 +157,9 @@ public class ButtonTransitionHandler : EventTrigger {
         }
     }
 
-    #endregion
+#endregion
 
-    #region Button
+#region Button
 
 
     public override void OnPointerUp(PointerEventData data)
@@ -220,6 +224,6 @@ public class ButtonTransitionHandler : EventTrigger {
     }
 
 
-    #endregion
+#endregion
 
 }
