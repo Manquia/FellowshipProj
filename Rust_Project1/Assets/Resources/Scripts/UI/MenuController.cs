@@ -72,12 +72,16 @@ public class MenuController : FFComponent
 
     void Update()
     {
+        Debug.Log("Current State " + GetState());
+        Debug.Log("Previous State " + GetPrevState());
+
         if(Input.GetKeyDown(KeyCode.Escape) && GetPrevState() != MenuState.None)
         {
             PopMenuState pms = new PopMenuState();
             FFMessage<PopMenuState>.SendToLocal(pms);
         }
     }
+    
 
     void BeginMenu()
     {
@@ -95,7 +99,16 @@ public class MenuController : FFComponent
     {
         PushState(e.newState);
     }
-    
+
+    public static void PushStateQuiet(MenuState state)
+    {
+        PushState(state);
+    }
+    public static void PopStateQuiet()
+    {
+        PopState();
+    }
+
 
 
     static public void ClearMenuStates()

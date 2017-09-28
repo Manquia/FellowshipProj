@@ -45,12 +45,31 @@ public class ButtonTransitionHandler : EventTrigger {
             FFMessage<PopMenuState>.SendToLocal(pms);
         }
     }
-    public void PushMenuState(MenuState state)
+    public void PushMenuState(MenuState state, bool forcePush = false)
     {
-        if (buttonActive && state != MenuController.GetState())
+        if (forcePush ||
+            (buttonActive && state != MenuController.GetState()))
         {
             PushMenuState pms = new PushMenuState(state);
             FFMessage<PushMenuState>.SendToLocal(pms);
+        }
+    }
+
+    public void QuietPushMenuState(MenuState state, bool forcePush = false)
+    {
+        if (forcePush ||
+            (buttonActive && state != MenuController.GetState()))
+        {
+            MenuController.PushStateQuiet(state);
+        }
+    }
+
+    public void QuietPopMenuState(MenuState state, bool forcePush = false)
+    {
+        if (forcePush ||
+            (buttonActive && state != MenuController.GetState()))
+        {
+            MenuController.PopStateQuiet();
         }
     }
     public void SquashMenuState(MenuState state)
@@ -58,7 +77,7 @@ public class ButtonTransitionHandler : EventTrigger {
         if (buttonActive)
         {
             MenuController.ClearMenuStates();
-            PushMenuState(MenuState.MainMenu);
+            PushMenuState(MenuState.MainMenu, true);
         }
     }
     #endregion
@@ -68,30 +87,37 @@ public class ButtonTransitionHandler : EventTrigger {
     public void GOTO_BACK()
     {
         PopMenuState();
+        RemoveMenuSelectionVisuals();
     }
     public void GOTO_MAINMENU()
     {
         SquashMenuState(MenuState.MainMenu);
+        RemoveMenuSelectionVisuals();
     }
     public void GOTO_CONTROLS()
     {
         PushMenuState(MenuState.Controls);
+        RemoveMenuSelectionVisuals();
     }
     public void GOTO_GAMEMENU()
     {
         SquashMenuState(MenuState.GameMenu);
+        RemoveMenuSelectionVisuals();
     }
     public void GOTO_QUITDIALOG()
     {
         PushMenuState(MenuState.QuitDialog);
+        RemoveMenuSelectionVisuals();
     }
     public void GOTO_RESTARTDIALOG()
     {
         PushMenuState(MenuState.RestartDialog);
+        RemoveMenuSelectionVisuals();
     }
     private void GOTO_OPTIONS()
     {
         PushMenuState(MenuState.Options);
+        RemoveMenuSelectionVisuals();
     }
 
     #endregion
@@ -104,7 +130,7 @@ public class ButtonTransitionHandler : EventTrigger {
         if (buttonActive)
         {
             RemoveMenuSelectionVisuals();
-            MenuController.ClearMenuStates();
+            PushMenuState(MenuState.PlayGame, true);
         }
     }
     public void ACT_Quit()
@@ -121,6 +147,9 @@ public class ButtonTransitionHandler : EventTrigger {
         {
             RemoveMenuSelectionVisuals();
             MenuController.ClearMenuStates();
+
+            QuietPushMenuState(MenuState.GameMenu, true);
+            PushMenuState(MenuState.PlayGame, true);
         }
     }
 
