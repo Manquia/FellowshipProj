@@ -138,7 +138,7 @@ public class ButtonTransitionHandler : EventTrigger {
         if (buttonActive)
         {
             RemoveMenuSelectionVisuals();
-#if UNITYEDITOR
+#if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;
 #else
             Application.Quit();
@@ -164,6 +164,8 @@ public class ButtonTransitionHandler : EventTrigger {
 
     public override void OnPointerUp(PointerEventData data)
     {
+
+        // Menu Control
         switch (ButtonGoesTo)
         {
             case MenuState.None:
@@ -205,26 +207,44 @@ public class ButtonTransitionHandler : EventTrigger {
                 Debug.LogError("UNHANDED: Button Controller doesn't handle a PointerUp ButtonGoesTo State: " + ButtonGoesTo);
                 break;
         }
+
+        // handle Audio
+        switch(ButtonGoesTo)
+        {
+            case MenuState.PlayGame:
+                UISpeaker.Play(UISpeakerEvent.Voice.PlayGame);
+                break;
+            case MenuState.Back:
+                UISpeaker.Play(UISpeakerEvent.Voice.ButtonBack);
+                break;
+
+
+
+            default:
+                UISpeaker.Play(UISpeakerEvent.Voice.ButtonClicked);
+                break;
+        }
     }
 
     public override void OnPointerEnter(PointerEventData data)
     {
-        base.OnPointerEnter(data);
-
         ButtonHover bh;
         bh.button = GetComponent<RectTransform>();
         bh.over = true;
         FFMessage<ButtonHover>.SendToLocal(bh);
+
+        UISpeaker.Play(UISpeakerEvent.Voice.ButtonHoverOn);
+        UISpeaker.Play(UISpeakerEvent.Voice.ButtonHoverStart);
     }
 
     public override void OnPointerExit(PointerEventData data)
     {
-        base.OnPointerExit(data);
-
         ButtonHover bh;
         bh.button = GetComponent<RectTransform>(); ;
         bh.over = false;
         FFMessage<ButtonHover>.SendToLocal(bh);
+
+        UISpeaker.Play(UISpeakerEvent.Voice.ButtonHoverOff);
     }
 
 

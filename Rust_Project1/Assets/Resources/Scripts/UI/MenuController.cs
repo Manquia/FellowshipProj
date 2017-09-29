@@ -79,6 +79,7 @@ public class MenuController : FFComponent
         {
             PopMenuState pms = new PopMenuState();
             FFMessage<PopMenuState>.SendToLocal(pms);
+            UISpeaker.Play(UISpeakerEvent.Voice.ButtonBack);
         }
     }
     

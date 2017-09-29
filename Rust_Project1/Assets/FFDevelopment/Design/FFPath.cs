@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using System;
 
 //////////////////////////////////////////////////////
@@ -31,7 +33,7 @@ using System;
 [ExecuteInEditMode]
 public class FFPath : MonoBehaviour
 {
-    #region DebugConstants
+#region DebugConstants
 
     //////////////////// Stats when Unselected ////////////////////
     // point radius and color
@@ -48,9 +50,9 @@ public class FFPath : MonoBehaviour
     // Lower value to increase debug line precision
     private const float DebugLineLengthSelected = DebugLineLengthUnselected * 0.3f;
     private Color DebugLineColorSelected = Color.yellow;
-    #endregion DebugConstants
+#endregion DebugConstants
 
-    #region Setup
+#region Setup
 
     void Awake()
     {
@@ -91,9 +93,9 @@ public class FFPath : MonoBehaviour
 
         return false;
     }
-    #endregion Setup
+#endregion Setup
 
-    #region Destroy
+#region Destroy
 
     void OnDestroy()
     {
@@ -101,9 +103,9 @@ public class FFPath : MonoBehaviour
         DestroyModifiablePoints();
 #endif // UNITY_EDTIOR
     }
-    #endregion Destroy
+#endregion Destroy
 
-    #region DebugDraw
+#region DebugDraw
 
 #if UNITY_EDITOR
 
@@ -452,9 +454,9 @@ public class FFPath : MonoBehaviour
     }
 #endif // UNITY_EDITOR
 
-    #endregion DebugDraw
+#endregion DebugDraw
 
-    #region Data
+#region Data
 
     // Types of Paths
     public enum PathInterpolator
@@ -511,9 +513,9 @@ public class FFPath : MonoBehaviour
         }
     }
 
-    #endregion Data
+#endregion Data
 
-    #region CodeInterface
+#region CodeInterface
     /// <summary>
     /// Returns whether the path is valid to use.
     /// to use.
@@ -892,9 +894,9 @@ public class FFPath : MonoBehaviour
     {
         return PointAlongPath(UnityEngine.Random.Range(0, PathLength));
     }
-    #endregion CodeInterface
+#endregion CodeInterface
 
-    #region InterpolationMethods
+#region InterpolationMethods
     private void GetData(float dist, out float mu, out FFVector3 n1, out FFVector3 p1)
     {
         dist = Mathf.Abs(dist);
@@ -1108,7 +1110,7 @@ public class FFPath : MonoBehaviour
         //PrintData(dist, mu, n1, n2, p1, p2);
 
         //Catmull-Rom Splines
-        #region Catmull-Rom Splines
+#region Catmull-Rom Splines
 
         FFVector3 a0, a1, a2, a3;
         float mu2;
@@ -1133,10 +1135,10 @@ public class FFPath : MonoBehaviour
         return new Vector3((a0.x * mu * mu2) + (a1.x * mu2) + (a2.x * mu) + (a3.x),
                             (a0.y * mu * mu2) + (a1.y * mu2) + (a2.y * mu) + (a3.y),
                             (a0.z * mu * mu2) + (a1.z * mu2) + (a2.z * mu) + (a3.z));
-        #endregion Catmull-Rom Splines
+#endregion Catmull-Rom Splines
 
         // Cubic
-        #region CubicOld
+#region CubicOld
         /*
         float mu2;
         float a0x, a0y, a0z;
@@ -1166,7 +1168,7 @@ public class FFPath : MonoBehaviour
                             (a0y * mu * mu2) + (a1y * mu2) + (a2y + mu) + (a3y),
                             (a0z * mu * mu2) + (a1z * mu2) + (a2z + mu) + (a3z));
             */
-        #endregion CubicOld
+#endregion CubicOld
     }
     private Vector3 InterpolateCatmullRomSmoothPositionAlongPath(float dist)
     {
@@ -1178,7 +1180,7 @@ public class FFPath : MonoBehaviour
         //PrintData(dist, mu, n1, n2, p1, p2);
 
         //Catmull-Rom Splines
-        #region Catmull-Rom Splines
+#region Catmull-Rom Splines
 
         FFVector3 a0, a1, a2, a3;
         float mu2;
@@ -1203,10 +1205,10 @@ public class FFPath : MonoBehaviour
         return new Vector3((a0.x * mu * mu2) + (a1.x * mu2) + (a2.x * mu) + (a3.x),
                             (a0.y * mu * mu2) + (a1.y * mu2) + (a2.y * mu) + (a3.y),
                             (a0.z * mu * mu2) + (a1.z * mu2) + (a2.z * mu) + (a3.z));
-        #endregion Catmull-Rom Splines
+#endregion Catmull-Rom Splines
 
         // Cubic
-        #region CubicOld
+#region CubicOld
         /*
         float mu2;
         float a0x, a0y, a0z;
@@ -1236,7 +1238,7 @@ public class FFPath : MonoBehaviour
                             (a0y * mu * mu2) + (a1y * mu2) + (a2y + mu) + (a3y),
                             (a0z * mu * mu2) + (a1z * mu2) + (a2z + mu) + (a3z));
             */
-        #endregion CubicOld
+#endregion CubicOld
     }
 
     //Debug print for GetData
@@ -1257,5 +1259,5 @@ public class FFPath : MonoBehaviour
         Debug.Log("p1: " + "(" + p1.x + "," + p1.y + "," + p1.z + ")");
         Debug.Log("p2: " + "(" + p2.x + "," + p2.y + "," + p2.z + ")");
     }
-    #endregion InterpolationMethods
+#endregion InterpolationMethods
 }
