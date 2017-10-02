@@ -1,32 +1,98 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+struct TriggerAreaOverride
+{
+    public string tag;
+    public TriggerArea.State newState;
+}
 
 public class TriggerArea : MonoBehaviour
 {
     public DialogManager.OratorNames SpecifyPerson = DialogManager.OratorNames.None;
     public string tag;
 
+
+    public AudioClip TriggerOnSound;
+    public AudioClip TriggerOffSound;
+
+    [Flags]
+    public enum State
+    {
+        OFF = 0,
+        ON = 1,
+        Trigger_OFF = 2, // if less than this we changed based on trigger Area
+        OVERRIDE_OFF = 2,
+        OVERRIDE_ON = 3,
+    }
+
+    [HideInInspector]
+    public State ActiveState = State.OFF;
+    int TriggerCounter = 0;
+
+    public Transform[] ObjectsOnActivated;
+    public Transform[] ObjectsOnDeactivated;
+
 	// Use this for initialization
-	void Start () {
-		
+	void Start ()
+    {
+        UpdateActiveObjects();
+        FFMessageBoard<TriggerAreaOverride>.Box(tag).Connect(OnTriggerAreaOverrride);
 	}
-	
-	// Update is called once per frame
-	void Update ()
-    {	
-	}
+    void OnDestroy()
+    {
+        FFMessageBoard<TriggerAreaOverride>.Box(tag).Disconnect(OnTriggerAreaOverrride);
+    }
+
+    private void OnTriggerAreaOverrride(TriggerAreaOverride e)
+    {
+        Debug.Assert(e.tag == tag); // should only recieve our own events!
+        ActiveState = e.newState;
+
+        UpdateActiveObjects();
+    }
+
+    // Update is called once per frame
+    void UpdateActiveObjects ()
+    {
+        bool active;
+        if (ActiveState == State.ON || ActiveState == State.OVERRIDE_ON)
+            active = true;
+        else // State.FALSE || State.OVERRIDE_FALSE
+            active = false;
+
+        foreach (var obj in ObjectsOnActivated)
+        {
+            obj.gameObject.SetActive(active);
+        }
+        
+        foreach (var obj in ObjectsOnDeactivated)
+        {
+            obj.gameObject.SetActive(!active);
+        }
+    }
 
     void OnTriggerEnter(Collider col)
     {
         var character = col.GetComponent<Character>();
         if (character != null &&
-           (SpecifyPerson == DialogManager.OratorNames.None) /* || @TODO Add non specific character requirement*/)
+           (SpecifyPerson == DialogManager.OratorNames.None) /* || @TODO Add non specific character requirements?*/)
         {
-            CustomEventOn cdo;
-            cdo.tag = tag;
-            var box = FFMessageBoard<CustomEventOn>.Box(tag);
-            box.SendToLocal(cdo);
+            ++TriggerCounter;
+            if(TriggerCounter > 0 && ActiveState < State.Trigger_OFF)
+            {
+                ActiveState = State.ON;
+                PlayClip(TriggerOnSound);
+                UpdateActiveObjects();
+
+                CustomEventOn cdo;
+                cdo.tag = tag;
+                var box = FFMessageBoard<CustomEventOn>.Box(tag);
+                box.SendToLocal(cdo);
+
+            }
         }
     }
 
@@ -36,10 +102,23 @@ public class TriggerArea : MonoBehaviour
         if (character != null &&
            (SpecifyPerson == DialogManager.OratorNames.None) /* || @TODO Add non specific character requirement*/)
         {
-            CustomEventOff cdo;
-            cdo.tag = tag;
-            var box = FFMessageBoard<CustomEventOff>.Box(tag);
-            box.SendToLocal(cdo);
+            --TriggerCounter;
+            if (TriggerCounter <= 0 && ActiveState < State.Trigger_OFF)
+            {
+                ActiveState = State.OFF;
+                PlayClip(TriggerOffSound);
+                UpdateActiveObjects();
+
+                CustomEventOff cdo;
+                cdo.tag = tag;
+                var box = FFMessageBoard<CustomEventOff>.Box(tag);
+                box.SendToLocal(cdo);
+            }
         }
+    }
+
+    void PlayClip(AudioClip clip)
+    {
+        GetComponent<AudioSource>().PlayOneShot(clip);
     }
 }

@@ -1,0 +1,181 @@
+fileFormatVersion: 2
+guid: c97c9ed4c3750564cb9f3273f3992c07
+timeCreated: 1506913901
+licenseType: Free
+ModelImporter:
+  serializedVersion: 21
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Floor
+    100004: Floor3
+    100006: Rug
+    100008: Shelve
+    100010: Shelve1
+    100012: Shelve2
+    100014: Wall
+    100016: Wall1
+    100018: Wall2
+    100020: Wall3
+    100022: Wall4
+    100024: Wall5
+    100026: Wall6
+    100028: Wall7
+    100030: Wall8
+    100032: Wall9
+    400000: //RootNode
+    400002: Floor
+    400004: Floor3
+    400006: Rug
+    400008: Shelve
+    400010: Shelve1
+    400012: Shelve2
+    400014: Wall
+    400016: Wall1
+    400018: Wall2
+    400020: Wall3
+    400022: Wall4
+    400024: Wall5
+    400026: Wall6
+    400028: Wall7
+    400030: Wall8
+    400032: Wall9
+    2300000: Floor
+    2300002: Floor3
+    2300004: Rug
+    2300006: Shelve
+    2300008: Shelve1
+    2300010: Shelve2
+    2300012: Wall
+    2300014: Wall1
+    2300016: Wall2
+    2300018: Wall3
+    2300020: Wall4
+    2300022: Wall5
+    2300024: Wall6
+    2300026: Wall7
+    2300028: Wall8
+    2300030: Wall9
+    3300000: Floor
+    3300002: Floor3
+    3300004: Rug
+    3300006: Shelve
+    3300008: Shelve1
+    3300010: Shelve2
+    3300012: Wall
+    3300014: Wall1
+    3300016: Wall2
+    3300018: Wall3
+    3300020: Wall4
+    3300022: Wall5
+    3300024: Wall6
+    3300026: Wall7
+    3300028: Wall8
+    3300030: Wall9
+    4300000: Floor
+    4300002: Wall
+    4300004: Wall1
+    4300006: Wall2
+    4300008: Wall3
+    4300010: Wall4
+    4300012: Wall6
+    4300014: Wall5
+    4300016: Shelve1
+    4300018: Shelve
+    4300020: Shelve2
+    4300022: Rug
+    4300024: Floor3
+    4300026: Wall8
+    4300028: Wall7
+    4300030: Wall9
+    6400000: Floor
+    6400002: Floor3
+    6400004: Rug
+    6400006: Shelve
+    6400008: Shelve1
+    6400010: Shelve2
+    6400012: Wall
+    6400014: Wall1
+    6400016: Wall2
+    6400018: Wall3
+    6400020: Wall4
+    6400022: Wall5
+    6400024: Wall6
+    6400026: Wall7
+    6400028: Wall8
+    6400030: Wall9
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 100
+    meshCompression: 0
+    addColliders: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
