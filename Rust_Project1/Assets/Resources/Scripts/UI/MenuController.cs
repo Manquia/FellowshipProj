@@ -72,8 +72,8 @@ public class MenuController : FFComponent
 
     void Update()
     {
-        Debug.Log("Current State " + GetState());
-        Debug.Log("Previous State " + GetPrevState());
+        //Debug.Log("Current State " + GetState());
+        //Debug.Log("Previous State " + GetPrevState());
 
         if(Input.GetKeyDown(KeyCode.Escape) && GetPrevState() != MenuState.None)
         {

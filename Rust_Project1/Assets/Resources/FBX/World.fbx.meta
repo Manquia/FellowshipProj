@@ -81,6 +81,28 @@ ModelImporter:
     100146: Wall37
     100148: Wall38
     100150: Wall39
+    100152: Bed
+    100154: Bed2
+    100156: Bed3
+    100158: Bed4
+    100160: Bed5
+    100162: Desk
+    100164: Dresser
+    100166: FirePlace
+    100168: FirePlace1
+    100170: FirePlace2
+    100172: FirePlace3
+    100174: Floor10
+    100176: NightStand
+    100178: NightStand1
+    100180: pCube1
+    100182: pCube2
+    100184: pCube3
+    100186: Pillow
+    100188: Pillow1
+    100190: Wall40
+    100192: Wall41
+    100194: Wall42
     400000: BookShelve
     400002: BookShelve1
     400004: BookShelve2
@@ -157,6 +179,28 @@ ModelImporter:
     400146: Wall37
     400148: Wall38
     400150: Wall39
+    400152: Bed
+    400154: Bed2
+    400156: Bed3
+    400158: Bed4
+    400160: Bed5
+    400162: Desk
+    400164: Dresser
+    400166: FirePlace
+    400168: FirePlace1
+    400170: FirePlace2
+    400172: FirePlace3
+    400174: Floor10
+    400176: NightStand
+    400178: NightStand1
+    400180: pCube1
+    400182: pCube2
+    400184: pCube3
+    400186: Pillow
+    400188: Pillow1
+    400190: Wall40
+    400192: Wall41
+    400194: Wall42
     2300000: BookShelve
     2300002: BookShelve1
     2300004: BookShelve2
@@ -229,6 +273,29 @@ ModelImporter:
     2300138: Wall37
     2300140: Wall38
     2300142: Wall39
+    2300144: //RootNode
+    2300146: Bed
+    2300148: Bed2
+    2300150: Bed3
+    2300152: Bed4
+    2300154: Bed5
+    2300156: Desk
+    2300158: Dresser
+    2300160: FirePlace
+    2300162: FirePlace1
+    2300164: FirePlace2
+    2300166: FirePlace3
+    2300168: Floor10
+    2300170: NightStand
+    2300172: NightStand1
+    2300174: pCube1
+    2300176: pCube2
+    2300178: pCube3
+    2300180: Pillow
+    2300182: Pillow1
+    2300184: Wall40
+    2300186: Wall41
+    2300188: Wall42
     3300000: BookShelve
     3300002: BookShelve1
     3300004: BookShelve2
@@ -301,6 +368,29 @@ ModelImporter:
     3300138: Wall37
     3300140: Wall38
     3300142: Wall39
+    3300144: //RootNode
+    3300146: Bed
+    3300148: Bed2
+    3300150: Bed3
+    3300152: Bed4
+    3300154: Bed5
+    3300156: Desk
+    3300158: Dresser
+    3300160: FirePlace
+    3300162: FirePlace1
+    3300164: FirePlace2
+    3300166: FirePlace3
+    3300168: Floor10
+    3300170: NightStand
+    3300172: NightStand1
+    3300174: pCube1
+    3300176: pCube2
+    3300178: pCube3
+    3300180: Pillow
+    3300182: Pillow1
+    3300184: Wall40
+    3300186: Wall41
+    3300188: Wall42
     4300000: RectTable1
     4300002: CirTable1
     4300004: RectTable2
@@ -373,6 +463,28 @@ ModelImporter:
     4300138: Floor8
     4300140: Floor9
     4300142: Wall38
+    4300144: Desk
+    4300146: Wall40
+    4300148: Wall41
+    4300150: Bed
+    4300152: Bed2
+    4300154: Bed3
+    4300156: Bed4
+    4300158: Bed5
+    4300160: Pillow
+    4300162: Pillow1
+    4300164: Dresser
+    4300166: FirePlace1
+    4300168: FirePlace
+    4300170: FirePlace2
+    4300172: NightStand
+    4300174: NightStand1
+    4300176: FirePlace3
+    4300178: Floor10
+    4300180: pCube1
+    4300182: pCube2
+    4300184: pCube3
+    4300186: Wall42
     6400000: BookShelve
     6400002: BookShelve1
     6400004: BookShelve2
@@ -445,6 +557,29 @@ ModelImporter:
     6400138: Wall37
     6400140: Wall38
     6400142: Wall39
+    6400144: //RootNode
+    6400146: Bed
+    6400148: Bed2
+    6400150: Bed3
+    6400152: Bed4
+    6400154: Bed5
+    6400156: Desk
+    6400158: Dresser
+    6400160: FirePlace
+    6400162: FirePlace1
+    6400164: FirePlace2
+    6400166: FirePlace3
+    6400168: Floor10
+    6400170: NightStand
+    6400172: NightStand1
+    6400174: pCube1
+    6400176: pCube2
+    6400178: pCube3
+    6400180: Pillow
+    6400182: Pillow1
+    6400184: Wall40
+    6400186: Wall41
+    6400188: Wall42
     9500000: //RootNode
   materials:
     importMaterials: 1

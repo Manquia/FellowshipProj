@@ -29,10 +29,7 @@ public class CharacterDialog : MonoBehaviour
             public QueuedDialog.Type type;
         }
 
-        //public bool recurring;
-        //public bool blocking;
-        //public bool interupting;
-
+        public bool repeats = false;
         public Condition[] condition;
         public Echo[] conversation;
         public string[] sideEffects;

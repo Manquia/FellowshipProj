@@ -35,6 +35,12 @@ public class Steering : MonoBehaviour {
     [Range(0.01f, 0.99f)]public float WiskerWeight = 0.8f;
     [Range(0.01f, 0.99f)]public float TargetWeight = 0.4f;
 
+    public void UpdateTargetPointFromTargetTrans()
+    {
+        if (TargetTrans != null)
+            targetPoint = TargetTrans.position;
+    }
+
     void FixedUpdate()
     {
         var rigid = GetComponent<Rigidbody>();
@@ -45,10 +51,7 @@ public class Steering : MonoBehaviour {
         var forward = transform.forward;
         var right = transform.right;
         var up = transform.up;
-
-        if (TargetTrans != null)
-            targetPoint = TargetTrans.position;
-
+        
 
         // Within target radius?
         if (distToTarget < targetRadius)

@@ -61,6 +61,10 @@ public struct LeaveArea
 public struct CustomEventOn
 {
     public string tag;
+
+    public static string LOSPigLost = "LineOfSightPigLost";
+    public static string LOSPigFound = "LineOfSightPigFound";
+    public static string LOSCantFindPig = "LineOfSightCantFindPig";
 }
 public struct CustomEventOff
 {

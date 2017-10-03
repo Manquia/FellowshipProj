@@ -196,7 +196,14 @@ public class DialogManager : FFComponent
                 QueueDialog(gameDialog[i]);
                 QueueSideEffects(gameDialog[i]);
 
-                gameDialog.RemoveAt(i);
+                if (gameDialog[i].repeats)
+                {
+                    SetDialogConditions(gameDialog[i], false);
+                }
+                else
+                {
+                    gameDialog.RemoveAt(i);
+                }
             }
         }
 
@@ -204,8 +211,7 @@ public class DialogManager : FFComponent
         updateDialogSeq.Sync();
         updateDialogSeq.Call(UpdateDialog);
     }
-
-    // @ TODO. Make conditions work!
+    
     // @ TODO. make Enter/Leave events tracked
 
     bool DialogConditionsTrue(CharacterDialog.Dialog dialog)
@@ -216,13 +222,13 @@ public class DialogManager : FFComponent
             switch (dialog.condition[i].type)
             {
                 case CharacterDialog.Dialog.Condition.Type.InParty:
-                    conditionMet = PartyStatus.ContainsKey(dialog.condition[i].identifier);
+                    conditionMet = GetFlag(PartyStatus, dialog.condition[i].identifier);
                     break;
                 case CharacterDialog.Dialog.Condition.Type.Area:
-                    conditionMet = AreaStatus.ContainsKey(dialog.condition[i].identifier);
+                    conditionMet = GetFlag(AreaStatus, dialog.condition[i].identifier);
                     break;
                 case CharacterDialog.Dialog.Condition.Type.Custom:
-                    conditionMet = CustomStatus.ContainsKey(dialog.condition[i].identifier);
+                    conditionMet = GetFlag(CustomStatus, dialog.condition[i].identifier);
                     break;
             }
 
@@ -232,8 +238,47 @@ public class DialogManager : FFComponent
             if(!conditionMet)
                 return false;
         }
-
         return true;
+    }
+    void SetDialogConditions(CharacterDialog.Dialog dialog, bool flag)
+    {
+        for (int i = 0; i < dialog.condition.Length; ++i)
+        {
+            switch (dialog.condition[i].type)
+            {
+                case CharacterDialog.Dialog.Condition.Type.InParty:
+                    SetFlag(PartyStatus, dialog.condition[i].identifier, flag);
+                    break;
+                case CharacterDialog.Dialog.Condition.Type.Area:
+                    SetFlag(AreaStatus, dialog.condition[i].identifier, flag);
+                    break;
+                case CharacterDialog.Dialog.Condition.Type.Custom:
+                    SetFlag(CustomStatus, dialog.condition[i].identifier, flag);
+                    break;
+            }
+        }
+
+    }
+    void SetFlag(Dictionary<string,bool> container, string identifier, bool flag)
+    {
+        if(container.ContainsKey(identifier) == false)
+        {
+            container.Add(identifier, flag);
+            return;
+        }
+        else
+        {
+            container[identifier] = flag;
+        }
+    }
+    bool GetFlag(Dictionary<string, bool> container, string identifier)
+    {
+        bool ret = false;
+        if(container.TryGetValue(identifier, out ret))
+        {
+            return ret;
+        }
+        return false;
     }
 
     public float averageLengthPerWord = 5.0f;
