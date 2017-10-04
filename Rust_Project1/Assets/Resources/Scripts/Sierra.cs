@@ -169,7 +169,9 @@ public class Sierra : FFComponent {
         Ray rayToPlayer = new Ray(transform.position, vecToPlayer);
         RaycastHit hit;
 
-        if(Physics.Raycast(transform.position, normVecToPlayer, out hit, rayDistance))
+        int raycastMask = 1; // default
+
+        if(Physics.Raycast(transform.position, normVecToPlayer, out hit, rayDistance, raycastMask))
         {
             if(hit.transform == PlayerCharacter) // did the ray hit the player?
             {
