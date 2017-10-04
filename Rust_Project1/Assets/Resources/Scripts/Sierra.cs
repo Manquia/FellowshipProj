@@ -76,15 +76,18 @@ public class Sierra : FFComponent {
                 break;
             case CommandState.Stay:
                 {
-                    if(visionState == VisionState.Searching && fHasVisionOfPlayer) // given stay command, but player wasn't in LOS
+                    if(visionState == VisionState.Searching)
                     {
-                        visionState = VisionState.Idle;
-                        steering.UpdateTargetPointFromTargetTrans();
-                        SendLimitedDialogOn(CustomEventOn.LOSPigFound);
-                    }
-                    else
-                    {
-                        SendLimitedDialogOn(CustomEventOn.LOSCantFindPig);
+                        if (fHasVisionOfPlayer) // given stay command, but player wasn't in LOS
+                        {
+                            visionState = VisionState.Idle;
+                            steering.UpdateTargetPointFromTargetTrans();
+                            SendLimitedDialogOn(CustomEventOn.LOSPigFound);
+                        }
+                        else
+                        {
+                            SendLimitedDialogOn(CustomEventOn.LOSCantFindPig);
+                        }
                     }
                 }
                 break;
@@ -122,7 +125,7 @@ public class Sierra : FFComponent {
 
     #region helpers
 
-    float dialogLimitationTime = 1.25f; 
+    float dialogLimitationTime = 4.25f; 
     bool fDialogLimited = false;
     void UpdateDialogLimiter()
     {

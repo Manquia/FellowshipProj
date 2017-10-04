@@ -137,7 +137,7 @@ public class TransitionParticles : FFComponent {
 
     private void OnButtonHover(ButtonHover e)
     {
-        Debug.Log("ButtonHover");
+        //Debug.Log("ButtonHover");
 
         if(e.over)
         {

@@ -71,7 +71,7 @@ public class DialogManager : FFComponent
             foreach(Transform child in transform)
             {
                 var cd = child.GetComponent<CharacterDialog>();
-                if (cd != null)
+                if (cd != null && child.gameObject.activeSelf)
                 {
                     AddCharacterDialog(cd);
                 }
@@ -139,6 +139,7 @@ public class DialogManager : FFComponent
     }
     private void OnCustomDialogOn(CustomEventOn e)
     {
+        Debug.Log("DialogOn " + e.tag);
         if (CustomStatus.ContainsKey(e.tag))
         {
             CustomStatus[e.tag] = true;

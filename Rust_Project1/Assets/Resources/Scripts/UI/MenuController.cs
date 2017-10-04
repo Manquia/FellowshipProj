@@ -147,14 +147,14 @@ public class MenuController : FFComponent
 
     static void PushState(MenuState state)
     {
-        Debug.Log("Pushed" + state); // DEBUG
+        //Debug.Log("Pushed" + state); // DEBUG
         states.Add(state);
     }
     static void PopState()
     {
         if (states.Count > 1)
         {
-            Debug.Log("Poped "  + states[states.Count - 1]); // DEBUG
+            //Debug.Log("Poped "  + states[states.Count - 1]); // DEBUG
             states.RemoveAt(states.Count - 1);
         }
     }

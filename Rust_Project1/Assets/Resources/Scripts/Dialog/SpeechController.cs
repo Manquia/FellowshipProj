@@ -17,6 +17,17 @@ public class SpeechController : FFComponent
 
     #endregion
 
+    Transform mainCamera;
+
+    void Start()
+    {
+        mainCamera = GameObject.Find("Main Camera").transform;
+    }
+
+    void Update()
+    {
+        transform.LookAt(mainCamera.transform.position, Vector3.up);
+    }
 
     public SpriteRenderer BubbleSprite()
     {
