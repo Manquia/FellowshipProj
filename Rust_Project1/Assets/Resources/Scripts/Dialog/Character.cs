@@ -79,7 +79,7 @@ public class Character : FFComponent
     [Serializable]
     public struct Details
     {
-        public string Name;
+        public DialogManager.OratorNames person;
     }
     public Details details;
     

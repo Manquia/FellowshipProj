@@ -22,6 +22,9 @@ public class SpeechController : FFComponent
     void Start()
     {
         mainCamera = GameObject.Find("Main Camera").transform;
+
+        BubbleSprite().color = BubbleSprite().color.MakeClear();
+        GetDialogText().color = GetDialogText().color.MakeClear();
     }
 
     void Update()

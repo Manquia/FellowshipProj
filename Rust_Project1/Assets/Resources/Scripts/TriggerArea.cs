@@ -77,7 +77,8 @@ public class TriggerArea : MonoBehaviour
     {
         var character = col.GetComponent<Character>();
         if (character != null &&
-           (SpecifyPerson == DialogManager.OratorNames.None) /* || @TODO Add non specific character requirements?*/)
+           (SpecifyPerson == DialogManager.OratorNames.None)  ||
+           (character.details.person == SpecifyPerson))
         {
             ++TriggerCounter;
             if(TriggerCounter > 0 && ActiveState < State.Trigger_OFF)
