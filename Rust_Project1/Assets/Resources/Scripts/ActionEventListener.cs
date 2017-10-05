@@ -10,7 +10,12 @@ struct TriggerObject
 
 public class ActionEventListener : MonoBehaviour
 {
-    public bool continious = false;
+    public enum Type
+    {
+        Single,
+        SinglePerPress,
+    }
+    public Type type = Type.Single;
     public Trinary OverrideTriggers = Trinary.True;
     public string[] events;
     private int[] status;
@@ -55,10 +60,15 @@ public class ActionEventListener : MonoBehaviour
         {
             if (e.tag == events[i])
             {
-                ++status[i];
+                // for single_Pre_Press we change the sign and count up to 0 for off untill we are 0 and then we can turn it on again
+                if (status[i] < 0)
+                    --status[i];
+                else
+                    ++status[i];
                 break;
             }
         }
+        UpdateEventListener();
     }
     private void OnCustomEventOff(CustomEventOff e)
     {
@@ -66,18 +76,23 @@ public class ActionEventListener : MonoBehaviour
         {
             if (e.tag == events[i])
             {
-                --status[i];
+                // for single_Pre_Press we change the sign and count up to 0 for off untill we are 0 and then we can turn it off
+                if (status[i] < 0) 
+                    ++status[i];
+                else
+                    --status[i];
                 break;
             }
         }
+        UpdateEventListener();
     }
 
 
     // Update is called once per frame
-    void Update ()
+    void UpdateEventListener ()
     {
         if (actionFinished == true &&
-            !continious)
+            type == Type.Single)
             return;
 
         if(CheckEvents())
@@ -94,6 +109,15 @@ public class ActionEventListener : MonoBehaviour
                     break;
                 case Trinary.Null:
                     break;
+            }
+
+            // Toggle single switches to negative and then adds when below for changed in events
+            if(type == Type.SinglePerPress)
+            {
+                for (int i = 0; i < status.Length; ++i)
+                {
+                    status[i] = -status[i];
+                }
             }
 
             TriggerObject to;

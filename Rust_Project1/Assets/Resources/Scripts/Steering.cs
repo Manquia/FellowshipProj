@@ -13,8 +13,8 @@ public class Steering : MonoBehaviour {
 
     public bool debugDraw = true;
 
-    public Vector3 targetPoint;
-    public Transform TargetTrans;
+    public FFRef<Vector3> targetPoint;
+    //public Transform targetRelativeTo;
     public Vector3 forceVector;
 
 
@@ -23,8 +23,8 @@ public class Steering : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
-		
-	}
+        targetPoint = new FFVar<Vector3>(transform.position);
+    }
 	
 	// Update is called once per frame
 	void Update ()
@@ -35,10 +35,23 @@ public class Steering : MonoBehaviour {
     [Range(0.01f, 0.99f)]public float WiskerWeight = 0.8f;
     [Range(0.01f, 0.99f)]public float TargetWeight = 0.4f;
 
-    public void UpdateTargetPointFromTargetTrans()
+    public void SetupTarget(Transform relativeTo, Vector3 worldPoint)
     {
-        if (TargetTrans != null)
-            targetPoint = TargetTrans.position;
+        if (relativeTo != null)
+        {
+            Debug.Log("position relateive " + worldPoint);
+            var localOffset = relativeTo.InverseTransformPoint(worldPoint);
+
+            targetPoint = new FFRef<Vector3>(
+                () => relativeTo.TransformPoint(localOffset),
+                (v) => { relativeTo.position = v; });
+
+        }
+        else
+        {
+            Debug.Log("Not relative " + worldPoint);
+            targetPoint = new FFVar<Vector3>(targetPoint);
+        }
     }
 
     void FixedUpdate()

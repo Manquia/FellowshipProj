@@ -53,8 +53,8 @@ public class PlayerController : FFComponent
         Ghost,
         Pig,
     }
+
     public Camera playerCamera;
-    [HideInInspector]
     public State state = State.None;
 
     //private Rigidbody rigid; 
@@ -134,8 +134,9 @@ public class PlayerController : FFComponent
             // Interact/Move
             if (mousePress && raycastHitSomething)
             {
+                var steering = GetComponent<Steering>();
                 var targetPoint = rayHit.point + new Vector3(0, 0.5f, 0.0f); // offset 0.5 up
-                GetComponent<Steering>().targetPoint = targetPoint;
+                steering.SetupTarget(rayHit.transform, targetPoint);
             }
 
             // Toggle Manifestation

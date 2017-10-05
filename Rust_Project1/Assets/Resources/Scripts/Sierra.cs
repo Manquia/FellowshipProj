@@ -41,7 +41,6 @@ public class Sierra : FFComponent {
         commandState = CommandState.Idle;
 
         var steering = GetComponent<Steering>();
-        steering.TargetTrans = PlayerCharacter;
 
         SierraUpdateTick();
         UpdateDialogLimiter();
@@ -62,8 +61,9 @@ public class Sierra : FFComponent {
     {
         var steering = GetComponent<Steering>();
         var playerController = PlayerCharacter.GetComponent<PlayerController>();
+        RaycastHit hit;
 
-        bool fHasVisionOfPlayer = HasVisionOfPlayer();
+        bool fHasVisionOfPlayer = HasVisionOfPlayer(out hit);
 
         if (fHasVisionOfPlayer == false)
             ++failedLOSChecks;
@@ -76,18 +76,20 @@ public class Sierra : FFComponent {
             var normVecAwayFromPlayer = Vector3.Normalize(-vecToPlayer);
 
             var fleeTopDownMark = transform.position +
-                new Vector3(normVecAwayFromPlayer.x, 100.0f, normVecAwayFromPlayer.z) * FleeDistance;
+                (Vector3.up * 100.0f) +
+                new Vector3(normVecAwayFromPlayer.x, 0.0f, normVecAwayFromPlayer.z) * FleeDistance;
 
-            RaycastHit hit;
-            if(Physics.Raycast(fleeTopDownMark, Vector3.down, out hit)) // use raycast down
+            string[] maskNames = { "Default" };
+            RaycastHit groundRay;
+            if(Physics.Raycast(fleeTopDownMark, Vector3.down, out groundRay, LayerMask.GetMask(maskNames))) // use raycast down
             {
                 // Steer to the gound point + 0.5 in the y direction
-                steering.targetPoint = hit.point + (Vector3.up * 0.5f);
+                steering.SetupTarget(groundRay.transform, groundRay.point + (Vector3.up * 0.5f));
             }
             else // raycast failed, just try and go in the other direction
             {
-                steering.targetPoint = transform.position +
-                    new Vector3(normVecAwayFromPlayer.x, 0, normVecAwayFromPlayer.z) * FleeDistance;
+                steering.SetupTarget(null, transform.position +
+                    new Vector3(normVecAwayFromPlayer.x, 0, normVecAwayFromPlayer.z) * FleeDistance);
             }
 
             // Flee dialog
@@ -114,7 +116,7 @@ public class Sierra : FFComponent {
                         if (fHasVisionOfPlayer) // given stay command, but player wasn't in LOS
                         {
                             visionState = VisionState.Idle;
-                            steering.UpdateTargetPointFromTargetTrans();
+                            UpdateSteeringToFeetOfPlayer();
                             SendLimitedDialogOn(CustomEventOn.LOSPigFound);
                         }
                         else
@@ -129,14 +131,14 @@ public class Sierra : FFComponent {
                     if(visionState == VisionState.Searching && fHasVisionOfPlayer) // given command, looking to find player again
                     {
                         visionState = VisionState.Watching;
-                        steering.UpdateTargetPointFromTargetTrans();
+                        UpdateSteeringToFeetOfPlayer();
                         SendLimitedDialogOn(CustomEventOn.LOSPigFound);
                     }
                     else if(visionState == VisionState.Watching) // try and keep vision of player
                     {
                         if(fHasVisionOfPlayer)
                         {
-                            steering.UpdateTargetPointFromTargetTrans();
+                            UpdateSteeringToFeetOfPlayer();
                         }
                         // should sierra be worried about where the pig went?
                         if (failedLOSChecks * tickRate > LOSLostPlayerTime) // time till we say we are worried
@@ -154,6 +156,22 @@ public class Sierra : FFComponent {
         lineOfSightSeq.Delay(tickRate);
         lineOfSightSeq.Sync();
         lineOfSightSeq.Call(SierraUpdateTick);
+    }
+
+
+    void UpdateSteeringToFeetOfPlayer()
+    {
+        var steering = GetComponent<Steering>();
+        string[] maskNames = { "Default" };
+        RaycastHit groundRayHit;
+        if (Physics.Raycast(PlayerCharacter.transform.position, Vector3.down, out groundRayHit, 100.0f, LayerMask.GetMask(maskNames)))
+        {
+            steering.SetupTarget(groundRayHit.transform, groundRayHit.point);
+        }
+        else
+        {
+            steering.SetupTarget(null, groundRayHit.point);
+        }
     }
 
     #region helpers
@@ -193,13 +211,12 @@ public class Sierra : FFComponent {
         var box = FFMessageBoard<CustomEventOff>.Box(eventName);
         box.SendToLocal(ceo);
     }
-    bool HasVisionOfPlayer()
+    bool HasVisionOfPlayer(out RaycastHit hit)
     {
         var vecToPlayer = PlayerCharacter.position - transform.position;
         var normVecToPlayer = Vector3.Normalize(vecToPlayer);
         var rayDistance = 25.0f;
         
-        RaycastHit hit;
         string[] layerMaskNames = { "Default", "Physical", "Ghost" };
         int raycastMask = LayerMask.GetMask(layerMaskNames); // default
 
@@ -220,12 +237,13 @@ public class Sierra : FFComponent {
     {
         var steering = GetComponent<Steering>();
         commandState = CommandState.Follow;
+
+        RaycastHit hit;
     
-        if(HasVisionOfPlayer())
+        if(HasVisionOfPlayer(out hit))
         {
             visionState = VisionState.Watching;
-            steering.targetPoint = e.point;
-            steering.TargetTrans = e.trans;
+            steering.SetupTarget(PlayerCharacter.transform, e.point);
         }
         else // Failed to see vision, Event!!
         {
@@ -239,15 +257,25 @@ public class Sierra : FFComponent {
     private void OnStayCommand(StayCommand e)
     {
         var steering = GetComponent<Steering>();
-
+        RaycastHit hit;
 
         commandState = CommandState.Stay;
 
-        if (HasVisionOfPlayer())
+        if (HasVisionOfPlayer(out hit))
         {
             visionState = VisionState.Idle;
-            steering.targetPoint = e.point;
-            steering.TargetTrans = null;
+
+            string[] maskNames = { "Default" };
+
+            if(Physics.Raycast(e.point, Vector3.down, out hit, 100.0f, LayerMask.GetMask(maskNames) ))
+            {
+                steering.SetupTarget(hit.transform, e.point + (Vector3.up * 0.5f));
+            }
+            else // nothing to be relative
+            {
+                steering.SetupTarget(null, e.point);
+            }
+                
         }
         else // Failed to see vision, Event!!
         {
