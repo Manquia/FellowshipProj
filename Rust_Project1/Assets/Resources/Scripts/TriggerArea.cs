@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 struct TriggerAreaOverride
@@ -12,7 +10,7 @@ struct TriggerAreaOverride
 public class TriggerArea : MonoBehaviour
 {
     public DialogManager.OratorNames SpecifyPerson = DialogManager.OratorNames.None;
-    public string tag;
+    public string areaTag;
 
 
     public AudioClip TriggerOnSound;
@@ -28,6 +26,7 @@ public class TriggerArea : MonoBehaviour
         OVERRIDE_ON = 3,
     }
 
+    public bool single = false;
     [HideInInspector]
     public State ActiveState = State.OFF;
     int TriggerCounter = 0;
@@ -39,16 +38,16 @@ public class TriggerArea : MonoBehaviour
 	void Start ()
     {
         UpdateActiveObjects();
-        FFMessageBoard<TriggerAreaOverride>.Box(tag).Connect(OnTriggerAreaOverrride);
+        FFMessageBoard<TriggerAreaOverride>.Box(areaTag).Connect(OnTriggerAreaOverrride);
 	}
     void OnDestroy()
     {
-        FFMessageBoard<TriggerAreaOverride>.Box(tag).Disconnect(OnTriggerAreaOverrride);
+        FFMessageBoard<TriggerAreaOverride>.Box(areaTag).Disconnect(OnTriggerAreaOverrride);
     }
 
     private void OnTriggerAreaOverrride(TriggerAreaOverride e)
     {
-        Debug.Assert(e.tag == tag); // should only recieve our own events!
+        Debug.Assert(e.tag == areaTag); // should only recieve our own events!
         ActiveState = e.newState;
 
         UpdateActiveObjects();
@@ -83,13 +82,20 @@ public class TriggerArea : MonoBehaviour
             ++TriggerCounter;
             if(TriggerCounter > 0 && ActiveState < State.Trigger_OFF)
             {
-                ActiveState = State.ON;
+                // if single time, we set to override
+                if (single) {
+                    ActiveState = State.OVERRIDE_ON;
+                }
+                else {
+                    ActiveState = State.ON;
+                }
+                
                 PlayClip(TriggerOnSound);
                 UpdateActiveObjects();
 
                 CustomEventOn cdo;
-                cdo.tag = tag;
-                var box = FFMessageBoard<CustomEventOn>.Box(tag);
+                cdo.tag = areaTag;
+                var box = FFMessageBoard<CustomEventOn>.Box(areaTag);
                 box.SendToLocal(cdo);
 
             }
@@ -110,8 +116,8 @@ public class TriggerArea : MonoBehaviour
                 UpdateActiveObjects();
 
                 CustomEventOff cdo;
-                cdo.tag = tag;
-                var box = FFMessageBoard<CustomEventOff>.Box(tag);
+                cdo.tag = areaTag;
+                var box = FFMessageBoard<CustomEventOff>.Box(areaTag);
                 box.SendToLocal(cdo);
             }
         }

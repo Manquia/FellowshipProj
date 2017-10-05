@@ -26,8 +26,11 @@ struct StayCommand
     public Vector3 point;
 }
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : FFComponent
 {
+
+    FFAction.ActionSequence transformationSeq;
+
     public bool active = false;
     
     public float m_movementSpeed = 3.2f;
@@ -40,19 +43,45 @@ public class PlayerController : MonoBehaviour
     public float m_mouseSensitivity = 0.4f;
 
 
-    public Camera playerCamera;
+    public Color pigColor = Color.red;
+    public Color GhostColor = Color.cyan;
+    public float TransformationTime = 1.25f;
 
-    private Rigidbody rigid; 
+    public enum State
+    {
+        None,
+        Ghost,
+        Pig,
+    }
+    public Camera playerCamera;
+    [HideInInspector]
+    public State state = State.None;
+
+    //private Rigidbody rigid; 
 
     // Use this for initialization
     void Start ()
     {
-        rigid = GetComponent<Rigidbody>();
+        transformationSeq = action.Sequence();
+        //rigid = GetComponent<Rigidbody>();
         UpdatePlayerControllerData();
         
         FFMessage<ActivatePlayer>.Connect(OnActivatePlayer);
         FFMessage<DeactivatePlayer>.Connect(OnDeactivatePlayer);
+
+        {// Setup colors for materials
+            var pigMaterial = FFResource.Load_Material("Pig");
+            var ghostMaterial = FFResource.Load_Material("Ghost");
+            pigMaterial.color = pigColor;
+            ghostMaterial.color = GhostColor;
+        }
+        
+
+        // Start as a ghost
+        ChangeState(State.Ghost);
 	}
+    
+
     void OnDestroy()
     {
         FFMessage<ActivatePlayer>.Disconnect(OnActivatePlayer);
@@ -71,13 +100,24 @@ public class PlayerController : MonoBehaviour
         active = false;
     }
 
+    #region helpers
 
+    void DisbleGO(object go)
+    {
+        ((GameObject)go).SetActive(false);
+    }
+    void EnableGo(object go)
+    {
+        ((GameObject)go).SetActive(true);
+    }
     public Vector3 GetPlayerPosition()
     {
         return transform.position;
     }
-
-
+    
+    #endregion
+    
+    
     // Update is called once per frame
     void Update ()
     {
@@ -86,13 +126,29 @@ public class PlayerController : MonoBehaviour
             var mousePress = Input.GetMouseButtonDown(0);
             var ray = playerCamera.ScreenPointToRay(mousePos);
             RaycastHit rayHit;
-            var raycastHitSomething = Physics.Raycast(ray, out rayHit);
+            string[] layerNames = { "Default" };
+            int raycastMask = LayerMask.GetMask(layerNames); // default, TODO Add floor
+            var raycastHitSomething = Physics.Raycast(ray, out rayHit, 100.0f, raycastMask);
             
 
             // Interact/Move
             if (mousePress && raycastHitSomething)
             {
-                GetComponent<Steering>().targetPoint = rayHit.point;
+                var targetPoint = rayHit.point + new Vector3(0, 0.5f, 0.0f); // offset 0.5 up
+                GetComponent<Steering>().targetPoint = targetPoint;
+            }
+
+            // Toggle Manifestation
+            if(Input.GetKeyDown(KeyCode.T))
+            {
+                if (state == State.Pig)
+                {
+                    ChangeState(State.Ghost);
+                }
+                else if(state == State.Ghost)
+                {
+                    ChangeState(State.Pig);
+                }
             }
 
             // Commands
@@ -121,7 +177,71 @@ public class PlayerController : MonoBehaviour
 
         }
 	}
-    
+
+
+
+    private void ChangeState(State newState)
+    {
+        if (newState == state)
+            return;
+        
+        // Get model roots
+        GameObject pigObj = transform.Find("PigModel").gameObject;
+        GameObject ghostObj = transform.Find("GhostModel").gameObject;
+
+        // reset sequence
+        transformationSeq.ClearSequence();
+
+        //  get change model material
+        var pigMaterial = FFResource.Load_Material("Pig");
+        var ghostMaterial = FFResource.Load_Material("Ghost");
+        var pigColorRef = new FFRef<Color>(() => pigMaterial.color, (v) => { pigMaterial.color = v; });
+        var ghostColorRef = new FFRef<Color>(() => ghostMaterial.color, (v) => { ghostMaterial.color = v; });
+
+        if (newState == State.Ghost) // turned into a ghost
+        {
+            // enable ghost model
+            ghostObj.SetActive(true);
+
+            // disable gravity
+            var rigid = GetComponent<Rigidbody>();
+            rigid.useGravity = false;
+
+            // Can move through walls
+            string ghostMask = "Ghost";
+            gameObject.layer = LayerMask.NameToLayer(ghostMask);
+
+
+            // Color property for each model mesh to change its color.
+            transformationSeq.Property(pigColorRef, pigColor.MakeClear(), FFEase.E_SmoothStartEnd, TransformationTime);
+            transformationSeq.Property(ghostColorRef, GhostColor, FFEase.E_SmoothStartEnd, TransformationTime);
+            transformationSeq.Sync();
+            transformationSeq.Call(DisbleGO, pigObj);
+        }
+        else if(newState == State.Pig) // turned into a pig
+        {
+            // enable pig model
+            pigObj.SetActive(true);
+            
+            // enable gravity
+            var rigid = GetComponent<Rigidbody>();
+            rigid.useGravity = true;
+
+            // Cannot move thorugh walls
+            string physicalMask = "Physical";
+            gameObject.layer = LayerMask.NameToLayer(physicalMask);
+            
+            // Color property for each model mesh to change its color.
+            transformationSeq.Property(pigColorRef, pigColor, FFEase.E_SmoothStartEnd, TransformationTime);
+            transformationSeq.Property(ghostColorRef, GhostColor.MakeClear(), FFEase.E_SmoothStartEnd, TransformationTime);
+            transformationSeq.Sync();
+            transformationSeq.Call(DisbleGO, ghostObj);
+        }
+
+
+
+        state = newState;
+    }
 
     private void UpdateUI()
     {
@@ -132,14 +252,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    Vector2 m_MouseMovement; // movement of the mouse between frames
+    //Vector2 m_MouseMovement; // movement of the mouse between frames
     private void UpdatePlayerControllerData()
     {
         // calculate movement movement and update Mouse position
         {
-            m_MouseMovement = new Vector2(
-                Input.GetAxis("Mouse X"),
-                Input.GetAxis("Mouse Y"));
+            //m_MouseMovement = new Vector2(
+            //    Input.GetAxis("Mouse X"),
+            //    Input.GetAxis("Mouse Y"));
         }
     }
 }

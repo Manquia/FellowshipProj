@@ -5,13 +5,13 @@ using UnityEngine;
 
 public class Sandbox : FFComponent {
 
-    FFAction.ActionSequence seq;
+    //FFAction.ActionSequence seq;
 
 
 	// Use this for initialization
 	void Start ()
     {
-        seq = action.Sequence();
+        //seq = action.Sequence();
 	}
 
     private void middle()

@@ -20,4 +20,8 @@ public class FFResource
     {
         return Resources.Load<GameObject>("Prefabs/" + name);
     }
+    static public Material Load_Material(string name)
+    {
+        return Resources.Load<Material>("Materials/" + name);
+    }
 }

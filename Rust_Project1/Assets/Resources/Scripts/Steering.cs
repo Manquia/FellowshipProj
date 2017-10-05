@@ -46,7 +46,7 @@ public class Steering : MonoBehaviour {
         var rigid = GetComponent<Rigidbody>();
         var position = transform.position;
         var vecToTarget = targetPoint - position;
-        var vecToTargetNorm = Vector3.Normalize(vecToTarget);
+        //var vecToTargetNorm = Vector3.Normalize(vecToTarget); // @Cleanup
         var distToTarget = vecToTarget.magnitude;
         var forward = transform.forward;
         var right = transform.right;
@@ -60,7 +60,8 @@ public class Steering : MonoBehaviour {
         }
         
 
-        var forceApplied = Mathf.Min(acceleration, (distToTarget / slowingRadius) * acceleration);
+        // @Cleanup. we may want to use force for this. but maybe not!
+        // var forceApplied = Mathf.Min(acceleration, (distToTarget / slowingRadius) * acceleration);
         var forceVec = Vector3.zero;
 
         // Query Feelers

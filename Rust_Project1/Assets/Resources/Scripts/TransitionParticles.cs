@@ -19,7 +19,7 @@ public class TransitionParticles : FFComponent {
     public float particleOffsetTowardCamera = 0.2f;
 
 
-    FFAction.ActionSequence particlesSeq;
+    //FFAction.ActionSequence particlesSeq;
     Dictionary<MenuState, List<RectTransform>> RectsInState = new Dictionary<MenuState, List<RectTransform>>();
 
 
@@ -32,7 +32,7 @@ public class TransitionParticles : FFComponent {
 
     void Start()
     {
-        particlesSeq = action.Sequence();
+        //particlesSeq = action.Sequence();
 
         FFMessage<PopMenuState>.Connect(OnPopMenuState);
         FFMessage<PushMenuState>.Connect(OnPushMenuState);
@@ -111,7 +111,9 @@ public class TransitionParticles : FFComponent {
         foreach (RectTransform childParticle in rect)
         {
             childParticle.gameObject.SetActive(active);
-            var particleSys = childParticle.GetComponent<ParticleSystem>();
+            
+            // @ Feature, Make particles cooler...
+            //var particleSys = childParticle.GetComponent<ParticleSystem>();
         }
     }
     void MatchParticleHolderToRect(RectTransform rect, RectTransform particleHolder)
@@ -171,8 +173,6 @@ public class TransitionParticles : FFComponent {
 
     private void OnPushMenuState(PushMenuState e)
     {
-        Vector3 posStart, posEnd,
-                scaleStart, scaleEnd;
     }
 
     private void OnPopMenuState(PopMenuState e)

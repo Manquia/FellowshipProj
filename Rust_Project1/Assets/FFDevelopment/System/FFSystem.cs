@@ -226,7 +226,7 @@ public class FFSystem : MonoBehaviour {
 
     #region Networking
     
-    private Queue<GameObjectPreFabPair> _gameObjectsToRegisterToServer = new Queue<GameObjectPreFabPair>(16);
+    //private Queue<GameObjectPreFabPair> _gameObjectsToRegisterToServer = new Queue<GameObjectPreFabPair>(16);
 
     // Shared GameObjectData values
     private Dictionary<long, GameObjectData> _netIdToGameObjectData = new Dictionary<long, GameObjectData>();

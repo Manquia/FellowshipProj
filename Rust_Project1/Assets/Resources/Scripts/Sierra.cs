@@ -43,7 +43,7 @@ public class Sierra : FFComponent {
         var steering = GetComponent<Steering>();
         steering.TargetTrans = PlayerCharacter;
 
-        UpdateLineOfSight();
+        SierraUpdateTick();
         UpdateDialogLimiter();
     }
     void OnDestroy()
@@ -53,13 +53,15 @@ public class Sierra : FFComponent {
     }
 
     public float LOSLostPlayerTime = 2.25f;
-    
+    public float FleeDistance = 2.0f;
+    public float FleeTime = 1.0f;
 
     int failedLOSChecks = 0;
     float tickRate = 0.45f;
-    void UpdateLineOfSight()
+    void SierraUpdateTick()
     {
         var steering = GetComponent<Steering>();
+        var playerController = PlayerCharacter.GetComponent<PlayerController>();
 
         bool fHasVisionOfPlayer = HasVisionOfPlayer();
 
@@ -68,8 +70,39 @@ public class Sierra : FFComponent {
         else
             failedLOSChecks = 0;
 
+        if(fHasVisionOfPlayer && playerController.state == PlayerController.State.Ghost) // Does Sierra see us and run away?
+        {
+            var vecToPlayer = PlayerCharacter.position - transform.position;
+            var normVecAwayFromPlayer = Vector3.Normalize(-vecToPlayer);
+
+            var fleeTopDownMark = transform.position +
+                new Vector3(normVecAwayFromPlayer.x, 100.0f, normVecAwayFromPlayer.z) * FleeDistance;
+
+            RaycastHit hit;
+            if(Physics.Raycast(fleeTopDownMark, Vector3.down, out hit)) // use raycast down
+            {
+                // Steer to the gound point + 0.5 in the y direction
+                steering.targetPoint = hit.point + (Vector3.up * 0.5f);
+            }
+            else // raycast failed, just try and go in the other direction
+            {
+                steering.targetPoint = transform.position +
+                    new Vector3(normVecAwayFromPlayer.x, 0, normVecAwayFromPlayer.z) * FleeDistance;
+            }
+
+            // Flee dialog
+            SendLimitedDialogOn(CustomEventOn.LOSSeeGhost);
+
+            lineOfSightSeq.Delay(FleeTime);
+            lineOfSightSeq.Sync();
+            lineOfSightSeq.Call(SierraUpdateTick);
+
+            // Early return
+            return;
+        }
 
 
+        // Sierra isn't terrified. Listen to commands
         switch (commandState)
         {
             case CommandState.Idle:
@@ -120,7 +153,7 @@ public class Sierra : FFComponent {
         
         lineOfSightSeq.Delay(tickRate);
         lineOfSightSeq.Sync();
-        lineOfSightSeq.Call(UpdateLineOfSight);
+        lineOfSightSeq.Call(SierraUpdateTick);
     }
 
     #region helpers
@@ -165,11 +198,10 @@ public class Sierra : FFComponent {
         var vecToPlayer = PlayerCharacter.position - transform.position;
         var normVecToPlayer = Vector3.Normalize(vecToPlayer);
         var rayDistance = 25.0f;
-
-        Ray rayToPlayer = new Ray(transform.position, vecToPlayer);
+        
         RaycastHit hit;
-
-        int raycastMask = 1; // default
+        string[] layerMaskNames = { "Default", "Physical", "Ghost" };
+        int raycastMask = LayerMask.GetMask(layerMaskNames); // default
 
         if(Physics.Raycast(transform.position, normVecToPlayer, out hit, rayDistance, raycastMask))
         {

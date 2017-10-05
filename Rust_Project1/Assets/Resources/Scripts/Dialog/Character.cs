@@ -64,6 +64,7 @@ public struct CustomEventOn
 
     public static string LOSPigLost = "LineOfSightPigLost";
     public static string LOSPigFound = "LineOfSightPigFound";
+    public static string LOSSeeGhost = "LineOfSightSeeGhost";
     public static string LOSCantFindPig = "LineOfSightCantFindPig";
 }
 public struct CustomEventOff
