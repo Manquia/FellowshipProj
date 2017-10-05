@@ -24,4 +24,9 @@ public class FFResource
     {
         return Resources.Load<Material>("Materials/" + name);
     }
+
+    static public AudioClip Load_AudioClip(string pathName)
+    {
+        return Resources.Load<AudioClip>("Audio/" + pathName);
+    }
 }

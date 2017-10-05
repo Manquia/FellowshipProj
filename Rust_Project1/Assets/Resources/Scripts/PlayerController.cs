@@ -62,7 +62,11 @@ public class PlayerController : FFComponent
     // Use this for initialization
     void Start ()
     {
+        limitPlayClipSeq = action.Sequence();
+        UpdatePlayClipLimitTime(); // start updating this
+
         transformationSeq = action.Sequence();
+
         //rigid = GetComponent<Rigidbody>();
         UpdatePlayerControllerData();
         
@@ -134,6 +138,13 @@ public class PlayerController : FFComponent
             // Interact/Move
             if (mousePress && raycastHitSomething)
             {
+                // randomly choose between 1-3 for the pig noise to use
+                if(state == State.Pig)
+                {
+                    int random1_3 = UnityEngine.Random.Range(1, 3);
+                    PlayClipLimited(FFResource.Load_AudioClip("SFX/PigNoise/PigMove" + random1_3));
+                }
+
                 var steering = GetComponent<Steering>();
                 var targetPoint = rayHit.point + new Vector3(0, 0.5f, 0.0f); // offset 0.5 up
                 steering.SetupTarget(rayHit.transform, targetPoint);
@@ -157,6 +168,12 @@ public class PlayerController : FFComponent
                 // Stay
                 if (Input.GetKeyDown(KeyCode.S))
                 {
+                    // randomly choose between 1-3 for the pig noise to use
+                    if (state == State.Pig)
+                    {
+                        PlayClipLimited(FFResource.Load_AudioClip("SFX/PigNoise/StayCommand"));
+                    }
+
                     StayCommand sc;
                     sc.point = GetPlayerPosition();
                     FFMessage<StayCommand>.SendToLocal(sc);
@@ -165,6 +182,12 @@ public class PlayerController : FFComponent
                 // Follow
                 if (Input.GetKeyDown(KeyCode.F))
                 {
+                    // randomly choose between 1-3 for the pig noise to use
+                    if (state == State.Pig)
+                    {
+                        PlayClipLimited(FFResource.Load_AudioClip("SFX/PigNoise/FollowCommand"));
+                    }
+
                     FollowCommand fc;
                     fc.trans = transform;
                     fc.point = GetPlayerPosition();
@@ -179,7 +202,31 @@ public class PlayerController : FFComponent
         }
 	}
 
+    float limitPlayClipTime = 1.7f;
+    bool limitPlayClip = false;
+    FFAction.ActionSequence limitPlayClipSeq;
+    void UpdatePlayClipLimitTime()
+    {
+        limitPlayClip = false;
+        limitPlayClipSeq.Delay(limitPlayClipTime);
+        limitPlayClipSeq.Sync();
+        limitPlayClipSeq.Call(UpdatePlayClipLimitTime);
+    }
+    void PlayClipLimited(AudioClip clip)
+    {
+        if (limitPlayClip)
+            return;
 
+        limitPlayClip = true;
+        var audioSrc = GetComponent<AudioSource>();
+        audioSrc.PlayOneShot(clip);
+    }
+
+    void PlayClip(AudioClip clip)
+    {
+        var audioSrc = GetComponent<AudioSource>();
+        audioSrc.PlayOneShot(clip);
+    }
 
     private void ChangeState(State newState)
     {

@@ -242,6 +242,9 @@ ModelImporter:
     100468: Wall73
     100470: Wall74
     100472: Wall75
+    100474: BoxLight
+    100476: LightPost
+    100478: LightPost1
     400000: BookShelve
     400002: BookShelve1
     400004: BookShelve2
@@ -479,6 +482,9 @@ ModelImporter:
     400468: Wall73
     400470: Wall74
     400472: Wall75
+    400474: BoxLight
+    400476: LightPost
+    400478: LightPost1
     2300000: BookShelve
     2300002: BookShelve1
     2300004: BookShelve2
@@ -713,6 +719,9 @@ ModelImporter:
     2300462: Wall73
     2300464: Wall74
     2300466: Wall75
+    2300468: BoxLight
+    2300470: LightPost
+    2300472: LightPost1
     3300000: BookShelve
     3300002: BookShelve1
     3300004: BookShelve2
@@ -947,6 +956,9 @@ ModelImporter:
     3300462: Wall73
     3300464: Wall74
     3300466: Wall75
+    3300468: BoxLight
+    3300470: LightPost
+    3300472: LightPost1
     4300000: RectTable1
     4300002: CirTable1
     4300004: RectTable2
@@ -1180,6 +1192,9 @@ ModelImporter:
     4300460: Wall73
     4300462: Wall74
     4300464: Floor45
+    4300466: LightPost1
+    4300468: LightPost
+    4300470: BoxLight
     6400000: BookShelve
     6400002: BookShelve1
     6400004: BookShelve2
@@ -1414,6 +1429,9 @@ ModelImporter:
     6400462: Wall73
     6400464: Wall74
     6400466: Wall75
+    6400468: BoxLight
+    6400470: LightPost
+    6400472: LightPost1
     9500000: //RootNode
   materials:
     importMaterials: 1
