@@ -46,6 +46,7 @@ public class PlayerController : FFComponent
     public Color pigColor = Color.red;
     public Color GhostColor = Color.cyan;
     public float TransformationTime = 1.25f;
+    public float verticalSteerOffset = 1.0f;
 
     public enum State
     {
@@ -118,9 +119,8 @@ public class PlayerController : FFComponent
     {
         return transform.position;
     }
-    
+
     #endregion
-    
     
     // Update is called once per frame
     void Update ()
@@ -146,7 +146,7 @@ public class PlayerController : FFComponent
                 }
 
                 var steering = GetComponent<Steering>();
-                var targetPoint = rayHit.point + new Vector3(0, 0.5f, 0.0f); // offset 0.5 up
+                var targetPoint = rayHit.point + new Vector3(0, verticalSteerOffset, 0.0f); // offset 0.5 up
                 steering.SetupTarget(rayHit.transform, targetPoint);
             }
 

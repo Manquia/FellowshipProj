@@ -84,7 +84,7 @@ public class Sierra : FFComponent {
             if(Physics.Raycast(fleeTopDownMark, Vector3.down, out groundRay, LayerMask.GetMask(maskNames))) // use raycast down
             {
                 // Steer to the gound point + 0.5 in the y direction
-                steering.SetupTarget(groundRay.transform, groundRay.point + (Vector3.up * 0.5f));
+                steering.SetupTarget(groundRay.transform, groundRay.point + (Vector3.up * verticalSteerOffset));
             }
             else // raycast failed, just try and go in the other direction
             {
@@ -254,6 +254,7 @@ public class Sierra : FFComponent {
         }
     }
 
+    public float verticalSteerOffset = 1.0f;
     private void OnStayCommand(StayCommand e)
     {
         var steering = GetComponent<Steering>();
@@ -269,7 +270,7 @@ public class Sierra : FFComponent {
 
             if(Physics.Raycast(e.point, Vector3.down, out hit, 100.0f, LayerMask.GetMask(maskNames) ))
             {
-                steering.SetupTarget(hit.transform, e.point + (Vector3.up * 0.5f));
+                steering.SetupTarget(hit.transform, e.point + (Vector3.up * verticalSteerOffset));
             }
             else // nothing to be relative
             {

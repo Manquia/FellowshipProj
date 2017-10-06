@@ -74,7 +74,7 @@ public class Steering : MonoBehaviour {
         
 
         // @Cleanup. we may want to use force for this. but maybe not!
-        // var forceApplied = Mathf.Min(acceleration, (distToTarget / slowingRadius) * acceleration);
+        var forceApplied = Mathf.Min(acceleration, (distToTarget / slowingRadius) * acceleration);
         var forceVec = Vector3.zero;
 
         // Query Feelers
@@ -86,23 +86,26 @@ public class Steering : MonoBehaviour {
             //  to create an interesting movement pattern.
 
 
-            forceVec = Vector3.Normalize(forceVec);
+            forceVec = Vector3.Normalize(new Vector3(forceVec.x, 0.0f, forceVec.z));
         }
 
 
         // Apply Force
         {
-            rigid.AddForce(acceleration * forceVec * Time.fixedDeltaTime, ForceMode.VelocityChange);
+            rigid.AddForce(forceApplied * forceVec * Time.fixedDeltaTime, ForceMode.Impulse);
         }
 
 
         // Limit velocity to maxSpeed
         {
-            var velocity = rigid.velocity;
+            var velocity = new Vector3(
+                rigid.velocity.x,
+                0.0f,
+                rigid.velocity.z);
             if(velocity.magnitude > maxSpeed)
             {
                 var velocityVecNorm = Vector3.Normalize(velocity);
-                rigid.velocity = velocityVecNorm * maxSpeed;
+                rigid.velocity = new Vector3(0.0f, rigid.velocity.y, 0.0f) + velocityVecNorm * maxSpeed;
             }
         }
 
