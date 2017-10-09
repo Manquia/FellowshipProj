@@ -45,8 +45,7 @@ public class Steering : MonoBehaviour {
         else
         {
             //Debug.Log("Not relative " + worldPoint);
-            targetPoint
-                = new FFVar<Vector3>(worldPoint);
+            targetPoint = new FFVar<Vector3>(worldPoint);
         }
     }
 
@@ -62,8 +61,10 @@ public class Steering : MonoBehaviour {
         var rigid = GetComponent<Rigidbody>();
         var position = transform.position;
         var vecToTarget = targetPoint - position;
+        var vecToTargetXZ = new Vector3(vecToTarget.x, 0.0f, vecToTarget.z);
         //var vecToTargetNorm = Vector3.Normalize(vecToTarget); // @Cleanup
         var distToTarget = vecToTarget.magnitude;
+        var distToTargetXZ = vecToTargetXZ.magnitude;
         var forward = transform.forward;
         var right = transform.right;
         var up = transform.up;
@@ -75,16 +76,16 @@ public class Steering : MonoBehaviour {
 
 
         // Within target radius?
-        if (distToTarget < targetRadius)
+        if (distToTargetXZ < targetRadius)
         {
             // slow down
-            rigid.velocity -= Vector3.Lerp(velocityXZ, Vector3.zero, 0.75f);
+            rigid.velocity -= Vector3.Lerp(velocityXZ, Vector3.zero, 0.38f);
             return;
         }
         
 
         // @Cleanup. we may want to use force for this. but maybe not!
-        var forceApplied = Mathf.Min(acceleration, (distToTarget / slowingRadius) * acceleration);
+        var forceApplied = Mathf.Min(acceleration, (distToTargetXZ / slowingRadius) * acceleration);
         var forceVec = Vector3.zero;
 
         // Query Feelers

@@ -48,6 +48,12 @@ public class PlayerController : FFComponent
     public float TransformationTime = 1.25f;
     public float verticalSteerOffset = 1.0f;
 
+
+    public float PigSpeed = 1.5f;
+    public float PigRotSpeed = 5.5f;
+    public float GhostSpeed = 3.25f;
+    public float GhostRotSpeed = 10.5f;
+
     public enum State
     {
         None,
@@ -161,6 +167,8 @@ public class PlayerController : FFComponent
                 {
                     ChangeState(State.Pig);
                 }
+
+                UpdateSteeringValues();
             }
 
             // Commands
@@ -196,11 +204,9 @@ public class PlayerController : FFComponent
             }
         }
 
-        
-        {// Handle Movement
 
-        }
 	}
+    
 
     float limitPlayClipTime = 1.7f;
     bool limitPlayClip = false;
@@ -233,6 +239,7 @@ public class PlayerController : FFComponent
         if (newState == state)
             return;
         
+
         // Get model roots
         GameObject pigObj = transform.Find("PigModel").gameObject;
         GameObject ghostObj = transform.Find("GhostModel").gameObject;
@@ -286,9 +293,25 @@ public class PlayerController : FFComponent
             transformationSeq.Call(DisbleGO, ghostObj);
         }
 
-
-
         state = newState;
+
+        UpdateSteeringValues();
+    }
+
+
+    private void UpdateSteeringValues()
+    {
+        var steering = GetComponent<Steering>();
+        if (state == State.Ghost)
+        {
+            steering.maxSpeed = GhostSpeed;
+            steering.rotationSpeed = GhostRotSpeed;
+        }
+        else if (state == State.Pig)
+        {
+            steering.maxSpeed = PigSpeed;
+            steering.rotationSpeed = PigRotSpeed;
+        }
     }
 
     private void UpdateUI()

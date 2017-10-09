@@ -39,11 +39,10 @@ public class Sierra : FFComponent {
 
         visionState = VisionState.Idle;
         commandState = CommandState.Idle;
-
-        var steering = GetComponent<Steering>();
-
+        
         SierraUpdateTick();
         UpdateDialogLimiter();
+        UpdateSteeringValues();
     }
     void OnDestroy()
     {
@@ -52,8 +51,13 @@ public class Sierra : FFComponent {
     }
 
     public float LOSLostPlayerTime = 2.25f;
-    public float FleeDistance = 2.0f;
-    public float FleeTime = 1.0f;
+    //public float FleeDistance = 2.0f;
+    //public float FleeTime = 1.0f;
+
+    public float FleeSpeed = 3.5f;
+    public float WalkSpeed = 1.25f;
+    public float FleeRotSpeed = 15.5f;
+    public float WalkRotSpeed = 5.5f;
 
     int failedLOSChecks = 0;
     float tickRate = 0.45f;
@@ -73,6 +77,8 @@ public class Sierra : FFComponent {
         if(fHasVisionOfPlayer && playerController.state == PlayerController.State.Ghost) // Does Sierra see us and run away?
         {
             commandState = CommandState.Terrified;
+            UpdateSteeringValues();
+
 
             var vecToPlayer = PlayerCharacter.position - transform.position;
             
@@ -80,7 +86,7 @@ public class Sierra : FFComponent {
             
             var fleeTopDownMark = transform.position +
                 (Vector3.up * 100.0f) +
-                new Vector3(normVecAwayFromPlayer.x, 0.0f, normVecAwayFromPlayer.z) * FleeDistance;
+                new Vector3(normVecAwayFromPlayer.x, 0.0f, normVecAwayFromPlayer.z) * FleeSpeed;
 
             string[] maskNames = { "Default" };
             RaycastHit groundRay;
@@ -92,11 +98,11 @@ public class Sierra : FFComponent {
             else // raycast failed, just try and go in the other direction
             {
                 steering.SetupTarget(null, transform.position +
-                    new Vector3(normVecAwayFromPlayer.x, 0, normVecAwayFromPlayer.z) * FleeDistance);
+                    new Vector3(normVecAwayFromPlayer.x, 0, normVecAwayFromPlayer.z) * FleeSpeed);
 
                 // DEBUG
                 transform.GetOrAddComponent<FFDebugDrawLine>().Start = transform.position;
-                transform.GetOrAddComponent<FFDebugDrawLine>().End = transform.position + new Vector3(normVecAwayFromPlayer.x, 0, normVecAwayFromPlayer.z) * FleeDistance;
+                transform.GetOrAddComponent<FFDebugDrawLine>().End = transform.position + new Vector3(normVecAwayFromPlayer.x, 0, normVecAwayFromPlayer.z) * FleeSpeed;
                 transform.GetOrAddComponent<FFDebugDrawLine>().DrawColor = Color.yellow;
 
             }
@@ -104,7 +110,7 @@ public class Sierra : FFComponent {
             // Flee dialog
             SendLimitedDialogOn(CustomEventOn.LOSSeeGhost);
 
-            lineOfSightSeq.Delay(FleeTime);
+            lineOfSightSeq.Delay(1.0f/FleeSpeed);
             lineOfSightSeq.Sync();
             lineOfSightSeq.Call(SierraUpdateTick);
 
@@ -159,6 +165,10 @@ public class Sierra : FFComponent {
                 }
                 break;
             case CommandState.Terrified:
+
+
+                // We cannot do not see the player as a ghost
+                commandState = CommandState.Idle;
                 break;
         }
         
@@ -167,6 +177,22 @@ public class Sierra : FFComponent {
         lineOfSightSeq.Call(SierraUpdateTick);
     }
 
+
+    private void UpdateSteeringValues()
+    {
+        var steering = GetComponent<Steering>();
+
+        if(commandState == CommandState.Terrified)
+        {
+            steering.maxSpeed = FleeSpeed;
+            steering.rotationSpeed = FleeRotSpeed;
+        }
+        else
+        {
+            steering.maxSpeed = WalkSpeed;
+            steering.rotationSpeed = WalkRotSpeed;
+        }
+    }
 
     void UpdateSteeringToFeetOfPlayer()
     {
@@ -246,7 +272,6 @@ public class Sierra : FFComponent {
     {
         var steering = GetComponent<Steering>();
         var playerController = PlayerCharacter.GetComponent<PlayerController>();
-        commandState = CommandState.Follow;
 
         RaycastHit hit;
         if(playerController.state == PlayerController.State.Ghost)
@@ -255,8 +280,11 @@ public class Sierra : FFComponent {
             // @TODO Add dialogue here
             return;
         }
-    
-        if(HasVisionOfPlayer(out hit))
+
+        commandState = CommandState.Follow;
+        UpdateSteeringValues();
+
+        if (HasVisionOfPlayer(out hit))
         {
             visionState = VisionState.Watching;
             steering.SetupTarget(PlayerCharacter.transform, e.point);
@@ -275,14 +303,16 @@ public class Sierra : FFComponent {
         var playerController = PlayerCharacter.GetComponent<PlayerController>();
         RaycastHit hit;
 
-        commandState = CommandState.Stay;
-
         if (playerController.state == PlayerController.State.Ghost)
         {
             // Hears a ghost, no the pig!
             // @TODO Add dialogue here
             return;
         }
+
+
+        commandState = CommandState.Stay;
+        UpdateSteeringValues();
 
         if (HasVisionOfPlayer(out hit))
         {
