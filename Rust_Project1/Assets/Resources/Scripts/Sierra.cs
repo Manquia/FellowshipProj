@@ -155,6 +155,10 @@ public class Sierra : FFComponent {
                         {
                             UpdateSteeringToFeetOfPlayer();
                         }
+                        else // If we lost sight, try and wonder around to find player semi-randomly in the direction they were last seen.
+                        {
+                            UpdateSteeringToWonderTarget();
+                        }
                         // should sierra be worried about where the pig went?
                         if (failedLOSChecks * tickRate > LOSLostPlayerTime) // time till we say we are worried
                         {
@@ -200,6 +204,30 @@ public class Sierra : FFComponent {
         string[] maskNames = { "Default" };
         RaycastHit groundRayHit;
         if (Physics.Raycast(PlayerCharacter.transform.position, Vector3.down, out groundRayHit, 100.0f, LayerMask.GetMask(maskNames)))
+        {
+            steering.SetupTarget(groundRayHit.transform, groundRayHit.point);
+        }
+        else
+        {
+            steering.SetupTarget(null, groundRayHit.point);
+        }
+    }
+
+    void UpdateSteeringToWonderTarget()
+    {
+        var steering = GetComponent<Steering>();
+        string[] maskNames = { "Default" };
+        RaycastHit groundRayHit;
+
+        var targetPoint = steering.targetPoint;
+        var vecToTarget = targetPoint - transform.position;
+        var normVecToTarget = Vector3.Normalize(vecToTarget);
+        
+        var newTargetPoint = targetPoint.Val +                          // Use target as base location since it gets changed anyways
+            (normVecToTarget * UnityEngine.Random.Range(-0.9f, 2.5f)) + // randomly move about when searching
+            (Vector3.up * 50.0f);                                       // raycast down from 50 above
+
+        if (Physics.Raycast(newTargetPoint, Vector3.down, out groundRayHit, 100.0f, LayerMask.GetMask(maskNames)))
         {
             steering.SetupTarget(groundRayHit.transform, groundRayHit.point);
         }
@@ -255,14 +283,46 @@ public class Sierra : FFComponent {
         string[] layerMaskNames = { "Default", "Physical", "Ghost" };
         int raycastMask = LayerMask.GetMask(layerMaskNames); // default
 
-        if(Physics.Raycast(transform.position, normVecToPlayer, out hit, rayDistance, raycastMask))
+        var capsuleCollider = GetComponent<CapsuleCollider>();
+
+        var center = transform.position;
+        var leftOffset = Vector3.Normalize(Vector3.Cross(normVecToPlayer, Vector3.up)) * 
+            Mathf.Min(transform.lossyScale.x, transform.lossyScale.y, transform.lossyScale.z) * capsuleCollider.radius * 0.65f;
+        var rightOffset= -leftOffset;
+
+        // Rays come from about the eyes
+        leftOffset += normVecToPlayer * capsuleCollider.radius * 0.2f;
+        rightOffset += normVecToPlayer * capsuleCollider.radius * 0.2f;
+
+        // Left Ray hits
+        if (Physics.Raycast(center + leftOffset, normVecToPlayer, out hit, rayDistance, raycastMask))
         {
-            if(hit.transform == PlayerCharacter) // did the ray hit the player?
+            Debug.DrawLine(center + leftOffset, center + leftOffset + (normVecToPlayer * rayDistance), Color.red);
+            if (hit.transform != PlayerCharacter) // did the ray hit the player?
+            {
+                return false;
+            }
+        }
+        // right ray hits
+        if (Physics.Raycast(center + rightOffset, normVecToPlayer, out hit, rayDistance, raycastMask))
+        {
+            Debug.DrawLine(center + rightOffset, center + rightOffset + (normVecToPlayer * rayDistance), Color.red);
+            if (hit.transform != PlayerCharacter) // did the ray hit the player?
+            {
+                return false;
+            }
+        }
+        // Center Ray hits
+        if (Physics.Raycast(transform.position, normVecToPlayer, out hit, rayDistance, raycastMask))
+        {
+            Debug.DrawLine(center, center + (normVecToPlayer * rayDistance), Color.red);
+            if (hit.transform == PlayerCharacter) // did the ray hit the player?
             {
                 return true;
             }
         }
 
+        // No rays hit anything
         return false;
     }
 
