@@ -63,8 +63,10 @@ public class ActionEventListener : MonoBehaviour
                 // for single_Pre_Press we change the sign and count up to 0 for off untill we are 0 and then we can turn it on again
                 if (status[i] < 0)
                     --status[i];
-                else
+                else // status[i] >= 0
                     ++status[i];
+
+
                 break;
             }
         }
@@ -79,8 +81,10 @@ public class ActionEventListener : MonoBehaviour
                 // for single_Pre_Press we change the sign and count up to 0 for off untill we are 0 and then we can turn it off
                 if (status[i] < 0) 
                     ++status[i];
-                else
+                else// status[i] >= 0
                     --status[i];
+
+
                 break;
             }
         }
@@ -110,18 +114,22 @@ public class ActionEventListener : MonoBehaviour
                 case Trinary.Null:
                     break;
             }
+            
+            TriggerObject to;
+            FFMessageBoard<TriggerObject>.SendToLocal(to, gameObject);
 
             // Toggle single switches to negative and then adds when below for changed in events
-            if(type == Type.SinglePerPress)
+            if (type == Type.SinglePerPress)
             {
                 for (int i = 0; i < status.Length; ++i)
                 {
                     status[i] = -status[i];
                 }
             }
+        }
+        else
+        {
 
-            TriggerObject to;
-            FFMessageBoard<TriggerObject>.SendToLocal(to, gameObject);
         }
     }
 

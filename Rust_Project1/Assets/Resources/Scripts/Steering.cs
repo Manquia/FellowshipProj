@@ -26,11 +26,6 @@ public class Steering : MonoBehaviour {
         targetPoint = new FFVar<Vector3>(transform.position);
     }
 	
-	// Update is called once per frame
-	void Update ()
-    {
-		
-	}
 
     [Range(0.01f, 0.99f)]public float WiskerWeight = 0.8f;
     [Range(0.01f, 0.99f)]public float TargetWeight = 0.4f;
@@ -39,7 +34,7 @@ public class Steering : MonoBehaviour {
     {
         if (relativeTo != null)
         {
-            Debug.Log("position relateive " + worldPoint);
+            //Debug.Log("position relateive " + worldPoint);
             var localOffset = relativeTo.InverseTransformPoint(worldPoint);
 
             targetPoint = new FFRef<Vector3>(
@@ -49,10 +44,18 @@ public class Steering : MonoBehaviour {
         }
         else
         {
-            Debug.Log("Not relative " + worldPoint);
-            targetPoint = new FFVar<Vector3>(targetPoint);
+            //Debug.Log("Not relative " + worldPoint);
+            targetPoint
+                = new FFVar<Vector3>(worldPoint);
         }
     }
+
+#if UNITY_EDITOR
+    void Update()
+    {
+        DoDebugDraw();
+    }
+#endif
 
     void FixedUpdate()
     {
@@ -64,11 +67,18 @@ public class Steering : MonoBehaviour {
         var forward = transform.forward;
         var right = transform.right;
         var up = transform.up;
-        
+
+        var velocityXZ = new Vector3(
+            rigid.velocity.x,
+            0.0f,
+            rigid.velocity.z);
+
 
         // Within target radius?
         if (distToTarget < targetRadius)
         {
+            // slow down
+            rigid.velocity -= Vector3.Lerp(velocityXZ, Vector3.zero, 0.75f);
             return;
         }
         
@@ -95,16 +105,16 @@ public class Steering : MonoBehaviour {
             rigid.AddForce(forceApplied * forceVec * Time.fixedDeltaTime, ForceMode.Impulse);
         }
 
+        var newVelocityXZ = new Vector3(
+            rigid.velocity.x,
+            0.0f,
+            rigid.velocity.z);
 
         // Limit velocity to maxSpeed
         {
-            var velocity = new Vector3(
-                rigid.velocity.x,
-                0.0f,
-                rigid.velocity.z);
-            if(velocity.magnitude > maxSpeed)
+            if(newVelocityXZ.magnitude > maxSpeed)
             {
-                var velocityVecNorm = Vector3.Normalize(velocity);
+                var velocityVecNorm = Vector3.Normalize(newVelocityXZ);
                 rigid.velocity = new Vector3(0.0f, rigid.velocity.y, 0.0f) + velocityVecNorm * maxSpeed;
             }
         }
@@ -131,6 +141,13 @@ public class Steering : MonoBehaviour {
 
 
     }
+
+#if UNITY_EDITOR
+    void DoDebugDraw()
+    {
+        Debug.DrawLine(transform.position, targetPoint, Color.blue);
+    }
+#endif
     Vector3 GuideTarget()
     {
         Vector3 dir = targetPoint - transform.position;

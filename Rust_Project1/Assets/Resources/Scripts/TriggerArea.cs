@@ -21,7 +21,7 @@ public class TriggerArea : MonoBehaviour
     {
         OFF = 0,
         ON = 1,
-        Trigger_OFF = 2, // if less than this we changed based on trigger Area
+        Trigger_DONE = 2, // if less than this we changed based on trigger Area
         OVERRIDE_OFF = 2,
         OVERRIDE_ON = 3,
     }
@@ -76,12 +76,10 @@ public class TriggerArea : MonoBehaviour
     void OnTriggerEnter(Collider col)
     {
         var character = col.GetComponent<Character>();
-        if (character != null &&
-           (SpecifyPerson == DialogManager.OratorNames.None)  ||
-           (character.details.person == SpecifyPerson))
+        if (CharacterIsAuthorized(character))
         {
             ++TriggerCounter;
-            if(TriggerCounter > 0 && ActiveState < State.Trigger_OFF)
+            if(TriggerCounter == 1 && ActiveState < State.Trigger_DONE)
             {
                 // if single time, we set to override
                 if (single) {
@@ -106,12 +104,13 @@ public class TriggerArea : MonoBehaviour
     void OnTriggerExit(Collider col)
     {
         var character = col.GetComponent<Character>();
-        if (character != null &&
-           (SpecifyPerson == DialogManager.OratorNames.None) /* || @TODO Add non specific character requirement*/)
+        if (CharacterIsAuthorized(character))
         {
             --TriggerCounter;
-            if (TriggerCounter <= 0 && ActiveState < State.Trigger_OFF)
+            if (TriggerCounter <= 0 && ActiveState < State.Trigger_DONE)
             {
+                Debug.Assert(TriggerCounter == 0);
+
                 ActiveState = State.OFF;
                 PlayClip(TriggerOffSound);
                 UpdateActiveObjects();
@@ -122,6 +121,17 @@ public class TriggerArea : MonoBehaviour
                 box.SendToLocal(cdo);
             }
         }
+    }
+
+    bool CharacterIsAuthorized(Character character)
+    {
+        if(character != null)
+        {
+            if(SpecifyPerson == DialogManager.OratorNames.None ||
+               SpecifyPerson == character.details.person)
+                return true;
+        }
+        return false;
     }
 
     void PlayClip(AudioClip clip)

@@ -72,16 +72,19 @@ public class Sierra : FFComponent {
 
         if(fHasVisionOfPlayer && playerController.state == PlayerController.State.Ghost) // Does Sierra see us and run away?
         {
-            var vecToPlayer = PlayerCharacter.position - transform.position;
-            var normVecAwayFromPlayer = Vector3.Normalize(-vecToPlayer);
+            commandState = CommandState.Terrified;
 
+            var vecToPlayer = PlayerCharacter.position - transform.position;
+            
+            var normVecAwayFromPlayer = Vector3.Normalize(-vecToPlayer);
+            
             var fleeTopDownMark = transform.position +
                 (Vector3.up * 100.0f) +
                 new Vector3(normVecAwayFromPlayer.x, 0.0f, normVecAwayFromPlayer.z) * FleeDistance;
 
             string[] maskNames = { "Default" };
             RaycastHit groundRay;
-            if(Physics.Raycast(fleeTopDownMark, Vector3.down, out groundRay, LayerMask.GetMask(maskNames))) // use raycast down
+            if(Physics.Raycast(fleeTopDownMark, Vector3.down, out groundRay, 200.0f, LayerMask.GetMask(maskNames))) // use raycast down
             {
                 // Steer to the gound point + 0.5 in the y direction
                 steering.SetupTarget(groundRay.transform, groundRay.point + (Vector3.up * verticalSteerOffset));
@@ -90,6 +93,12 @@ public class Sierra : FFComponent {
             {
                 steering.SetupTarget(null, transform.position +
                     new Vector3(normVecAwayFromPlayer.x, 0, normVecAwayFromPlayer.z) * FleeDistance);
+
+                // DEBUG
+                transform.GetOrAddComponent<FFDebugDrawLine>().Start = transform.position;
+                transform.GetOrAddComponent<FFDebugDrawLine>().End = transform.position + new Vector3(normVecAwayFromPlayer.x, 0, normVecAwayFromPlayer.z) * FleeDistance;
+                transform.GetOrAddComponent<FFDebugDrawLine>().DrawColor = Color.yellow;
+
             }
 
             // Flee dialog
@@ -103,7 +112,7 @@ public class Sierra : FFComponent {
             return;
         }
 
-
+        Debug.Log("Sierra Sees Commands");
         // Sierra isn't terrified. Listen to commands
         switch (commandState)
         {
@@ -236,9 +245,16 @@ public class Sierra : FFComponent {
     private void OnFollowCommand(FollowCommand e)
     {
         var steering = GetComponent<Steering>();
+        var playerController = PlayerCharacter.GetComponent<PlayerController>();
         commandState = CommandState.Follow;
 
         RaycastHit hit;
+        if(playerController.state == PlayerController.State.Ghost)
+        {
+            // Hears a ghost, no the pig!
+            // @TODO Add dialogue here
+            return;
+        }
     
         if(HasVisionOfPlayer(out hit))
         {
@@ -248,8 +264,6 @@ public class Sierra : FFComponent {
         else // Failed to see vision, Event!!
         {
             visionState = VisionState.Searching;
-
-
             SendLimitedDialogOn(CustomEventOn.LOSCantFindPig);
         }
     }
@@ -258,9 +272,17 @@ public class Sierra : FFComponent {
     private void OnStayCommand(StayCommand e)
     {
         var steering = GetComponent<Steering>();
+        var playerController = PlayerCharacter.GetComponent<PlayerController>();
         RaycastHit hit;
 
         commandState = CommandState.Stay;
+
+        if (playerController.state == PlayerController.State.Ghost)
+        {
+            // Hears a ghost, no the pig!
+            // @TODO Add dialogue here
+            return;
+        }
 
         if (HasVisionOfPlayer(out hit))
         {

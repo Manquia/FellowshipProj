@@ -545,8 +545,8 @@ public class FFPath : MonoBehaviour
     /// </summary>
     public float LengthAlongPathToPoint(int pointIndex)
     {
-        var currentPoint = pointIndex % PointCount;
-        var numberOfLoops = pointIndex / PointCount;
+        var currentPoint = pointIndex % points.Length;
+        var numberOfLoops = pointIndex / points.Length;
         return numberOfLoops * PathLength + linearDistanceAlongPath[currentPoint];
     }
 

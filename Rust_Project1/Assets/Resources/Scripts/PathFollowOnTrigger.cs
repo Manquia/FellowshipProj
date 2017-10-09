@@ -53,6 +53,8 @@ public class PathFollowOnTrigger : FFComponent {
             transform.position = PathToFollow.PointAlongPath(lengthToNextPoint); // goto point
             distAlongPath = lengthToNextPoint;
 
+            //Debug.Log("LengthToNextPoint (finished): " + lengthToNextPoint);
+
             WaitForInput(); // waitForInput
             return;
         }
