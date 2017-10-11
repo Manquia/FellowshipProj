@@ -158,8 +158,8 @@ public class Steering : MonoBehaviour {
     Vector3 GuideFeelers()
     {
         Vector3 forward = transform.forward;
-        Vector3 right = transform.right;
-        Vector3 left = -transform.right;
+        Vector3 right = Vector3.Normalize(transform.right + 0.1f * forward);
+        Vector3 left =  Vector3.Normalize(-transform.right + 0.1f * forward);
         Vector3 up = transform.up;
 
         float goLeft  = 0.0f;
@@ -199,9 +199,6 @@ public class Steering : MonoBehaviour {
     float WiskerRay(Ray ray)
     {
         RaycastHit hit;
-
-        Physics.Raycast(ray, out hit, WiskerLength);
-
         if(debugDraw)
         {
             Debug.DrawLine(ray.origin, ray.origin + ray.direction * WiskerLength);

@@ -245,6 +245,21 @@ ModelImporter:
     100474: BoxLight
     100476: LightPost
     100478: LightPost1
+    100480: Barrel23
+    100482: Barrel24
+    100484: Barrel25
+    100486: Barrel26
+    100488: Barrel27
+    100490: Barrel28
+    100492: Barrel29
+    100494: Barrel30
+    100496: Barrel31
+    100498: Floor46
+    100500: Floor47
+    100502: Wall76
+    100504: Wall77
+    100506: Wall78
+    100508: Wall79
     400000: BookShelve
     400002: BookShelve1
     400004: BookShelve2
@@ -485,6 +500,21 @@ ModelImporter:
     400474: BoxLight
     400476: LightPost
     400478: LightPost1
+    400480: Barrel23
+    400482: Barrel24
+    400484: Barrel25
+    400486: Barrel26
+    400488: Barrel27
+    400490: Barrel28
+    400492: Barrel29
+    400494: Barrel30
+    400496: Barrel31
+    400498: Floor46
+    400500: Floor47
+    400502: Wall76
+    400504: Wall77
+    400506: Wall78
+    400508: Wall79
     2300000: BookShelve
     2300002: BookShelve1
     2300004: BookShelve2
@@ -722,6 +752,21 @@ ModelImporter:
     2300468: BoxLight
     2300470: LightPost
     2300472: LightPost1
+    2300474: Barrel23
+    2300476: Barrel24
+    2300478: Barrel25
+    2300480: Barrel26
+    2300482: Barrel27
+    2300484: Barrel28
+    2300486: Barrel29
+    2300488: Barrel30
+    2300490: Barrel31
+    2300492: Floor46
+    2300494: Floor47
+    2300496: Wall76
+    2300498: Wall77
+    2300500: Wall78
+    2300502: Wall79
     3300000: BookShelve
     3300002: BookShelve1
     3300004: BookShelve2
@@ -959,6 +1004,21 @@ ModelImporter:
     3300468: BoxLight
     3300470: LightPost
     3300472: LightPost1
+    3300474: Barrel23
+    3300476: Barrel24
+    3300478: Barrel25
+    3300480: Barrel26
+    3300482: Barrel27
+    3300484: Barrel28
+    3300486: Barrel29
+    3300488: Barrel30
+    3300490: Barrel31
+    3300492: Floor46
+    3300494: Floor47
+    3300496: Wall76
+    3300498: Wall77
+    3300500: Wall78
+    3300502: Wall79
     4300000: RectTable1
     4300002: CirTable1
     4300004: RectTable2
@@ -1195,6 +1255,21 @@ ModelImporter:
     4300466: LightPost1
     4300468: LightPost
     4300470: BoxLight
+    4300472: Barrel23
+    4300474: Barrel24
+    4300476: Barrel25
+    4300478: Barrel26
+    4300480: Barrel27
+    4300482: Barrel28
+    4300484: Barrel29
+    4300486: Barrel30
+    4300488: Barrel31
+    4300490: Floor46
+    4300492: Floor47
+    4300494: Wall76
+    4300496: Wall77
+    4300498: Wall78
+    4300500: Wall79
     6400000: BookShelve
     6400002: BookShelve1
     6400004: BookShelve2
@@ -1432,6 +1507,21 @@ ModelImporter:
     6400468: BoxLight
     6400470: LightPost
     6400472: LightPost1
+    6400474: Barrel23
+    6400476: Barrel24
+    6400478: Barrel25
+    6400480: Barrel26
+    6400482: Barrel27
+    6400484: Barrel28
+    6400486: Barrel29
+    6400488: Barrel30
+    6400490: Barrel31
+    6400492: Floor46
+    6400494: Floor47
+    6400496: Wall76
+    6400498: Wall77
+    6400500: Wall78
+    6400502: Wall79
     9500000: //RootNode
   materials:
     importMaterials: 1

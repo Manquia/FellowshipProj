@@ -118,7 +118,7 @@ public class Sierra : FFComponent {
             return;
         }
 
-        Debug.Log("Sierra Sees Commands");
+        //Debug.Log("Sierra Sees Commands");
         // Sierra isn't terrified. Listen to commands
         switch (commandState)
         {
@@ -169,10 +169,10 @@ public class Sierra : FFComponent {
                 }
                 break;
             case CommandState.Terrified:
-
-
+                
                 // We cannot do not see the player as a ghost
                 commandState = CommandState.Idle;
+                steering.SetupTarget(null, transform.position);
                 break;
         }
         

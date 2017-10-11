@@ -14,6 +14,7 @@ public class ActionEventListener : MonoBehaviour
     {
         Single,
         SinglePerPress,
+        Repeats,
     }
     public Type type = Type.Single;
     public Trinary OverrideTriggers = Trinary.True;
@@ -91,6 +92,15 @@ public class ActionEventListener : MonoBehaviour
         UpdateEventListener();
     }
 
+    void FixedUpdate()
+    {
+        // repeating types will be able to sent trigger many times once the action is completed
+        if (type == Type.Repeats)
+        {
+            Debug.Log("Repeats ActionEventListener");
+            UpdateEventListener();
+        }
+    }
 
     // Update is called once per frame
     void UpdateEventListener ()
@@ -126,10 +136,6 @@ public class ActionEventListener : MonoBehaviour
                     status[i] = -status[i];
                 }
             }
-        }
-        else
-        {
-
         }
     }
 

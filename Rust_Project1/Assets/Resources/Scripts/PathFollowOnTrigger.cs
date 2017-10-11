@@ -11,6 +11,7 @@ public class PathFollowOnTrigger : FFComponent {
     public float movementSpeed;
     public int currentPointNumber = 0;
     public FFPath PathToFollow;
+    public bool isCircuit = true;
 
     // Use this for initialization
     void Start()
@@ -38,6 +39,12 @@ public class PathFollowOnTrigger : FFComponent {
     }
     private void OnTriggerObject(TriggerObject e)
     {
+        // Not doing circuit, reached end, don't do anything
+        if (!isCircuit && currentPointNumber == PathToFollow.points.Length - 1)
+        {
+            return;
+        }
+        
         ++currentPointNumber;
         MoveForward();
     }
