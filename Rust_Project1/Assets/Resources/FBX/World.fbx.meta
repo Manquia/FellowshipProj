@@ -260,6 +260,19 @@ ModelImporter:
     100504: Wall77
     100506: Wall78
     100508: Wall79
+    100510: Barrel32
+    100512: Barrel33
+    100514: Barrel34
+    100516: Barrel35
+    100518: Barrel36
+    100520: Barrel37
+    100522: Rock43
+    100524: Rock44
+    100526: Rock45
+    100528: Rock46
+    100530: Rock47
+    100532: Rock48
+    100534: Shelve3
     400000: BookShelve
     400002: BookShelve1
     400004: BookShelve2
@@ -515,6 +528,19 @@ ModelImporter:
     400504: Wall77
     400506: Wall78
     400508: Wall79
+    400510: Barrel32
+    400512: Barrel33
+    400514: Barrel34
+    400516: Barrel35
+    400518: Barrel36
+    400520: Barrel37
+    400522: Rock43
+    400524: Rock44
+    400526: Rock45
+    400528: Rock46
+    400530: Rock47
+    400532: Rock48
+    400534: Shelve3
     2300000: BookShelve
     2300002: BookShelve1
     2300004: BookShelve2
@@ -767,6 +793,19 @@ ModelImporter:
     2300498: Wall77
     2300500: Wall78
     2300502: Wall79
+    2300504: Barrel32
+    2300506: Barrel33
+    2300508: Barrel34
+    2300510: Barrel35
+    2300512: Barrel36
+    2300514: Barrel37
+    2300516: Rock43
+    2300518: Rock44
+    2300520: Rock45
+    2300522: Rock46
+    2300524: Rock47
+    2300526: Rock48
+    2300528: Shelve3
     3300000: BookShelve
     3300002: BookShelve1
     3300004: BookShelve2
@@ -1019,6 +1058,19 @@ ModelImporter:
     3300498: Wall77
     3300500: Wall78
     3300502: Wall79
+    3300504: Barrel32
+    3300506: Barrel33
+    3300508: Barrel34
+    3300510: Barrel35
+    3300512: Barrel36
+    3300514: Barrel37
+    3300516: Rock43
+    3300518: Rock44
+    3300520: Rock45
+    3300522: Rock46
+    3300524: Rock47
+    3300526: Rock48
+    3300528: Shelve3
     4300000: RectTable1
     4300002: CirTable1
     4300004: RectTable2
@@ -1270,6 +1322,19 @@ ModelImporter:
     4300496: Wall77
     4300498: Wall78
     4300500: Wall79
+    4300502: Shelve3
+    4300504: Rock43
+    4300506: Rock44
+    4300508: Rock45
+    4300510: Rock46
+    4300512: Rock47
+    4300514: Rock48
+    4300516: Barrel32
+    4300518: Barrel33
+    4300520: Barrel34
+    4300522: Barrel35
+    4300524: Barrel36
+    4300526: Barrel37
     6400000: BookShelve
     6400002: BookShelve1
     6400004: BookShelve2
@@ -1522,6 +1587,19 @@ ModelImporter:
     6400498: Wall77
     6400500: Wall78
     6400502: Wall79
+    6400504: Barrel32
+    6400506: Barrel33
+    6400508: Barrel34
+    6400510: Barrel35
+    6400512: Barrel36
+    6400514: Barrel37
+    6400516: Rock43
+    6400518: Rock44
+    6400520: Rock45
+    6400522: Rock46
+    6400524: Rock47
+    6400526: Rock48
+    6400528: Shelve3
     9500000: //RootNode
   materials:
     importMaterials: 1
