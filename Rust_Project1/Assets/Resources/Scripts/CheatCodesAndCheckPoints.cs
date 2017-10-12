@@ -30,7 +30,6 @@ public class CheatCodesAndCheckPoints : MonoBehaviour {
             if (Input.GetKeyDown(KeyCode.Alpha5)) JumpToCheckPoint(4);
             if (Input.GetKeyDown(KeyCode.Alpha6)) JumpToCheckPoint(5);
             if (Input.GetKeyDown(KeyCode.Alpha7)) JumpToCheckPoint(6);
-            if (Input.GetKeyDown(KeyCode.Alpha8)) JumpToCheckPoint(7);
         }
 
         // Load Splash Screen

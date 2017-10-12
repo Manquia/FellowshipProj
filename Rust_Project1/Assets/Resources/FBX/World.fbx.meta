@@ -273,6 +273,30 @@ ModelImporter:
     100530: Rock47
     100532: Rock48
     100534: Shelve3
+    100536: back
+    100538: group1
+    100540: pCube4
+    100542: Barrel38
+    100544: Barrel39
+    100546: Barrel40
+    100548: Barrel41
+    100550: Barrel42
+    100552: Barrel43
+    100554: Barrel44
+    100556: Barrel45
+    100558: Barrel46
+    100560: Barrel47
+    100562: Barrel48
+    100564: Barrel49
+    100566: Barrel50
+    100568: Barrel51
+    100570: Barrel52
+    100572: pCube5
+    100574: pCube6
+    100576: Rock49
+    100578: Rock50
+    100580: Rock51
+    100582: Rock52
     400000: BookShelve
     400002: BookShelve1
     400004: BookShelve2
@@ -541,6 +565,31 @@ ModelImporter:
     400530: Rock47
     400532: Rock48
     400534: Shelve3
+    400536: back
+    400538: group1
+    400540: pCube4
+    400542: Barrel38
+    400544: Barrel39
+    400546: Barrel40
+    400548: Barrel41
+    400550: Barrel42
+    400552: Barrel43
+    400554: Barrel44
+    400556: Barrel45
+    400558: Barrel46
+    400560: Barrel47
+    400562: Barrel48
+    400564: Barrel49
+    400566: Barrel50
+    400568: Barrel51
+    400570: Barrel52
+    400572: pCube5
+    400574: pCube6
+    400576: Rock49
+    400578: Rock50
+    400580: Rock51
+    400582: Rock52
+    2000000: back
     2300000: BookShelve
     2300002: BookShelve1
     2300004: BookShelve2
@@ -806,6 +855,28 @@ ModelImporter:
     2300524: Rock47
     2300526: Rock48
     2300528: Shelve3
+    2300530: pCube4
+    2300532: Barrel38
+    2300534: Barrel39
+    2300536: Barrel40
+    2300538: Barrel41
+    2300540: Barrel42
+    2300542: Barrel43
+    2300544: Barrel44
+    2300546: Barrel45
+    2300548: Barrel46
+    2300550: Barrel47
+    2300552: Barrel48
+    2300554: Barrel49
+    2300556: Barrel50
+    2300558: Barrel51
+    2300560: Barrel52
+    2300562: pCube5
+    2300564: pCube6
+    2300566: Rock49
+    2300568: Rock50
+    2300570: Rock51
+    2300572: Rock52
     3300000: BookShelve
     3300002: BookShelve1
     3300004: BookShelve2
@@ -1071,6 +1142,28 @@ ModelImporter:
     3300524: Rock47
     3300526: Rock48
     3300528: Shelve3
+    3300530: pCube4
+    3300532: Barrel38
+    3300534: Barrel39
+    3300536: Barrel40
+    3300538: Barrel41
+    3300540: Barrel42
+    3300542: Barrel43
+    3300544: Barrel44
+    3300546: Barrel45
+    3300548: Barrel46
+    3300550: Barrel47
+    3300552: Barrel48
+    3300554: Barrel49
+    3300556: Barrel50
+    3300558: Barrel51
+    3300560: Barrel52
+    3300562: pCube5
+    3300564: pCube6
+    3300566: Rock49
+    3300568: Rock50
+    3300570: Rock51
+    3300572: Rock52
     4300000: RectTable1
     4300002: CirTable1
     4300004: RectTable2
@@ -1335,6 +1428,28 @@ ModelImporter:
     4300522: Barrel35
     4300524: Barrel36
     4300526: Barrel37
+    4300528: pCube4
+    4300530: pCube5
+    4300532: pCube6
+    4300534: Rock49
+    4300536: Rock50
+    4300538: Rock51
+    4300540: Rock52
+    4300542: Barrel38
+    4300544: Barrel39
+    4300546: Barrel40
+    4300548: Barrel41
+    4300550: Barrel42
+    4300552: Barrel43
+    4300554: Barrel44
+    4300556: Barrel45
+    4300558: Barrel46
+    4300560: Barrel47
+    4300562: Barrel48
+    4300564: Barrel49
+    4300566: Barrel50
+    4300568: Barrel51
+    4300570: Barrel52
     6400000: BookShelve
     6400002: BookShelve1
     6400004: BookShelve2
@@ -1600,6 +1715,28 @@ ModelImporter:
     6400524: Rock47
     6400526: Rock48
     6400528: Shelve3
+    6400530: pCube4
+    6400532: Barrel38
+    6400534: Barrel39
+    6400536: Barrel40
+    6400538: Barrel41
+    6400540: Barrel42
+    6400542: Barrel43
+    6400544: Barrel44
+    6400546: Barrel45
+    6400548: Barrel46
+    6400550: Barrel47
+    6400552: Barrel48
+    6400554: Barrel49
+    6400556: Barrel50
+    6400558: Barrel51
+    6400560: Barrel52
+    6400562: pCube5
+    6400564: pCube6
+    6400566: Rock49
+    6400568: Rock50
+    6400570: Rock51
+    6400572: Rock52
     9500000: //RootNode
   materials:
     importMaterials: 1
