@@ -9,7 +9,6 @@ public class Steering : MonoBehaviour {
     public float maxSpeed = 10.0f;
     public float acceleration = 50.0f;
     public float targetRadius = 0.25f;
-    public float slowingRadius = 2.5f;
 
     public bool debugDraw = true;
 
@@ -84,8 +83,9 @@ public class Steering : MonoBehaviour {
         }
         
 
-        // @Cleanup. we may want to use force for this. but maybe not!
-        var forceApplied = Mathf.Min(acceleration, (distToTargetXZ / slowingRadius) * acceleration);
+        // @Cleanup. we may want to use slowingRadius at all for this. but maybe not!
+        //var forceApplied = Mathf.Min(acceleration, (distToTargetXZ / slowingRadius) * acceleration);
+        var forceApplied = acceleration;
         var forceVec = Vector3.zero;
 
         // Query Feelers
@@ -157,7 +157,17 @@ public class Steering : MonoBehaviour {
     }
     Vector3 GuideFeelers()
     {
-        Vector3 forward = transform.forward;
+        //var rigid = GetComponent<Rigidbody>();
+        //Vector3 forward = Vector3.Normalize(rigid.velocity);
+
+        //if (forward == Vector3.zero)
+        //    forward = transform.forward;
+
+        var forward = transform.forward;
+        //Vector3 right = Vector3.Cross(forward, Vector3.up) + 0.1f * forward;
+        //Vector3 left = -Vector3.Cross(forward, Vector3.up) + 0.1f * forward;
+
+
         Vector3 right = Vector3.Normalize(transform.right + 0.1f * forward);
         Vector3 left =  Vector3.Normalize(-transform.right + 0.1f * forward);
         Vector3 up = transform.up;
@@ -167,8 +177,8 @@ public class Steering : MonoBehaviour {
 
         var ray = new Ray(transform.position, Vector3.zero);
 
-        var rot15Left  = Quaternion.AngleAxis(-10.0f, up);
-        var rot15Right = Quaternion.AngleAxis(10.0f, up);
+        var rot15Left  = Quaternion.AngleAxis(-15.0f, up);
+        var rot15Right = Quaternion.AngleAxis(15.0f, up);
 
         ray.direction = Vector3.Normalize(forward);
         ray.direction = Quaternion.AngleAxis(5.5f, up) * ray.direction;

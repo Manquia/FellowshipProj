@@ -132,9 +132,10 @@ public class PlayerController : FFComponent
     void Update ()
     {
         {// Player Input
+            var steering = GetComponent<Steering>();
             var mousePos = Input.mousePosition;
             var mousePress = Input.GetMouseButtonDown(0);
-            var ray = playerCamera.ScreenPointToRay(mousePos);
+            Ray ray = playerCamera.ScreenPointToRay(mousePos);
             RaycastHit rayHit;
             string[] layerNames = { "Default" };
             int raycastMask = LayerMask.GetMask(layerNames); // default, TODO Add floor
@@ -150,14 +151,13 @@ public class PlayerController : FFComponent
                     int random1_3 = UnityEngine.Random.Range(1, 3);
                     PlayClipLimited(FFResource.Load_AudioClip("SFX/PigNoise/PigMove" + random1_3));
                 }
-
-                var steering = GetComponent<Steering>();
+                
                 var targetPoint = rayHit.point + new Vector3(0, verticalSteerOffset, 0.0f); // offset 0.5 up
                 steering.SetupTarget(rayHit.transform, targetPoint);
             }
 
             // Toggle Manifestation
-            if(Input.GetKeyDown(KeyCode.T))
+            if(Input.GetKeyDown(KeyCode.R))
             {
                 if (state == State.Pig)
                 {
@@ -174,7 +174,7 @@ public class PlayerController : FFComponent
             // Commands
             {
                 // Stay
-                if (Input.GetKeyDown(KeyCode.S))
+                if (Input.GetKeyDown(KeyCode.E))
                 {
                     // randomly choose between 1-3 for the pig noise to use
                     if (state == State.Pig)
@@ -188,7 +188,7 @@ public class PlayerController : FFComponent
                 }
 
                 // Follow
-                if (Input.GetKeyDown(KeyCode.F))
+                if (Input.GetKeyDown(KeyCode.Q))
                 {
                     // randomly choose between 1-3 for the pig noise to use
                     if (state == State.Pig)
@@ -202,10 +202,62 @@ public class PlayerController : FFComponent
                     FFMessage<FollowCommand>.SendToLocal(fc);
                 }
             }
-        }
+
+
+            { // WASH movement
+                Vector3 movementVector = Vector3.zero;
+
+                if(Input.GetKey(KeyCode.W)) // Go Up
+                {
+                    movementVector += new Vector3(-1,0,0);
+                }
+
+                if (Input.GetKey(KeyCode.S)) // Go Down
+                {
+                    movementVector += new Vector3(1, 0, 0);
+                }
+
+                if (Input.GetKey(KeyCode.A)) // Go Left
+                {
+                    movementVector += new Vector3(0, 0, -1);
+                }
+
+                if (Input.GetKey(KeyCode.D)) // Go Right
+                {
+                    movementVector += new Vector3(0, 0, 1);
+                }
+
+                // Any movement?
+                if(movementVector != Vector3.zero)
+                {
+                    var normMovementVec = Vector3.Normalize(movementVector);
+                    var rayLocation = transform.position + (normMovementVec * (steering.targetRadius * 1.25f));
+                    
+                    RaycastHit movementHit;
+                    Ray movementRay = new Ray(rayLocation + (Vector3.up * 50.0f), Vector3.down * 100.0f);
+
+                    var rayHitStuff = Physics.Raycast(movementRay, out movementHit, 100.0f, raycastMask);
+
+                    if(raycastHitSomething)
+                    {
+                        steering.SetupTarget(movementHit.transform, movementHit.point);
+                    }
+                    else
+                    {
+                        steering.SetupTarget(null, rayLocation);
+                    }
+
+                    ArrowMovementVector = movementVector;
+                }
+
+
+            }
+
+        } // END Player Input
 
 
 	}
+    Vector3 ArrowMovementVector = Vector3.zero;
     
 
     float limitPlayClipTime = 1.7f;

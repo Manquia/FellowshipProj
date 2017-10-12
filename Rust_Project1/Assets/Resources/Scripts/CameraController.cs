@@ -45,6 +45,8 @@ public class CameraController : FFComponent {
     Camera cameraComp;
     Transform cameraTrans;
 
+    public Transform playerTrans;
+    public Vector2 cameraPanOffset;
 
 	// Use this for initialization
 	void Start ()
@@ -200,56 +202,38 @@ public class CameraController : FFComponent {
         // have some movement
         if(moveVector != Vector3.zero)
         {
-            var vecForward = cameraTrans.TransformVector(Vector3.forward);
-            var vecRight2D = Vector3.Cross(vecForward, Vector3.down);
-            var vecUp2D = Vector3.Cross(Vector3.down, vecRight2D);
+            var vecForward = cameraTrans.forward;
+            var vecRight2D = cameraTrans.right;
+            var vecUp2D = cameraTrans.up;
 
             //Debug.DrawLine(cameraTrans.position, cameraTrans.position + vecRight2D, Color.red); // Debug
             //Debug.DrawLine(cameraTrans.position, cameraTrans.position + vecUp2D, Color.green);  // Debug
 
             // Apply horizontal movement
             cameraTrans.position = new Vector3(
-                cameraTrans.position.x + (moveVector.x * vecRight2D.x) * panSpeed * Time.fixedDeltaTime,
+                cameraTrans.position.x + (moveVector.z * vecRight2D.x) * panSpeed * Time.fixedDeltaTime,
                 cameraTrans.position.y,
-                cameraTrans.position.z + (moveVector.x * vecRight2D.z) * panSpeed * Time.fixedDeltaTime);
+                cameraTrans.position.z + (moveVector.z * vecRight2D.z) * panSpeed * Time.fixedDeltaTime);
 
             // Apply Vertical movement
             cameraTrans.position = new Vector3(
-                cameraTrans.position.x + (moveVector.z * vecUp2D.x) * panSpeed * Time.fixedDeltaTime,
+                cameraTrans.position.x + (moveVector.x * vecUp2D.x) * panSpeed * Time.fixedDeltaTime,
                 cameraTrans.position.y,
-                cameraTrans.position.z + (moveVector.z * vecUp2D.z) * panSpeed * Time.fixedDeltaTime);
+                cameraTrans.position.z + (moveVector.x * vecUp2D.z) * panSpeed * Time.fixedDeltaTime);
         }
     }
+    public Vector3 moveVec;
+
     Vector3 MoveVector()
     {
         Vector3 moveVector = Vector3.zero;
         { // Get move vector
-
-            // Move up
-            if (Input.GetKey(KeyCode.UpArrow))
-            {
-                moveVector += new Vector3(0, 0, 1);
-            }
-
-            // Move down
-            if(Input.GetKey(KeyCode.DownArrow))
-            {
-                moveVector += new Vector3(0, 0, -1);
-            }
-
-            // Move left
-            if(Input.GetKey(KeyCode.LeftArrow))
-            {
-                moveVector += new Vector3(-1, 0, 0);
-            }
-
-            // Move right
-            if(Input.GetKey(KeyCode.RightArrow))
-            {
-                moveVector += new Vector3(1, 0, 0);
-            }
+            var cameraOffset = new Vector3(cameraPanOffset.y, 0.0f, cameraPanOffset.x);
+            var vecToPlayer = playerTrans.position - (cameraTrans.position + cameraOffset);
+            var vecToPlayerXZ = new Vector3(-vecToPlayer.x, 0.0f, vecToPlayer.z);
+            moveVec = vecToPlayerXZ;
         }
-        return moveVector;
+        return moveVec;
     }
 
     public float ZoomSpeed = 1.5f;
