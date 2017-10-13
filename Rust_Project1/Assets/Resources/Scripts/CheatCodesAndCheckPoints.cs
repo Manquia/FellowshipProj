@@ -1,7 +1,18 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+
+struct SetCheckpoint
+{
+    public int index;
+}
+
+struct ResetPlayerToLastCheckpoint
+{
+}
+
 
 public class CheatCodesAndCheckPoints : MonoBehaviour {
 
@@ -12,34 +23,66 @@ public class CheatCodesAndCheckPoints : MonoBehaviour {
 
     FFPath checkPointPath;
 
+    int currentCheckpoint = 0;
+
 	// Use this for initialization
 	void Start ()
     {
+        currentCheckpoint = 0;
         checkPointPath = GetComponent<FFPath>();
+
+        FFMessage<SetCheckpoint>.Connect(OnSetCheckpoint);
+        FFMessage<ResetPlayerToLastCheckpoint>.Connect(OnResetPlayerToLastCheckpoint);
     }
+
+    void OnDestroy()
+    {
+        FFMessage<SetCheckpoint>.Disconnect(OnSetCheckpoint);
+        FFMessage<ResetPlayerToLastCheckpoint>.Disconnect(OnResetPlayerToLastCheckpoint);
+    }
+
+
+    private void OnResetPlayerToLastCheckpoint(ResetPlayerToLastCheckpoint e)
+    {
+        // @TODO. Show visuals that you have died/reset back to checkpoint?
+        JumpToCheckPoint(currentCheckpoint);
+    }
+
+    private void OnSetCheckpoint(SetCheckpoint e)
+    {
+        // @TODO. Show visuals that checkpoint was reached maybe?
+        currentCheckpoint = e.index;
+    }
+    
 	
 	// Update is called once per frame
 	void Update ()
     {
-        if(checkPointPath != null)
+        // Cheat Codes be here!
         {
-            if (Input.GetKeyDown(KeyCode.Alpha1)) JumpToCheckPoint(0);
-            if (Input.GetKeyDown(KeyCode.Alpha2)) JumpToCheckPoint(1);
-            if (Input.GetKeyDown(KeyCode.Alpha3)) JumpToCheckPoint(2);
-            if (Input.GetKeyDown(KeyCode.Alpha4)) JumpToCheckPoint(3);
-            if (Input.GetKeyDown(KeyCode.Alpha5)) JumpToCheckPoint(4);
-            if (Input.GetKeyDown(KeyCode.Alpha6)) JumpToCheckPoint(5);
-            if (Input.GetKeyDown(KeyCode.Alpha7)) JumpToCheckPoint(6);
-        }
+            if(checkPointPath != null)
+            {
+                if (Input.GetKeyDown(KeyCode.Alpha1)) JumpToCheckPoint(0);
+                if (Input.GetKeyDown(KeyCode.Alpha2)) JumpToCheckPoint(1);
+                if (Input.GetKeyDown(KeyCode.Alpha3)) JumpToCheckPoint(2);
+                if (Input.GetKeyDown(KeyCode.Alpha4)) JumpToCheckPoint(3);
+                if (Input.GetKeyDown(KeyCode.Alpha5)) JumpToCheckPoint(4);
+                if (Input.GetKeyDown(KeyCode.Alpha6)) JumpToCheckPoint(5);
+                if (Input.GetKeyDown(KeyCode.Alpha7)) JumpToCheckPoint(6);
+            }
 
-        // Load Splash Screen
-        if (Input.GetKeyDown(KeyCode.Alpha9)) SceneManager.LoadScene("SplashScreen");
-        if (Input.GetKeyDown(KeyCode.Alpha0)) SceneManager.LoadScene("World");
+            // Load Splash Screen
+            if (Input.GetKeyDown(KeyCode.Alpha9)) SceneManager.LoadScene("SplashScreen");
+            if (Input.GetKeyDown(KeyCode.Alpha0)) SceneManager.LoadScene("World");
+        }
     }
 
 
+    // Sets the Current checkpoint to this value
     void JumpToCheckPoint(int index)
     {
+        currentCheckpoint = index;
+
         Debug.Assert(index < checkPointPath.points.Length);
 
         var characterPlacement = checkPointPath.transform.TransformPoint(checkPointPath.points[index]);

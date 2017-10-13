@@ -34,6 +34,8 @@ public class Sierra : FFComponent {
 
         FFMessage<StayCommand>.Connect(OnStayCommand);
         FFMessage<FollowCommand>.Connect(OnFollowCommand);
+        FFMessageBoard<FallingIntoPit>.Connect(OnFallingIntoPit, gameObject);
+        FFMessageBoard<OnSolidGround>.Connect(OnOnSolidGround, gameObject);
 
         Debug.Assert(PlayerCharacter != null, "Sierra doesn't have a valid PlayerCharacter reference");
 
@@ -48,6 +50,28 @@ public class Sierra : FFComponent {
     {
         FFMessage<StayCommand>.Disconnect(OnStayCommand);
         FFMessage<FollowCommand>.Disconnect(OnFollowCommand);
+        FFMessageBoard<FallingIntoPit>.Disconnect(OnFallingIntoPit, gameObject);
+        FFMessageBoard<OnSolidGround>.Disconnect(OnOnSolidGround, gameObject);
+    }
+
+    float FallTimmer = 0;
+    float FallTimeTillReset = 1.5f;
+    private void OnOnSolidGround(OnSolidGround e)
+    {
+        FallTimmer = 0.0f;
+    }
+
+    private void OnFallingIntoPit(FallingIntoPit e)
+    {
+        //Debug.Log("FAlling into pit!");
+        FallTimmer += Time.fixedDeltaTime;
+
+        if (FallTimmer > FallTimeTillReset)
+        {
+            FallTimmer = 0.0f;
+            ResetPlayerToLastCheckpoint rptlc;
+            FFMessage<ResetPlayerToLastCheckpoint>.SendToLocal(rptlc);
+        }
     }
 
     public float LOSLostPlayerTime = 2.25f;

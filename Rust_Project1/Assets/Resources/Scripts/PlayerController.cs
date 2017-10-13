@@ -79,6 +79,8 @@ public class PlayerController : FFComponent
         
         FFMessage<ActivatePlayer>.Connect(OnActivatePlayer);
         FFMessage<DeactivatePlayer>.Connect(OnDeactivatePlayer);
+        FFMessageBoard<FallingIntoPit>.Connect(OnFallingIntoPit, gameObject);
+        FFMessageBoard<OnSolidGround>.Connect(OnOnSolidGround, gameObject);
 
         {// Setup colors for materials
             var pigMaterial = FFResource.Load_Material("Pig");
@@ -97,6 +99,29 @@ public class PlayerController : FFComponent
     {
         FFMessage<ActivatePlayer>.Disconnect(OnActivatePlayer);
         FFMessage<DeactivatePlayer>.Disconnect(OnDeactivatePlayer);
+        FFMessageBoard<FallingIntoPit>.Disconnect(OnFallingIntoPit, gameObject);
+        FFMessageBoard<OnSolidGround>.Disconnect(OnOnSolidGround, gameObject);
+    }
+
+
+    float FallTimmer = 0;
+    float FallTimeTillReset = 1.5f;
+    private void OnOnSolidGround(OnSolidGround e)
+    {
+        FallTimmer = 0.0f;
+    }
+
+    private void OnFallingIntoPit(FallingIntoPit e)
+    {
+        //Debug.Log("FAlling into pit!");
+        FallTimmer += Time.fixedDeltaTime;
+
+        if (FallTimmer > FallTimeTillReset)
+        {
+            FallTimmer = 0.0f;
+            ResetPlayerToLastCheckpoint rptlc;
+            FFMessage<ResetPlayerToLastCheckpoint>.SendToLocal(rptlc);
+        }
     }
 
     private void OnActivatePlayer(ActivatePlayer e)
@@ -131,6 +156,9 @@ public class PlayerController : FFComponent
     // Update is called once per frame
     void Update ()
     {
+        // @TODO Check for active!
+
+
         {// Player Input
             var steering = GetComponent<Steering>();
             var mousePos = Input.mousePosition;
@@ -140,9 +168,42 @@ public class PlayerController : FFComponent
             string[] layerNames = { "Default" };
             int raycastMask = LayerMask.GetMask(layerNames); // default, TODO Add floor
             var raycastHitSomething = Physics.Raycast(ray, out rayHit, 100.0f, raycastMask);
+
+            // Try and limit vertical movement when ghost so that we don't fly away!
+            if(state == State.Ghost)
+            {
+                var rigid = GetComponent<Rigidbody>();
+                var newYVelocity = Mathf.Lerp(rigid.velocity.y, 0.0f, 0.2f);
+
+                rigid.velocity = new Vector3(
+                    rigid.velocity.x,
+                    newYVelocity,
+                    rigid.velocity.z);
+
+                // if we have a floor below, gradtually move to it. Don't if its a pit!
+                {
+                    Ray downRay = new Ray(transform.position, Vector3.down);
+                    RaycastHit downRayHit;
+                    if (Physics.Raycast(downRay, out downRayHit, 100.0f, raycastMask))
+                    {
+                        if(downRayHit.transform.tag != "Pit")
+                        {
+                            // height of player is 2.0 * 0.35...
+                            // So we want to have thepoint of the ray be offset by 0.5 * height
+                            var vecToHit = (downRayHit.point + (Vector3.up * (0.5f * 2.0f * 0.35f))) - transform.position;
+
+                            //Debug.Log(vecToHit);
+                            if(vecToHit.magnitude > 0.1f) // to high/low
+                            {
+                                rigid.AddForce(10.0f * vecToHit * Time.fixedDeltaTime, ForceMode.VelocityChange);
+                            }
+                        }
+                    }
+                }
+            }
             
 
-            // Interact/Move
+            // Interact/Move (Mouse)
             if (mousePress && raycastHitSomething)
             {
                 // randomly choose between 1-3 for the pig noise to use
@@ -203,8 +264,8 @@ public class PlayerController : FFComponent
                 }
             }
 
-
-            { // WASH movement
+            // WASD movement
+            { // WASD movement
                 Vector3 movementVector = Vector3.zero;
 
                 if(Input.GetKey(KeyCode.W)) // Go Up
@@ -315,8 +376,8 @@ public class PlayerController : FFComponent
             rigid.useGravity = false;
 
             // Can move through walls
-            string ghostMask = "Ghost";
-            gameObject.layer = LayerMask.NameToLayer(ghostMask);
+            //string ghostMask = "Ghost";
+            //gameObject.layer = LayerMask.NameToLayer(ghostMask);
 
 
             // Color property for each model mesh to change its color.
@@ -335,8 +396,8 @@ public class PlayerController : FFComponent
             rigid.useGravity = true;
 
             // Cannot move thorugh walls
-            string physicalMask = "Physical";
-            gameObject.layer = LayerMask.NameToLayer(physicalMask);
+            //string physicalMask = "Physical";
+            //gameObject.layer = LayerMask.NameToLayer(physicalMask);
             
             // Color property for each model mesh to change its color.
             transformationSeq.Property(pigColorRef, pigColor, FFEase.E_SmoothStartEnd, TransformationTime);

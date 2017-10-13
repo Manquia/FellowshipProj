@@ -2,6 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+struct FallingIntoPit
+{
+}
+struct OnSolidGround
+{
+}
+
 public class Steering : MonoBehaviour {
 
     public float rotationSpeed = 1.0f;
@@ -73,6 +80,27 @@ public class Steering : MonoBehaviour {
             0.0f,
             rigid.velocity.z);
 
+        var playerController = GetComponent<PlayerController>();
+
+        if(OnSolidGround() == false)
+        {
+            // Doesn't have player controller OR
+            // Player is a pig
+            if(playerController == null ||
+                playerController.state == PlayerController.State.Pig)
+            {
+                //Debug.Log("Send Falling into pits into pit!");
+                FallingIntoPit fip;
+                FFMessageBoard<FallingIntoPit>.SendToLocal(fip, gameObject);
+                return;
+            }
+        }
+        else
+        {
+            OnSolidGround OSG;
+            FFMessageBoard<OnSolidGround>.SendToLocal(OSG, gameObject);
+        }
+
 
         // Within target radius?
         if (distToTargetXZ < targetRadius)
@@ -143,6 +171,57 @@ public class Steering : MonoBehaviour {
 
     }
 
+
+    // Casts several rays down to see if we are over a pit
+    public bool OnSolidGround()
+    {
+        var capsuleCollider = GetComponent<CapsuleCollider>();
+        Ray downRay = new Ray(transform.position, Vector3.down);
+        RaycastHit hit;
+
+        int NumPitsHit = 0;
+
+        float offsetDist = transform.lossyScale.magnitude * 0.5f * capsuleCollider.radius;
+
+        Debug.DrawLine(downRay.origin, downRay.origin + downRay.direction, Color.red);
+        if (Physics.Raycast(downRay, out hit))
+        {
+            if (hit.transform.tag == "Pit")
+                ++NumPitsHit;
+        }
+
+        downRay.origin = transform.position +  (transform.forward * offsetDist);
+        Debug.DrawLine(downRay.origin, downRay.origin + downRay.direction, Color.red);
+        if (Physics.Raycast(downRay, out hit))
+        {
+            if (hit.transform.tag == "Pit")
+                ++NumPitsHit;
+        }
+        downRay.origin = transform.position + (transform.right * offsetDist);
+        Debug.DrawLine(downRay.origin, downRay.origin + downRay.direction, Color.red);
+        if (Physics.Raycast(downRay, out hit))
+        {
+            if (hit.transform.tag == "Pit")
+                ++NumPitsHit;
+        }
+        downRay.origin = transform.position + (-transform.right * offsetDist);
+        Debug.DrawLine(downRay.origin, downRay.origin + downRay.direction, Color.red);
+        if (Physics.Raycast(downRay, out hit))
+        {
+            if (hit.transform.tag == "Pit")
+                ++NumPitsHit;
+        }
+        downRay.origin = transform.position + (-transform.forward * offsetDist);
+        Debug.DrawLine(downRay.origin, downRay.origin + downRay.direction, Color.red);
+        if (Physics.Raycast(downRay, out hit))
+        {
+            if (hit.transform.tag == "Pit")
+                ++NumPitsHit;
+        }
+
+        // All 5 raycast hit a pit then not on ground
+        return NumPitsHit < 5; 
+    }
 #if UNITY_EDITOR
     void DoDebugDraw()
     {
