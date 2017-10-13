@@ -100,13 +100,13 @@ public class FFAction : MonoBehaviour
         {
             _active = true;
             seqTime = FFSystem.time;
-            _actionSequence.FixedUpdate();
+            _actionSequence.Update();
         }
 
         public void ResumeTimeWarpFromPause()
         {
             _active = true;
-            _actionSequence.FixedUpdate();
+            _actionSequence.Update();
         }
 
         /// <summary>
@@ -120,7 +120,7 @@ public class FFAction : MonoBehaviour
             if (time >= _lastClearSequenceTimeWarp && time <= FFSystem.time)
             {
                 seqTime = time;
-                _actionSequence.FixedUpdate();
+                _actionSequence.Update();
                 return true;
             }
             return false;
@@ -133,7 +133,7 @@ public class FFAction : MonoBehaviour
         public void TimeWarpAhead(double time)
         {
             seqTime -= time;
-            _actionSequence.FixedUpdate();
+            _actionSequence.Update();
         }
         #endregion
 
@@ -707,13 +707,13 @@ public class FFAction : MonoBehaviour
         }
     }
 
-    void FixedUpdate()
+    void Update()
     {
         var actionSequenceListCopy = new List<ActionSequence>(ActionSequenceList);
         for (int i = 0; i < actionSequenceListCopy.Count; ++i)
         {
             //const double timeEpsilon = 0.0001f;
-            float dt = Time.fixedDeltaTime; // Mathf.Min(Time.fixedDeltaTime, (float)((double)(currentTime - actionSequenceListCopy[i].seqTime) + timeEpsilon));
+            float dt = Time.deltaTime; // Mathf.Min(Time.fixedDeltaTime, (float)((double)(currentTime - actionSequenceListCopy[i].seqTime) + timeEpsilon));
             if (actionSequenceListCopy[i].seqData != null && actionSequenceListCopy[i].seqData.Count != 0)
             {
                 bool finishedSet = true;

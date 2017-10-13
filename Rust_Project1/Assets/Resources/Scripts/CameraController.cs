@@ -135,7 +135,7 @@ public class CameraController : FFComponent {
             Vector3 ori = cameraTrans.position;
             Vector3 dir = cameraTrans.TransformVector(Vector3.forward);
             RaycastHit hit;
-            string[] rayMask = { "Default" };
+            string[] rayMask = { "Default", "CameraFloor" };
 
             // Ground Raycast
             if (Physics.Raycast(ori,dir,out hit, 10.0f, LayerMask.GetMask(rayMask)))

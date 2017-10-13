@@ -33,12 +33,31 @@ public class CheatCodesAndCheckPoints : MonoBehaviour {
 
         FFMessage<SetCheckpoint>.Connect(OnSetCheckpoint);
         FFMessage<ResetPlayerToLastCheckpoint>.Connect(OnResetPlayerToLastCheckpoint);
+
+        SetupCheckPointCollisionPoints();
     }
 
     void OnDestroy()
     {
         FFMessage<SetCheckpoint>.Disconnect(OnSetCheckpoint);
         FFMessage<ResetPlayerToLastCheckpoint>.Disconnect(OnResetPlayerToLastCheckpoint);
+    }
+
+    void SetupCheckPointCollisionPoints()
+    {
+        var collisionSpherePrefab = FFResource.Load_Prefab("CheckPointCollisionSphere");
+
+        for(int i = 0; i < checkPointPath.points.Length; ++i)
+        {
+            var position = checkPointPath.points[i];
+            
+            var newCheckPointCollisionSphere = Instantiate<GameObject>(collisionSpherePrefab);
+            var checkPoint = newCheckPointCollisionSphere.GetComponent<CheckPointSphere>();
+
+            newCheckPointCollisionSphere.transform.SetParent(transform, true);
+            newCheckPointCollisionSphere.transform.position = position;
+            checkPoint.index = i;
+        }
     }
 
 
