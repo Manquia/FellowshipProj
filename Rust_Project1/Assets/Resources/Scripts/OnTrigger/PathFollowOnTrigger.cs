@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class PathFollowOnTrigger : FFComponent {
     FFAction.ActionSequence seq;
 
@@ -13,9 +14,18 @@ public class PathFollowOnTrigger : FFComponent {
     public FFPath PathToFollow;
     public bool isCircuit = true;
 
+    public AudioClip MoveSound;
+
+    FFAction.ActionSequence audioFadeSeq;
+    float audioSrcVolumeSave = 0.0f;
+    AudioSource audioSrc;
     // Use this for initialization
     void Start()
     {
+        audioFadeSeq = action.Sequence();
+        audioSrc = GetComponent<AudioSource>();
+        audioSrcVolumeSave = audioSrc.volume;
+
         // Valid path
         if (PathToFollow != null && PathToFollow.points.Length > 1)
         {
@@ -47,6 +57,7 @@ public class PathFollowOnTrigger : FFComponent {
         
         ++currentPointNumber;
         MoveForward();
+        PlayAudioForMovePlatform();
     }
 
     // Move forward state
@@ -74,6 +85,33 @@ public class PathFollowOnTrigger : FFComponent {
 
         seq.Sync();
         seq.Call(MoveForward);
+    }
+
+    void PlayAudioForMovePlatform()
+    {
+        audioSrc.volume = audioSrcVolumeSave;
+        audioFadeSeq.ClearSequence();
+
+        audioSrc.Play();
+        audioSrc.PlayOneShot(MoveSound);
+
+
+        float lengthToMove = 
+            PathToFollow.LengthAlongPathToPoint(currentPointNumber) -
+            PathToFollow.LengthAlongPathToPoint(currentPointNumber - 1);
+
+        float timeToCompleteMove = lengthToMove / movementSpeed;
+
+        audioFadeSeq.Delay(timeToCompleteMove * 0.7f);
+        audioFadeSeq.Sync();
+        audioFadeSeq.Property(AudioSrcRef(), 0.0f, FFEase.E_SmoothStart, timeToCompleteMove * 0.3f);
+    }
+    
+    FFRef<float> AudioSrcRef()
+    {
+        return new FFRef<float>(
+            () => audioSrc.volume,
+            (v) => { audioSrc.volume = v; } );
     }
     
     

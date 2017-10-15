@@ -83,6 +83,7 @@ public class PlayerController : FFComponent
         
         FFMessage<ActivatePlayer>.Connect(OnActivatePlayer);
         FFMessage<DeactivatePlayer>.Connect(OnDeactivatePlayer);
+        FFMessage<ResetPlayerToLastCheckpoint>.Connect(OnResetPlayerToLastCheckpoint);
         FFMessageBoard<FallingIntoPit>.Connect(OnFallingIntoPit, gameObject);
         FFMessageBoard<OnSolidGround>.Connect(OnOnSolidGround, gameObject);
 
@@ -103,10 +104,15 @@ public class PlayerController : FFComponent
     {
         FFMessage<ActivatePlayer>.Disconnect(OnActivatePlayer);
         FFMessage<DeactivatePlayer>.Disconnect(OnDeactivatePlayer);
+        FFMessage<ResetPlayerToLastCheckpoint>.Disconnect(OnResetPlayerToLastCheckpoint);
         FFMessageBoard<FallingIntoPit>.Disconnect(OnFallingIntoPit, gameObject);
         FFMessageBoard<OnSolidGround>.Disconnect(OnOnSolidGround, gameObject);
     }
 
+    private void OnResetPlayerToLastCheckpoint(ResetPlayerToLastCheckpoint e)
+    {
+        ChangeState(State.Pig);
+    }
 
     float FallTimmer = 0;
     float FallTimeTillReset = 1.5f;
@@ -481,15 +487,7 @@ public class PlayerController : FFComponent
             steering.rotationSpeed = PigRotSpeed;
         }
     }
-
-    private void UpdateUI()
-    {
-        // Update UI related stuff
-        if(Input.GetKey(KeyCode.Escape))
-        {
-            // @TODO Add event to setup the menu
-        }
-    }
+    
 
     //Vector2 m_MouseMovement; // movement of the mouse between frames
     private void UpdatePlayerControllerData()
