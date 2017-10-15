@@ -101,8 +101,7 @@ public class CheatCodesAndCheckPoints : MonoBehaviour {
     void JumpToCheckPoint(int index)
     {
         currentCheckpoint = index;
-
-        Debug.Assert(index < checkPointPath.points.Length);
+        index = index % checkPointPath.points.Length;
 
         var characterPlacement = checkPointPath.transform.TransformPoint(checkPointPath.points[index]);
         var cameraPlacement = characterPlacement + (Vector3.up * 5.0f);

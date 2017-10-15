@@ -190,6 +190,20 @@ public class ButtonTransitionHandler : EventTrigger {
     }
 
 
+
+    private void ACT_RestartLevel()
+    {
+        if (buttonActive)
+        {
+            RemoveMenuSelectionVisuals();
+            MenuController.ClearMenuStates();
+            
+            // Restart Current Level
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+    }
+
+
     #endregion
 
     #region Button
@@ -245,6 +259,9 @@ public class ButtonTransitionHandler : EventTrigger {
             case MenuState.PlayTutorial:
                 ACT_PlayTutorial();
                 break;
+            case MenuState.RestartLevel:
+                ACT_RestartLevel();
+                break;
             default:
                 Debug.LogError("UNHANDED: Button Controller doesn't handle a PointerUp ButtonGoesTo State: " + ButtonGoesTo);
                 break;
@@ -267,7 +284,7 @@ public class ButtonTransitionHandler : EventTrigger {
                 break;
         }
     }
-    
+
     public override void OnPointerEnter(PointerEventData data)
     {
         ButtonHover bh;

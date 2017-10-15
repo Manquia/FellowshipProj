@@ -23,6 +23,7 @@ public enum MenuState
     QuitToMenuDialog,
     PlayGameDialog,
     PlayTutorial,
+    RestartLevel,
 }
 
 
