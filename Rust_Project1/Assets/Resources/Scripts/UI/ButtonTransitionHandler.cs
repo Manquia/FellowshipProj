@@ -1,7 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
+
 
 public class ButtonTransitionHandler : EventTrigger {
 
@@ -93,6 +96,8 @@ public class ButtonTransitionHandler : EventTrigger {
     {
         SquashMenuState(MenuState.MainMenu);
         RemoveMenuSelectionVisuals();
+        SceneManager.LoadScene("MainMenu");
+        
     }
     public void GOTO_CONTROLS()
     {
@@ -114,6 +119,13 @@ public class ButtonTransitionHandler : EventTrigger {
         PushMenuState(MenuState.RestartDialog);
         RemoveMenuSelectionVisuals();
     }
+
+    private void GOTO_QUITTOMENUDIALOG()
+    {
+        PushMenuState(MenuState.QuitToMenuDialog);
+        RemoveMenuSelectionVisuals();
+    }
+
     private void GOTO_OPTIONS()
     {
         PushMenuState(MenuState.Options);
@@ -203,6 +215,9 @@ public class ButtonTransitionHandler : EventTrigger {
             case MenuState.Back:
                 GOTO_BACK();
                 break;
+            case MenuState.QuitToMenuDialog:
+                GOTO_QUITTOMENUDIALOG();
+                break;
             default:
                 Debug.LogError("UNHANDED: Button Controller doesn't handle a PointerUp ButtonGoesTo State: " + ButtonGoesTo);
                 break;
@@ -225,6 +240,7 @@ public class ButtonTransitionHandler : EventTrigger {
                 break;
         }
     }
+    
 
     public override void OnPointerEnter(PointerEventData data)
     {

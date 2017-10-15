@@ -136,6 +136,7 @@ public class TriggerArea : MonoBehaviour
 
     void PlayClip(AudioClip clip)
     {
-        GetComponent<AudioSource>().PlayOneShot(clip);
+        if(clip != null)
+            GetComponent<AudioSource>().PlayOneShot(clip);
     }
 }

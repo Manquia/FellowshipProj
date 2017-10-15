@@ -54,6 +54,10 @@ public class PlayerController : FFComponent
     public float GhostSpeed = 3.25f;
     public float GhostRotSpeed = 10.5f;
 
+
+    public AudioClip TurnToGhostAudio;
+    public AudioClip TurnToPigAudio;
+
     public enum State
     {
         None,
@@ -152,7 +156,11 @@ public class PlayerController : FFComponent
     }
 
     #endregion
-    
+
+
+    float transformationCooldownTimer = 0.0f;
+    public float TransformationCooldownTime = 1.6f;
+
     // Update is called once per frame
     void Update ()
     {
@@ -165,8 +173,8 @@ public class PlayerController : FFComponent
             var mousePress = Input.GetMouseButtonDown(0);
             Ray ray = playerCamera.ScreenPointToRay(mousePos);
             RaycastHit rayHit;
-            string[] layerNames = { "Default" };
-            int raycastMask = LayerMask.GetMask(layerNames); // default, TODO Add floor
+            string[] moveLayers = { "Default", "CameraFloor" };
+            int raycastMask = LayerMask.GetMask(moveLayers); // default, TODO Add floor
             var raycastHitSomething = Physics.Raycast(ray, out rayHit, 100.0f, raycastMask);
 
             // Try and limit vertical movement when ghost so that we don't fly away!
@@ -184,7 +192,8 @@ public class PlayerController : FFComponent
                 {
                     Ray downRay = new Ray(transform.position, Vector3.down);
                     RaycastHit downRayHit;
-                    if (Physics.Raycast(downRay, out downRayHit, 100.0f, raycastMask))
+                    string[] glideDownLayers = { "Default" };
+                    if (Physics.Raycast(downRay, out downRayHit, 100.0f, LayerMask.GetMask(glideDownLayers)))
                     {
                         if(downRayHit.transform.tag != "Pit")
                         {
@@ -217,19 +226,25 @@ public class PlayerController : FFComponent
                 steering.SetupTarget(rayHit.transform, targetPoint);
             }
 
-            // Toggle Manifestation
-            if(Input.GetKeyDown(KeyCode.R))
+            // Toggle Manifestation (Space bar)
+            transformationCooldownTimer += Time.deltaTime;
+            if (Input.GetKeyDown(KeyCode.Space))
             {
-                if (state == State.Pig)
+                if(transformationCooldownTimer > TransformationCooldownTime)
                 {
-                    ChangeState(State.Ghost);
-                }
-                else if(state == State.Ghost)
-                {
-                    ChangeState(State.Pig);
-                }
+                    transformationCooldownTimer = 0.0f;
 
-                UpdateSteeringValues();
+                    if (state == State.Pig)
+                    {
+                        ChangeState(State.Ghost);
+                    }
+                    else if (state == State.Ghost)
+                    {
+                        ChangeState(State.Pig);
+                    }
+
+                    UpdateSteeringValues();
+                }
             }
 
             // Commands
@@ -292,12 +307,12 @@ public class PlayerController : FFComponent
                 if(movementVector != Vector3.zero)
                 {
                     var normMovementVec = Vector3.Normalize(movementVector);
-                    var rayLocation = transform.position + (normMovementVec * (steering.targetRadius * 1.25f));
+                    var rayLocation = transform.position + (normMovementVec * (steering.targetRadius * 3.0f));
                     
                     RaycastHit movementHit;
-                    Ray movementRay = new Ray(rayLocation + (Vector3.up * 50.0f), Vector3.down * 100.0f);
+                    Ray movementRay = new Ray(rayLocation + (Vector3.up * 50.0f), Vector3.down);
 
-                    var rayHitStuff = Physics.Raycast(movementRay, out movementHit, 100.0f, raycastMask);
+                    var rayHitStuff = Physics.Raycast(movementRay, out movementHit, 60.0f, raycastMask);
 
                     if(raycastHitSomething)
                     {
@@ -309,6 +324,27 @@ public class PlayerController : FFComponent
                     }
 
                     ArrowMovementVector = movementVector;
+                }
+                else if(ArrowMovementVector != Vector3.zero) // used arrow key to move last update
+                {
+                    
+                    var rayLocation = transform.position;
+
+                    RaycastHit movementHit;
+                    Ray movementRay = new Ray(rayLocation + (Vector3.up * 50.0f), Vector3.down);
+
+                    var rayHitStuff = Physics.Raycast(movementRay, out movementHit, 60.0f, raycastMask);
+
+                    if (raycastHitSomething)
+                    {
+                        steering.SetupTarget(movementHit.transform, movementHit.point);
+                    }
+                    else
+                    {
+                        steering.SetupTarget(null, rayLocation);
+                    }
+
+                    ArrowMovementVector = Vector3.zero;
                 }
 
 
@@ -378,7 +414,8 @@ public class PlayerController : FFComponent
             // Can move through walls
             //string ghostMask = "Ghost";
             //gameObject.layer = LayerMask.NameToLayer(ghostMask);
-
+            PlayClip(TurnToGhostAudio);
+            ActivateChildParticles(transform.Find("TurnToGhostParticles"));
 
             // Color property for each model mesh to change its color.
             transformationSeq.Property(pigColorRef, pigColor.MakeClear(), FFEase.E_SmoothStartEnd, TransformationTime);
@@ -395,10 +432,14 @@ public class PlayerController : FFComponent
             var rigid = GetComponent<Rigidbody>();
             rigid.useGravity = true;
 
+
+            PlayClip(TurnToPigAudio);
+            ActivateChildParticles(transform.Find("TurnToPigParticles"));
+
             // Cannot move thorugh walls
             //string physicalMask = "Physical";
             //gameObject.layer = LayerMask.NameToLayer(physicalMask);
-            
+
             // Color property for each model mesh to change its color.
             transformationSeq.Property(pigColorRef, pigColor, FFEase.E_SmoothStartEnd, TransformationTime);
             transformationSeq.Property(ghostColorRef, GhostColor.MakeClear(), FFEase.E_SmoothStartEnd, TransformationTime);
@@ -411,6 +452,18 @@ public class PlayerController : FFComponent
         UpdateSteeringValues();
     }
 
+    private void ActivateChildParticles(Transform transform)
+    {
+        foreach(Transform child in transform)
+        {
+            var particleSystem = child.GetComponent<ParticleSystem>();
+
+            if(particleSystem != null)
+            {
+                particleSystem.Play();
+            }
+        }
+    }
 
     private void UpdateSteeringValues()
     {

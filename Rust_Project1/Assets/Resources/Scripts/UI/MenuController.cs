@@ -18,6 +18,8 @@ public enum MenuState
     GameQuit,
     Options,
     Back,
+
+    QuitToMenuDialog,
 }
 
 

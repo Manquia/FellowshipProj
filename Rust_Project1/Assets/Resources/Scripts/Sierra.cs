@@ -84,7 +84,7 @@ public class Sierra : FFComponent {
     public float WalkRotSpeed = 5.5f;
 
     int failedLOSChecks = 0;
-    float tickRate = 0.45f;
+    public float tickRate = 0.25f;
     void SierraUpdateTick()
     {
         var steering = GetComponent<Steering>();
@@ -309,14 +309,16 @@ public class Sierra : FFComponent {
 
         var capsuleCollider = GetComponent<CapsuleCollider>();
 
-        var center = transform.position;
+        var center = transform.position +
+            (Vector3.up * capsuleCollider.height * transform.lossyScale.y * 0.5f * 0.5f); // offset to be up by 3/4 height
+
         var leftOffset = Vector3.Normalize(Vector3.Cross(normVecToPlayer, Vector3.up)) * 
             Mathf.Min(transform.lossyScale.x, transform.lossyScale.y, transform.lossyScale.z) * capsuleCollider.radius * 0.65f;
         var rightOffset= -leftOffset;
 
         // Rays come from about the eyes
-        leftOffset += normVecToPlayer * capsuleCollider.radius * 0.2f;
-        rightOffset += normVecToPlayer * capsuleCollider.radius * 0.2f;
+        leftOffset += normVecToPlayer * capsuleCollider.radius * 0.1f;
+        rightOffset += normVecToPlayer * capsuleCollider.radius * 0.1f;
 
         // Left Ray hits
         if (Physics.Raycast(center + leftOffset, normVecToPlayer, out hit, rayDistance, raycastMask))
@@ -324,30 +326,36 @@ public class Sierra : FFComponent {
             Debug.DrawLine(center + leftOffset, center + leftOffset + (normVecToPlayer * rayDistance), Color.red);
             if (hit.transform != PlayerCharacter) // did the ray hit the player?
             {
+                //Debug.Log("Hit Thing: " + hit.transform.name);
                 return false;
             }
         }
+        else return false;
         // right ray hits
         if (Physics.Raycast(center + rightOffset, normVecToPlayer, out hit, rayDistance, raycastMask))
         {
             Debug.DrawLine(center + rightOffset, center + rightOffset + (normVecToPlayer * rayDistance), Color.red);
             if (hit.transform != PlayerCharacter) // did the ray hit the player?
             {
+                //Debug.Log("Hit Thing: " + hit.transform.name);
                 return false;
             }
         }
+        else return false;
         // Center Ray hits
         if (Physics.Raycast(transform.position, normVecToPlayer, out hit, rayDistance, raycastMask))
         {
             Debug.DrawLine(center, center + (normVecToPlayer * rayDistance), Color.red);
-            if (hit.transform == PlayerCharacter) // did the ray hit the player?
+            if (hit.transform != PlayerCharacter) // did the ray hit the player?
             {
-                return true;
+                //Debug.Log("Hit Thing: " + hit.transform.name);
+                return false;
             }
         }
+        else return false;
 
         // No rays hit anything
-        return false;
+        return true;
     }
 
     #endregion  

@@ -25,8 +25,8 @@ public class ExPathFollower : FFComponent {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-        distance += Time.deltaTime * speed;
+	void FixedUpdate () {
+        distance += Time.fixedDeltaTime * speed;
 
         var path = PathToFollow.GetComponent<FFPath>();
         if(path)
