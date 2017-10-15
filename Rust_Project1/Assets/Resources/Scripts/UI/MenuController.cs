@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum MenuState
 {
@@ -54,7 +55,6 @@ public class MenuController : FFComponent
     private void Start()
     {
         MenuController.GetReady();
-        
 
         FFMessage<PushMenuState>.Connect(OnPushMenuState);
         FFMessage<PopMenuState>.Connect(OnPopMenuState);
@@ -62,7 +62,16 @@ public class MenuController : FFComponent
         StartSeq = action.Sequence();
         // Call on first FixedUpdate
         // Start on MainMenu
-        StartSeq.Call(BeginMenu);
+        Scene scene = SceneManager.GetActiveScene();
+
+        if (scene.name == "MainMenu")
+        {
+            StartSeq.Call(BeginMenu);
+        }
+        else if (scene.name == "World")
+        {
+            StartSeq.Call(BeginGame);
+        }
     }
 
     void OnDestroy()
@@ -90,6 +99,19 @@ public class MenuController : FFComponent
     {
         // Send out message for everything to start happenings
         PushMenuState pms = new PushMenuState(MenuState.MainMenu);
+        FFMessage<PushMenuState>.SendToLocal(pms);
+    }
+    void BeginGame()
+    {
+        //RemoveMenuSelectionVisuals();
+        MenuController.ClearMenuStates();
+
+        //QuietPushMenuState(MenuState.GameMenu, true);
+        //PushMenuState(MenuState.PlayGame, true);
+
+        // Send out message for everything to start happenings
+        PushState(MenuState.GameMenu);
+        PushMenuState pms = new PushMenuState(MenuState.PlayGame);
         FFMessage<PushMenuState>.SendToLocal(pms);
     }
 

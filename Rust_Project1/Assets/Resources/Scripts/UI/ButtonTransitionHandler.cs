@@ -94,7 +94,7 @@ public class ButtonTransitionHandler : EventTrigger {
     }
     public void GOTO_MAINMENU()
     {
-        SquashMenuState(MenuState.MainMenu);
+        //SquashMenuState(MenuState.MainMenu);
         RemoveMenuSelectionVisuals();
         SceneManager.LoadScene("MainMenu");
         
@@ -164,8 +164,9 @@ public class ButtonTransitionHandler : EventTrigger {
             RemoveMenuSelectionVisuals();
             MenuController.ClearMenuStates();
 
-            QuietPushMenuState(MenuState.GameMenu, true);
-            PushMenuState(MenuState.PlayGame, true);
+            //QuietPushMenuState(MenuState.GameMenu, true);
+            //PushMenuState(MenuState.PlayGame, true);
+            SceneManager.LoadScene("World");
         }
     }
 

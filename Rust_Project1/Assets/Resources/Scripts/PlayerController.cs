@@ -164,8 +164,10 @@ public class PlayerController : FFComponent
     // Update is called once per frame
     void Update ()
     {
-        // @TODO Check for active!
-
+        if(MenuController.GetState() != MenuState.PlayGame) // only take input if we are in the play game state
+        {
+            return;
+        }
 
         {// Player Input
             var steering = GetComponent<Steering>();
