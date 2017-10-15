@@ -21,6 +21,8 @@ public enum MenuState
     Back,
 
     QuitToMenuDialog,
+    PlayGameDialog,
+    PlayTutorial,
 }
 
 
@@ -68,7 +70,7 @@ public class MenuController : FFComponent
         {
             StartSeq.Call(BeginMenu);
         }
-        else if (scene.name == "World")
+        else if (scene.name == "World" || scene.name == "Tutorial")
         {
             StartSeq.Call(BeginGame);
         }

@@ -132,9 +132,15 @@ public class ButtonTransitionHandler : EventTrigger {
         RemoveMenuSelectionVisuals();
     }
 
+    private void GOTO_PlayGameDialog()
+    {
+        PushMenuState(MenuState.PlayGameDialog);
+        RemoveMenuSelectionVisuals();
+    }
+
     #endregion
 
-    
+
     #region Menu ACT
 
     private void ACT_ResumeGame()
@@ -170,9 +176,23 @@ public class ButtonTransitionHandler : EventTrigger {
         }
     }
 
-#endregion
+    private void ACT_PlayTutorial()
+    {
+        if (buttonActive)
+        {
+            RemoveMenuSelectionVisuals();
+            MenuController.ClearMenuStates();
 
-#region Button
+            //QuietPushMenuState(MenuState.GameMenu, true);
+            //PushMenuState(MenuState.PlayGame, true);
+            SceneManager.LoadScene("Tutorial");
+        }
+    }
+
+
+    #endregion
+
+    #region Button
 
 
     public override void OnPointerUp(PointerEventData data)
@@ -219,13 +239,19 @@ public class ButtonTransitionHandler : EventTrigger {
             case MenuState.QuitToMenuDialog:
                 GOTO_QUITTOMENUDIALOG();
                 break;
+            case MenuState.PlayGameDialog:
+                GOTO_PlayGameDialog();
+                break;
+            case MenuState.PlayTutorial:
+                ACT_PlayTutorial();
+                break;
             default:
                 Debug.LogError("UNHANDED: Button Controller doesn't handle a PointerUp ButtonGoesTo State: " + ButtonGoesTo);
                 break;
         }
 
         // handle Audio
-        switch(ButtonGoesTo)
+        switch (ButtonGoesTo)
         {
             case MenuState.PlayGame:
                 UISpeaker.Play(UISpeakerEvent.Voice.PlayGame);
@@ -242,7 +268,6 @@ public class ButtonTransitionHandler : EventTrigger {
         }
     }
     
-
     public override void OnPointerEnter(PointerEventData data)
     {
         ButtonHover bh;
@@ -265,6 +290,6 @@ public class ButtonTransitionHandler : EventTrigger {
     }
 
 
-#endregion
+    #endregion
 
 }
