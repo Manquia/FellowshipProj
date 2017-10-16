@@ -159,7 +159,14 @@ public class Sierra : FFComponent {
             return;
         }
 
-
+        
+        if(fHasVisionOfPlayer && playerController.state == PlayerController.State.Pig)
+        {
+            CustomEventOn ceo;
+            ceo.tag = CustomEventOn.LOSPig;
+            var box = FFMessageBoard<CustomEventOn>.Box(CustomEventOn.LOSPig);
+            box.SendToLocal(ceo);
+        }
         // Sierra is brave, have some dialog on how brave she is!
         //if(isBrave && fHasVisionOfPlayer && playerController.state == PlayerController.State.Ghost)
         //{

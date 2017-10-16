@@ -308,9 +308,7 @@ public class DialogManager : FFComponent
             qd.time = echoDisplayTime;
             qd.dialogSeq = dialogSequence;
             qd.type = dialog.conversation[i].type;
-
-
-
+            
             { // Queue the Dialog
                 dialogSequence.Sync();
                 dialogSequence.Call(Speak, qd);
@@ -470,10 +468,29 @@ public class DialogManager : FFComponent
     {
         for (int i = 0; i < dialog.sideEffects.Length; ++i)
         {
-            dialogSequence.Sync();
-            dialogSequence.Call(SendCustomDialogEvent, dialog.sideEffects[i]);
+            QueuedDialog qd = new QueuedDialog();
+
+            qd.controller = null;
+            qd.text = dialog.sideEffects[i];
+            qd.time = 0.0f;
+            qd.dialogSeq = dialogSequence;
+            qd.type = dialog.conversation[i].type;
+            
+            { // Queue the Dialog
+                dialogSequence.Sync();
+                dialogSequence.Call(QueueSentDialogEvent, qd);
+                dialogSequence.Sync();
+            }
         }
     }
+    void QueueSentDialogEvent(object queuedDialog)
+    {
+        QueuedDialog qd = (QueuedDialog)queuedDialog;
+
+        qd.dialogSeq.Sync();
+        qd.dialogSeq.Call(SendCustomDialogEvent, qd.text);
+    }
+
     void SendCustomDialogEvent(object text)
     {
         var box = FFMessageBoard<CustomEventOn>.Box((string)text);
