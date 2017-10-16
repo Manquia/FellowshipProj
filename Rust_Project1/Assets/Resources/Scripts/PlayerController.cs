@@ -94,10 +94,14 @@ public class PlayerController : FFComponent
             pigMaterial.color = pigColor;
             ghostMaterial.color = GhostColor;
         }
-        
 
-        // Start as a ghost
-        ChangeState(State.Ghost);
+        // Make sure to start with state set in properties
+        var stateSave = state;
+        if (stateSave == State.None)
+            stateSave = State.Pig; // override none -> Pig
+
+        state = State.None;
+        ChangeState(stateSave);
 	}
     
 
