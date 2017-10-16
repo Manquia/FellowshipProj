@@ -3,9 +3,6 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 using System;
 
-struct TriggerFade
-{
-}
 
 // This is the controller of the splace screen object
 public class SceneTransition : FFComponent {
@@ -24,6 +21,7 @@ public class SceneTransition : FFComponent {
     }
     private FFAction.ActionSequence FadeSequence;
     public StartTransitionToNextLevel trigger;
+    public string triggerName = "";
 
     // Use this for initialization
     void Start () {
@@ -51,17 +49,19 @@ public class SceneTransition : FFComponent {
             }
             else
             {
-                FFMessage<TriggerFade>.Connect(OnTriggerFade);
+                var triggerBox = FFMessageBoard<CustomEventOn>.Box(triggerName);
+                triggerBox.Connect(OnTriggerFade);
             }
         }
 	}
 
     private void OnDestroy()
     {
-        FFMessage<TriggerFade>.Disconnect(OnTriggerFade);
+        var triggerBox = FFMessageBoard<CustomEventOn>.Box(triggerName);
+        triggerBox.Disconnect(OnTriggerFade);
     }
 
-    private void OnTriggerFade(TriggerFade e)
+    private void OnTriggerFade(CustomEventOn e)
     {
         FadeToNextLevel();
     }

@@ -161,11 +161,11 @@ public class Sierra : FFComponent {
 
 
         // Sierra is brave, have some dialog on how brave she is!
-        if(isBrave && fHasVisionOfPlayer && playerController.state == PlayerController.State.Ghost)
-        {
-            // Is Brave Dialog
-            SendLimitedDialogOn(CustomEventOn.BraveLOSSeeGhost);
-        }
+        //if(isBrave && fHasVisionOfPlayer && playerController.state == PlayerController.State.Ghost)
+        //{
+        //    // Is Brave Dialog
+        //    SendLimitedDialogOn(CustomEventOn.BraveLOSSeeGhost);
+        //}
 
         //Debug.Log("Sierra Sees Commands");
         // Sierra isn't terrified. Listen to commands

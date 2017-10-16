@@ -61,7 +61,7 @@ public class PathFollowOnTrigger : FFComponent {
     }
 
     // Move forward state
-    void MoveForward()
+    public void MoveForward()
     {
         FFMessageBoard<TriggerObject>.Disconnect(OnTriggerObject, gameObject);
 

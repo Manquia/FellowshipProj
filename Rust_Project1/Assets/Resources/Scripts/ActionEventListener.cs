@@ -97,7 +97,7 @@ public class ActionEventListener : MonoBehaviour
         // repeating types will be able to sent trigger many times once the action is completed
         if (type == Type.Repeats)
         {
-            Debug.Log("Repeats ActionEventListener");
+            //Debug.Log("Repeats ActionEventListener");
             UpdateEventListener();
         }
     }
