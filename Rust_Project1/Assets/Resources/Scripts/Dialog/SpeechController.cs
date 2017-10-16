@@ -29,7 +29,7 @@ public class SpeechController : FFComponent
 
     void Update()
     {
-        transform.LookAt(mainCamera.transform.position + new Vector3(3.5f,0,0), Vector3.up);
+        transform.LookAt(mainCamera.transform.position + new Vector3(0,0,0), Vector3.Normalize(-Vector3.right + Vector3.up));
     }
 
     public SpriteRenderer BubbleSprite()

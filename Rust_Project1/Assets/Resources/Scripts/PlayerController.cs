@@ -67,6 +67,7 @@ public class PlayerController : FFComponent
 
     public Camera playerCamera;
     public State state = State.None;
+    public AudioSource GhostSounds;
 
     //private Rigidbody rigid; 
 
@@ -223,11 +224,15 @@ public class PlayerController : FFComponent
             // Interact/Move (Mouse)
             if (mousePress && raycastHitSomething)
             {
+                int random1_3 = UnityEngine.Random.Range(1, 3);
                 // randomly choose between 1-3 for the pig noise to use
-                if(state == State.Pig)
+                if (state == State.Pig)
                 {
-                    int random1_3 = UnityEngine.Random.Range(1, 3);
                     PlayClipLimited(FFResource.Load_AudioClip("SFX/PigNoise/PigMove" + random1_3));
+                }
+                else
+                {
+                    PlayClipLimited(FFResource.Load_AudioClip("SFX/GhostNoise/GhostMove" + random1_3));
                 }
                 
                 var targetPoint = rayHit.point + new Vector3(0, verticalSteerOffset, 0.0f); // offset 0.5 up
@@ -419,9 +424,9 @@ public class PlayerController : FFComponent
             var rigid = GetComponent<Rigidbody>();
             rigid.useGravity = false;
 
-            // Can move through walls
-            //string ghostMask = "Ghost";
-            //gameObject.layer = LayerMask.NameToLayer(ghostMask);
+            // Play Ghost Sounds
+            GhostSounds.Play();
+            
             PlayClip(TurnToGhostAudio);
             ActivateChildParticles(transform.Find("TurnToGhostParticles"));
 
@@ -440,6 +445,9 @@ public class PlayerController : FFComponent
             var rigid = GetComponent<Rigidbody>();
             rigid.useGravity = true;
 
+
+            // Stop Ghost Sounds
+            GhostSounds.Stop();
 
             PlayClip(TurnToPigAudio);
             ActivateChildParticles(transform.Find("TurnToPigParticles"));

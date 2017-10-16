@@ -36,6 +36,8 @@ public class Sierra : FFComponent {
         FFMessage<FollowCommand>.Connect(OnFollowCommand);
         FFMessageBoard<FallingIntoPit>.Connect(OnFallingIntoPit, gameObject);
         FFMessageBoard<OnSolidGround>.Connect(OnOnSolidGround, gameObject);
+        var beBraveBox = FFMessageBoard<CustomEventOn>.Box("BeBrave");
+        beBraveBox.Connect(OnBeBrave);
 
         Debug.Assert(PlayerCharacter != null, "Sierra doesn't have a valid PlayerCharacter reference");
 
@@ -52,6 +54,19 @@ public class Sierra : FFComponent {
         FFMessage<FollowCommand>.Disconnect(OnFollowCommand);
         FFMessageBoard<FallingIntoPit>.Disconnect(OnFallingIntoPit, gameObject);
         FFMessageBoard<OnSolidGround>.Disconnect(OnOnSolidGround, gameObject);
+
+        var beBraveBox = FFMessageBoard<CustomEventOn>.Box("BeBrave");
+        beBraveBox.Disconnect(OnBeBrave);
+    }
+
+    private void OnBeBrave(CustomEventOn e)
+    {
+        isBrave = true;
+
+        CustomEventOn ceo;
+        ceo.tag = CustomEventOn.BraveLOSSeeGhost;
+        var box = FFMessageBoard<CustomEventOn>.Box(CustomEventOn.BraveLOSSeeGhost);
+        box.SendToLocal(ceo);
     }
 
     float FallTimmer = 0;
@@ -83,6 +98,8 @@ public class Sierra : FFComponent {
     public float FleeRotSpeed = 15.5f;
     public float WalkRotSpeed = 5.5f;
 
+
+    bool isBrave = false;
     int failedLOSChecks = 0;
     public float tickRate = 0.25f;
     void SierraUpdateTick()
@@ -98,7 +115,7 @@ public class Sierra : FFComponent {
         else
             failedLOSChecks = 0;
 
-        if(fHasVisionOfPlayer && playerController.state == PlayerController.State.Ghost) // Does Sierra see us and run away?
+        if(!isBrave && fHasVisionOfPlayer && playerController.state == PlayerController.State.Ghost) // Does Sierra see us and run away?
         {
             commandState = CommandState.Terrified;
             UpdateSteeringValues();
@@ -140,6 +157,14 @@ public class Sierra : FFComponent {
 
             // Early return
             return;
+        }
+
+
+        // Sierra is brave, have some dialog on how brave she is!
+        if(isBrave && fHasVisionOfPlayer && playerController.state == PlayerController.State.Ghost)
+        {
+            // Is Brave Dialog
+            SendLimitedDialogOn(CustomEventOn.BraveLOSSeeGhost);
         }
 
         //Debug.Log("Sierra Sees Commands");
