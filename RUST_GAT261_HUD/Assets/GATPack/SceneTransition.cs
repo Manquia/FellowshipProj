@@ -49,7 +49,7 @@ public class SceneTransition : FFComponent {
             }
             else
             {
-                var triggerBox = FFMessageBoard<CustomEventOn>.Box(triggerName);
+                var triggerBox = FFMessageBoard<CustomEvent>.Box(triggerName);
                 triggerBox.Connect(OnTriggerFade);
             }
         }
@@ -57,11 +57,11 @@ public class SceneTransition : FFComponent {
 
     private void OnDestroy()
     {
-        var triggerBox = FFMessageBoard<CustomEventOn>.Box(triggerName);
+        var triggerBox = FFMessageBoard<CustomEvent>.Box(triggerName);
         triggerBox.Disconnect(OnTriggerFade);
     }
 
-    private void OnTriggerFade(CustomEventOn e)
+    private void OnTriggerFade(CustomEvent e)
     {
         FadeToNextLevel();
     }
