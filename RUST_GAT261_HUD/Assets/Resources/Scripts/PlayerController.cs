@@ -11,8 +11,9 @@ public struct UpdatePlayer
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour 
 {
-	
-	Rigidbody rigid;
+    ProjectilePhysics projectilePhysics;
+
+    Rigidbody rigid;
 	
 	enum UIState
 	{
@@ -31,12 +32,13 @@ public class PlayerController : MonoBehaviour
 	void Start () 
 	{
 		rigid = GetComponent<Rigidbody>();
-		
-		FFMessageBoard<UpdatePlayer>.Connect(OnUpdatePlayer, gameObject);
+        projectilePhysics = GameObject.Find("ProjectilePhysics").GetComponent<ProjectilePhysics>();
+
+        FFMessageBoard<UpdatePlayer>.Connect(OnUpdatePlayer, gameObject);
 		
 		// Get Dashes
 		dashRoot = transform.Find("DashRoot");
-		foreach(var child in dashRoot)
+		foreach(Transform child in dashRoot)
 		{
 			dashes.Add(child);
 		}
@@ -75,78 +77,126 @@ public class PlayerController : MonoBehaviour
 	List<Transform> dashes = new List<Transform>();
 	#endregion PoolData
 	
-	void Update()
+    
+    public float shootSpeed = 3.6f;
+    public float minShootSpeed = 2.5f;
+    public float MaxShootSpeed = 12.5f;
+
+    float firingTimer = 0.0f;
+    float firingTime = 3.5f;
+
+    public float distanceBetweenDashes = 0.1f;
+    public float speedToDashRation = 5.0f;
+
+    void OnUpdatePlayer(UpdatePlayer e)
 	{
-		UpdatePlayer e;
-		e.dt = Time.deltaTime;
-		OnUpdatePlayer(e);
-	}
-	
-	void OnUpdatePlayer(UpdatePlayer e)
-	{
-		if(playerState == PlayerState.Idle) // Probably shouldn't ever happen
-		{
-			Debug.Log("Updateing Idle Player");
-			return;
-		}
-		
-		UpdatePlayerInput(); // Get Input, Set PlayerState,
-		
-		
+		UpdatePlayerInput(e); // Get Input, Set PlayerState,
 		
 		
 		{ // Debug Look direction
 			var lookDirection = LookQuaternion * transform.up;
-			
 			Debug.DrawLine(transform.position, transform.position + lookDirection, Color.red);
 		}
-		
-		
+        
 		// Draw Pridiction Line
 		{
+            float simulationDT = Time.fixedDeltaTime * 0.5f;
+            Vector3 gravity = Physics.gravity;
+
 			var lookDirection = LookQuaternion * transform.up;
+            var normLookDirection = Vector3.Normalize(lookDirection);
 			var playerPos = transform.position;
+
+            var lastVec = normLookDirection * shootSpeed;
 			var lastPos = playerPos;
-			for(int i = 0; i < dashes.Count; ++i)
+
+            // visableDashes = (shootSpeed * 0.5)^3
+            var visableDashes = Mathf.Max(1.25f, shootSpeed * 0.35f); visableDashes *= visableDashes; visableDashes *= visableDashes;
+
+            Vector3 offset = new Vector3(0.0f, 0.0f, -5.0f);
+            
+            int dashesToUse = Mathf.Min(dashes.Count, (int)(visableDashes * speedToDashRation));
+            float distFromLastDash = 0.0f;
+            for (int i = 0; i < dashesToUse;  ++i) // place dashes
 			{
-				var dashPosition = 
-					lastPos +
-					lookDirection;
-					
-				// Apply effectors
-					
-				
-				
-				
-				lastPos = dashPosition;
+                while(true) // simulation loop
+                {
+                    lastPos = lastPos + (lastVec * simulationDT);
+                    distFromLastDash += (simulationDT * lastVec).magnitude;
+
+                    //lastVec = projectilePhysics.WindEffect(lastVec, simulationDT);
+                    lastVec = lastVec + (simulationDT * gravity);
+
+                    if (distFromLastDash > distanceBetweenDashes)
+                    {
+                        distFromLastDash -= distanceBetweenDashes;
+
+                        dashes[i].position = lastPos;
+                        break;
+                    }
+                }
+
+                // Activate sprite
+                dashes[i].gameObject.SetActive(true);
+
+                // Setup sprite
+                var newPos = lastPos + offset;
+                dashes[i].position = newPos;
+                dashes[i].LookAt(newPos - Vector3.forward, lastVec);
 			}
-		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
+
+
+            for (int i = dashesToUse; i < dashes.Count; ++i) // disable any unused dashes
+            {
+                dashes[i].gameObject.SetActive(false);
+            }
+        }
 		
 		
 	}
 	
-	void UpdatePlayerInput()
+	void UpdatePlayerInput(UpdatePlayer e)
 	{
 		playerState = PlayerState.None;
-		
-		{// Enter HUD for weapon selection
-			if(Input.GetKey(KeyCode.Tab))
-			{
-				playerState = PlayerState.HUD;
-				return;
-			}
-		}
-		
-		{ // Get Movement Vector
+
+        // Update UIState
+        {
+            if (Input.GetKey(KeyCode.Tab))
+            {
+                switch (uiState)
+                {
+                    case UIState.Game: // -> Weapons
+                        uiState = UIState.Weapons;
+                        break;
+                    case UIState.Weapons: // -> Game
+                        uiState = UIState.Game;
+                        break;
+                    case UIState.Menu: // Nothing
+                        break;
+                }
+            }
+            if (Input.GetKey(KeyCode.Escape))
+            {
+                switch (uiState)
+                {
+                    case UIState.Game: // -> Menu
+                        uiState = UIState.Menu;
+                        break;
+                    case UIState.Weapons: // -> Game
+                        uiState = UIState.Game;
+                        break;
+                    case UIState.Menu: // -> Game
+                        uiState = UIState.Game;
+                        break;
+                }
+            }
+        }
+
+        // Don't do anything if we aren't in the UI game state
+        if (uiState != UIState.Game)
+            return;
+
+        { // Get Movement Vector
 			moveDirection = 0.0f;
 			if(Input.GetKey(KeyCode.LeftArrow))
 				moveDirection -= 1.0f;
@@ -186,12 +236,23 @@ public class PlayerController : MonoBehaviour
 			}
 		}
 
-		{ // Shooting?
+		{ 
+            // Shooting?
 			if(Input.GetKey(KeyCode.Space))
-				playerState |= PlayerState.Shooting;
+            {
+                firingTimer += e.dt;
+                shootSpeed = Mathf.Lerp(minShootSpeed, MaxShootSpeed, Mathf.Min(firingTimer, firingTime) / firingTime);
+
+                playerState |= PlayerState.Shooting;
+            }
+            else
+            {
+                shootSpeed = minShootSpeed;
+                firingTimer = 0.0f;
+            }
 		}
-	
-	}
+
+    }
 
 
 
