@@ -516,6 +516,12 @@ public class FFPath : MonoBehaviour
 #endregion Data
 
 #region CodeInterface
+
+
+    public Vector3 PositionAtPoint(int index)
+    {
+        return transform.TransformPoint(points[index]);
+    }
     /// <summary>
     /// Returns whether the path is valid to use.
     /// to use.

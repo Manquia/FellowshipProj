@@ -73,54 +73,13 @@ public class ButtonTransitionHandler : EventTrigger {
         if (buttonActive)
         {
             MenuController.ClearMenuStates();
-            PushMenuState(MenuState.MainMenu, true);
+            PushMenuState(state, true);
         }
     }
     #endregion
 
     #region Menu GOTO
-
-    public void GOTO_BACK()
-    {
-        PopMenuState();
-    }
-    public void GOTO_MAINMENU()
-    {
-        //SquashMenuState(MenuState.MainMenu);
-        SceneManager.LoadScene("MainMenu");
-        
-    }
-    public void GOTO_CONTROLS()
-    {
-        PushMenuState(MenuState.Controls);
-    }
-    public void GOTO_GAMEMENU()
-    {
-        SquashMenuState(MenuState.GameMenu);
-    }
-    public void GOTO_QUITDIALOG()
-    {
-        PushMenuState(MenuState.QuitDialog);
-    }
-    public void GOTO_RESTARTDIALOG()
-    {
-        PushMenuState(MenuState.RestartDialog);
-    }
-
-    private void GOTO_QUITTOMENUDIALOG()
-    {
-        PushMenuState(MenuState.QuitToMenuDialog);
-    }
-
-    private void GOTO_OPTIONS()
-    {
-        PushMenuState(MenuState.Options);
-    }
-
-    private void GOTO_PlayGameDialog()
-    {
-        PushMenuState(MenuState.PlayGameDialog);
-    }
+    
 
     #endregion
 
@@ -129,11 +88,10 @@ public class ButtonTransitionHandler : EventTrigger {
 
     private void ACT_ResumeGame()
     {
-        if (buttonActive)
-        {
-            PushMenuState(MenuState.PlayGame, true);
-        }
+
     }
+
+
     public void ACT_Quit()
     {
         if (buttonActive)
@@ -196,51 +154,6 @@ public class ButtonTransitionHandler : EventTrigger {
         {
             case MenuState.None:
                 break;
-            case MenuState.MainMenu:
-                GOTO_MAINMENU();
-                break;
-            case MenuState.QuitDialog:
-                GOTO_QUITDIALOG();
-                break;
-            case MenuState.RestartDialog:
-                GOTO_RESTARTDIALOG();
-                break;
-            case MenuState.Controls:
-                GOTO_CONTROLS();
-                break;
-            case MenuState.Game:
-                ACT_ResumeGame();
-                break;
-            case MenuState.GameMenu:
-                GOTO_GAMEMENU();
-                break;
-            case MenuState.GameControls:
-                GOTO_CONTROLS();
-                break;
-            case MenuState.GameQuit:
-                ACT_Quit();
-                break;
-            case MenuState.Options:
-                GOTO_OPTIONS();
-                break;
-            case MenuState.PlayGame:
-                ACT_Play();
-                break;
-            case MenuState.Back:
-                GOTO_BACK();
-                break;
-            case MenuState.QuitToMenuDialog:
-                GOTO_QUITTOMENUDIALOG();
-                break;
-            case MenuState.PlayGameDialog:
-                GOTO_PlayGameDialog();
-                break;
-            case MenuState.PlayTutorial:
-                ACT_PlayTutorial();
-                break;
-            case MenuState.RestartLevel:
-                ACT_RestartLevel();
-                break;
             default:
                 Debug.LogError("UNHANDED: Button Controller doesn't handle a PointerUp ButtonGoesTo State: " + ButtonGoesTo);
                 break;
@@ -249,13 +162,6 @@ public class ButtonTransitionHandler : EventTrigger {
         // handle Audio
         switch (ButtonGoesTo)
         {
-            case MenuState.PlayGame:
-                UISpeaker.Play(UISpeakerEvent.Voice.PlayGame);
-                break;
-            case MenuState.Back:
-                UISpeaker.Play(UISpeakerEvent.Voice.ButtonBack);
-                break;
-
 
 
             default:

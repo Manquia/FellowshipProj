@@ -7,23 +7,10 @@ using UnityEngine.SceneManagement;
 public enum MenuState
 {
     None,
-    MainMenu,
-    QuitDialog,
-    RestartDialog,
-    Controls,
 
-    Game,     // return from Game menu
-    PlayGame, // first time
-    GameMenu,
-    GameControls,
-    GameQuit,
-    Options,
-    Back,
+    Game,
 
-    QuitToMenuDialog,
-    PlayGameDialog,
-    PlayTutorial,
-    RestartLevel,
+    Turn,
 }
 
 
@@ -66,15 +53,8 @@ public class MenuController : FFComponent
         // Call on first FixedUpdate
         // Start on MainMenu
         Scene scene = SceneManager.GetActiveScene();
-
-        if (scene.name == "MainMenu")
-        {
-            StartSeq.Call(BeginMenu);
-        }
-        else if (scene.name == "World" || scene.name == "Tutorial")
-        {
-            StartSeq.Call(BeginGame);
-        }
+        
+        StartSeq.Call(BeginMenu);
     }
 
     void OnDestroy()
@@ -101,20 +81,7 @@ public class MenuController : FFComponent
     void BeginMenu()
     {
         // Send out message for everything to start happenings
-        PushMenuState pms = new PushMenuState(MenuState.MainMenu);
-        FFMessage<PushMenuState>.SendToLocal(pms);
-    }
-    void BeginGame()
-    {
-        //RemoveMenuSelectionVisuals();
-        MenuController.ClearMenuStates();
-
-        //QuietPushMenuState(MenuState.GameMenu, true);
-        //PushMenuState(MenuState.PlayGame, true);
-
-        // Send out message for everything to start happenings
-        PushState(MenuState.GameMenu);
-        PushMenuState pms = new PushMenuState(MenuState.PlayGame);
+        PushMenuState pms = new PushMenuState(MenuState.Game);
         FFMessage<PushMenuState>.SendToLocal(pms);
     }
 

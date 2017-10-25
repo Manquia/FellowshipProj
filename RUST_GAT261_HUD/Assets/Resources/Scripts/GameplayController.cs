@@ -3,6 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+struct ShowGameTimer { }
+struct HideGameTimer { }
+
+
+
+
 public class GameplayController : FFComponent
 {
     public Transform cameraTrans;
@@ -25,6 +31,25 @@ public class GameplayController : FFComponent
 
         updateSeq.Call(BeginGame);
 	}
+
+    void Update()
+    {
+        UpdateDemoActions();
+    }
+
+    void UpdateDemoActions()
+    {
+        if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.T)) // hide timer
+        {
+            FFMessage<HideGameTimer>.SendToLocal(new HideGameTimer());
+        }
+        else if (Input.GetKeyDown(KeyCode.T)) //show timer
+        {
+            Debug.Log("Show timer");
+            FFMessage<ShowGameTimer>.SendToLocal(new ShowGameTimer());
+        }
+
+    }
 
     public struct TeamInfo
     {
@@ -208,7 +233,6 @@ public class GameplayController : FFComponent
         updateSeq.Call(UpdateTurn);
     }
     
-
     // -> InitTurn
     void EndTurn()
     {
@@ -234,7 +258,6 @@ public class GameplayController : FFComponent
 
 
     #region Helpers
-
     private void ResetCameraSeq()
     {
         cameraSeq.ClearSequence();

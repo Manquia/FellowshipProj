@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -74,6 +75,7 @@ public class PlayerController : MonoBehaviour
 	
 	#region PoolData
 	Transform dashRoot;
+    public Transform arrowDash;
 	List<Transform> dashes = new List<Transform>();
 	#endregion PoolData
 	
@@ -83,13 +85,15 @@ public class PlayerController : MonoBehaviour
     public float MaxShootSpeed = 12.5f;
 
     float firingTimer = 0.0f;
-    float firingTime = 3.5f;
+    public float firingTime = 3.5f;
 
     public float distanceBetweenDashes = 0.1f;
     public float speedToDashRation = 5.0f;
 
     void OnUpdatePlayer(UpdatePlayer e)
 	{
+        UpdateDemoActions();
+
 		UpdatePlayerInput(e); // Get Input, Set PlayerState,
 		
 		
@@ -116,6 +120,21 @@ public class PlayerController : MonoBehaviour
             Vector3 offset = new Vector3(0.0f, 0.0f, -5.0f);
             
             int dashesToUse = Mathf.Min(dashes.Count, (int)(visableDashes * speedToDashRation));
+
+            { // Set arrow dot as last item to simulate
+                for(int i = 0; i < dashes.Count; ++i)
+                {
+                    if (dashes[i] == arrowDash)
+                    {
+                        // swap for last dash for the one we will use
+                        Transform temp = dashes[dashesToUse - 1];
+                        dashes[dashesToUse - 1] = arrowDash;
+                        dashes[i] = temp;
+                        break;
+                    }
+                }
+            }
+
             float distFromLastDash = 0.0f;
             for (int i = 0; i < dashesToUse;  ++i) // place dashes
 			{
@@ -154,8 +173,28 @@ public class PlayerController : MonoBehaviour
 		
 		
 	}
-	
-	void UpdatePlayerInput(UpdatePlayer e)
+
+    private void UpdateDemoActions()
+    {
+        if(Input.GetKey(KeyCode.Plus) ||
+           Input.GetKey(KeyCode.Equals))
+        {
+            ChangeHealthEvent de;
+            de.delta = 0.35f;
+            de.origin = transform;
+            FFMessageBoard<ChangeHealthEvent>.SendToLocalToAllConnected(de, gameObject);
+        }
+        if (Input.GetKey(KeyCode.Minus) ||
+           Input.GetKey(KeyCode.Underscore))
+        {
+            ChangeHealthEvent de;
+            de.delta = -0.35f;
+            de.origin = transform;
+            FFMessageBoard<ChangeHealthEvent>.SendToLocalToAllConnected(de, gameObject);
+        }
+    }
+
+    void UpdatePlayerInput(UpdatePlayer e)
 	{
 		playerState = PlayerState.None;
 

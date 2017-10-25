@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public struct DamageEvent
+public struct ChangeHealthEvent
 {
 	public float delta;
 	public Transform origin;
@@ -12,7 +12,7 @@ public struct DamageEvent
 public class Health : MonoBehaviour {
 
 	public float start;
-	[HideInInspector]public float current;
+	public float current;
 	public float max;
 	
 	public bool invulnerable;
@@ -21,18 +21,24 @@ public class Health : MonoBehaviour {
 	// Use this for initialization
 	void Start () 
 	{
-		current = start;
-		
-		FFMessageBoard<DamageEvent>.Connect(OnDamageEvent, gameObject);
+		current = start;	
+		FFMessageBoard<ChangeHealthEvent>.Connect(OnDamageEvent, gameObject);
 	}
 	void OnDestroy()
 	{
-		FFMessageBoard<DamageEvent>.Disconnect(OnDamageEvent, gameObject);
+		FFMessageBoard<ChangeHealthEvent>.Disconnect(OnDamageEvent, gameObject);
 	}
 	
-	void OnDamageEvent(DamageEvent de)
+	void OnDamageEvent(ChangeHealthEvent de)
 	{
-		
+        if (invulnerable)
+        {
+            return;
+        }
+        else
+        {
+            current += de.delta;
+        }
 	}
 	
 	// Update is called once per frame

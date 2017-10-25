@@ -626,6 +626,8 @@ public class FFAction : MonoBehaviour
 
     private static void SetMuGetter<T>(FFActionProperty<T> prop, AnimationCurve curve)
     {
+        Debug.Assert(curve.length > 1, "Using animation curves for FFAction.Property(...) Must have atleast 2 points");
+
         var firstKeyTime = curve.keys[0].time;
         if (firstKeyTime < 0)
         {

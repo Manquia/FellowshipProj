@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 //////////////////////////////////////////////////////
 // Author: Micah Rust
@@ -19,6 +20,7 @@ using System.Collections;
 // where f is a variable (float in this case)
 // FFRef<float> myRef = new FFRef<float>(() => f, v => { f = v; });
 
+[Serializable]
 public class FFRef<Type>
 {
     public delegate Type del_get();
@@ -47,6 +49,7 @@ public class FFRef<Type>
 }
 
 // value wrapper with default getter and setter
+[Serializable]
 public sealed class FFVar<Type> : FFRef<Type>
 {
     private Type myvalue;
