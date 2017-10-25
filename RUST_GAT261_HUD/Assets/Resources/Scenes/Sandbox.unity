@@ -413,26 +413,6 @@ Prefab:
       propertyPath: m_Name
       value: T1P1 (2)
       objectReference: {fileID: 0}
-    - target: {fileID: 114273509430191774, guid: 29ffd860ba65bfb4a9d815fb5cd542cf,
-        type: 2}
-      propertyPath: TeamId
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 212848362411960890, guid: 29ffd860ba65bfb4a9d815fb5cd542cf,
-        type: 2}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 212848362411960890, guid: 29ffd860ba65bfb4a9d815fb5cd542cf,
-        type: 2}
-      propertyPath: m_Color.g
-      value: 0.8896551
-      objectReference: {fileID: 0}
-    - target: {fileID: 212848362411960890, guid: 29ffd860ba65bfb4a9d815fb5cd542cf,
-        type: 2}
-      propertyPath: m_Color.b
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 29ffd860ba65bfb4a9d815fb5cd542cf, type: 2}
   m_IsPrefabParent: 0
