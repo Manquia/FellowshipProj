@@ -238,8 +238,7 @@ public class GameplayController : FFComponent
     private void ResetCameraSeq()
     {
         cameraSeq.ClearSequence();
-
-        float size = 10.0f;
+        
         Vector3 averagePos = Vector3.zero;
 
         foreach(var posRef in cameraTarget)
