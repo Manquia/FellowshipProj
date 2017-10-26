@@ -10,6 +10,7 @@ public struct HideNotificationBar { } // Shift + N
 public struct ShowWeatherBar { } // W
 public struct HideWeatherBar { } // Shift + W
 public struct DamageFeedback { } // D
+public class ItemPickupNotification { public bool handled; } // P
 
 // ChangeTarget             -> Tab
 // Switch Character         -> S
@@ -87,6 +88,14 @@ public class GameplayController : FFComponent
         if (Input.GetKeyDown(KeyCode.D))
         {
             FFMessage<DamageFeedback>.SendToLocal(new DamageFeedback());
+        }
+		
+        // Pickup Item
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+			var ipn = new ItemPickupNotification();
+			ipn.handled = false;
+            FFMessage<ItemPickupNotification>.SendToLocal(ipn);
         }
     }
 
