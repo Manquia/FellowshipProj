@@ -3,12 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-struct ShowGameTimer { } // T
-struct HideGameTimer { } // Shift + T
-struct ShowNotificationBar { } // N
-struct HideNotificationBar { } // Shift + N
-struct ShowWeatherBar { } // W
-struct HideWeatherBar { } // Shift + W
+public struct ShowGameTimer { } // T
+public struct HideGameTimer { } // Shift + T
+public struct ShowNotificationBar { } // N
+public struct HideNotificationBar { } // Shift + N
+public struct ShowWeatherBar { } // W
+public struct HideWeatherBar { } // Shift + W
+public struct DamageFeedback { } // D
 
 // ChangeTarget             -> Tab
 // Switch Character         -> S
@@ -51,6 +52,7 @@ public class GameplayController : FFComponent
 
     void UpdateDemoActions()
     {
+        // Timer
         if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.T)) // hide timer
         {
             FFMessage<HideGameTimer>.SendToLocal(new HideGameTimer());
@@ -61,6 +63,7 @@ public class GameplayController : FFComponent
             FFMessage<ShowGameTimer>.SendToLocal(new ShowGameTimer());
         }
 
+        // Notifications
         if(Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.N))
         {
             FFMessage<HideNotificationBar>.SendToLocal(new HideNotificationBar());
@@ -70,6 +73,7 @@ public class GameplayController : FFComponent
             FFMessage<ShowNotificationBar>.SendToLocal(new ShowNotificationBar());
         }
 
+        // Weather
         if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.W))
         {
             FFMessage<HideWeatherBar>.SendToLocal(new HideWeatherBar());
@@ -77,6 +81,12 @@ public class GameplayController : FFComponent
         else if (Input.GetKeyDown(KeyCode.W)) //show timer
         {
             FFMessage<ShowWeatherBar>.SendToLocal(new ShowWeatherBar());
+        }
+
+        // Damage
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            FFMessage<DamageFeedback>.SendToLocal(new DamageFeedback());
         }
     }
 
