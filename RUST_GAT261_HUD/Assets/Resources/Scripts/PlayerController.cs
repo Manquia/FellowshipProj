@@ -18,8 +18,11 @@ public class PlayerController : MonoBehaviour
 
     Rigidbody rigid;
 
-    Transform targetRedical;
-    Transform playerRedical;
+    private GameplayController gameplayerController;
+    [HideInInspector]public Transform targetRedical;
+    [HideInInspector]public Transform playerRedical;
+    [HideInInspector]public Transform healthBar;
+    [HideInInspector]public Transform healthBarText;
 
     enum UIState
 	{
@@ -45,11 +48,15 @@ public class PlayerController : MonoBehaviour
         FFMessageBoard<EndTurn>.Connect(OnEndTurn, gameObject);
 
         // Get Redicals
-        targetRedical = transform.Find("TargetRedical");
-        playerRedical = transform.Find("PlayerRedical");
+        targetRedical   = transform.Find("TargetRadical"); targetRedical.gameObject.SetActive(false);
+        playerRedical   = transform.Find("PlayerRadical"); playerRedical.gameObject.SetActive(false);
+        healthBar       = transform.Find("UI").Find("HealthBar");
+        healthBarText   = transform.Find("UI").Find("HealthBarText");
+        gameplayerController = GameObject.Find("GameplayController").GetComponent<GameplayController>();
 
-		// Get Dashes
-		dashRoot = transform.Find("DashRoot");
+
+        // Get Dashes
+        dashRoot = transform.Find("DashRoot");
 		foreach(Transform child in dashRoot)
 		{
 			dashes.Add(child);
@@ -106,11 +113,17 @@ public class PlayerController : MonoBehaviour
 
     private void OnBeginTurn(BeginTurn e)
     {
-
+        playerRedical.gameObject.SetActive(true);
+        targetRedical.gameObject.SetActive(false);
+        healthBar.gameObject.SetActive(false);
+        healthBarText.gameObject.SetActive(false);
     }
     private void OnEndTurn(EndTurn e)
     {
-
+        playerRedical.gameObject.SetActive(false);
+        targetRedical.gameObject.SetActive(false);
+        healthBar.gameObject.SetActive(true);
+        healthBarText.gameObject.SetActive(true);
     }
 
     void OnUpdateTurn(UpdateTurn e)
@@ -118,10 +131,10 @@ public class PlayerController : MonoBehaviour
         UpdateDemoActions();
 
 		UpdatePlayerInput(e); // Get Input, Set PlayerState,
-		
-		
-		{ // Debug Look direction
-			var lookDirection = LookQuaternion * transform.up;
+
+        // Debug Look direction
+        {
+            var lookDirection = LookQuaternion * transform.up;
 			Debug.DrawLine(transform.position, transform.position + lookDirection, Color.red);
 		}
         
@@ -199,21 +212,24 @@ public class PlayerController : MonoBehaviour
 
     private void UpdateDemoActions()
     {
-        if(Input.GetKey(KeyCode.Plus) ||
-           Input.GetKey(KeyCode.Equals))
+        if (gameplayerController.targetTrans != null)
         {
-            ChangeHealthEvent de;
-            de.delta = 0.35f;
-            de.origin = transform;
-            FFMessageBoard<ChangeHealthEvent>.SendToLocalToAllConnected(de, gameObject);
-        }
-        if (Input.GetKey(KeyCode.Minus) ||
-           Input.GetKey(KeyCode.Underscore))
-        {
-            ChangeHealthEvent de;
-            de.delta = -0.35f;
-            de.origin = transform;
-            FFMessageBoard<ChangeHealthEvent>.SendToLocalToAllConnected(de, gameObject);
+            if (Input.GetKey(KeyCode.Plus) ||
+               Input.GetKey(KeyCode.Equals))
+            {
+                ChangeHealthEvent de;
+                de.delta = 0.35f;
+                de.origin = transform;
+                FFMessageBoard<ChangeHealthEvent>.SendToLocalToAllConnected(de, gameplayerController.targetTrans.gameObject);
+            }
+            if (Input.GetKey(KeyCode.Minus) ||
+               Input.GetKey(KeyCode.Underscore))
+            {
+                ChangeHealthEvent de;
+                de.delta = -0.35f;
+                de.origin = transform;
+                FFMessageBoard<ChangeHealthEvent>.SendToLocalToAllConnected(de, gameplayerController.targetTrans.gameObject);
+            }
         }
     }
 

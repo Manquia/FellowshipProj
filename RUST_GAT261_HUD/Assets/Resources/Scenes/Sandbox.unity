@@ -518,52 +518,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
---- !u!1001 &222025049
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4331868753360706, guid: 29ffd860ba65bfb4a9d815fb5cd542cf, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: -1.06
-      objectReference: {fileID: 0}
-    - target: {fileID: 4331868753360706, guid: 29ffd860ba65bfb4a9d815fb5cd542cf, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: -1.26
-      objectReference: {fileID: 0}
-    - target: {fileID: 4331868753360706, guid: 29ffd860ba65bfb4a9d815fb5cd542cf, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4331868753360706, guid: 29ffd860ba65bfb4a9d815fb5cd542cf, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4331868753360706, guid: 29ffd860ba65bfb4a9d815fb5cd542cf, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4331868753360706, guid: 29ffd860ba65bfb4a9d815fb5cd542cf, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4331868753360706, guid: 29ffd860ba65bfb4a9d815fb5cd542cf, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4331868753360706, guid: 29ffd860ba65bfb4a9d815fb5cd542cf, type: 2}
-      propertyPath: m_RootOrder
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 1391113482145804, guid: 29ffd860ba65bfb4a9d815fb5cd542cf, type: 2}
-      propertyPath: m_Name
-      value: T1P1 (2)
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 29ffd860ba65bfb4a9d815fb5cd542cf, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1 &238166501
 GameObject:
   m_ObjectHideFlags: 0
@@ -739,7 +693,7 @@ MonoBehaviour:
   - 0
   - 5.0720916
   - 10.144183
---- !u!1001 &336859713
+--- !u!1001 &308903602
 Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -748,11 +702,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4331868753360706, guid: 29ffd860ba65bfb4a9d815fb5cd542cf, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 3.1
+      value: -1.54
       objectReference: {fileID: 0}
     - target: {fileID: 4331868753360706, guid: 29ffd860ba65bfb4a9d815fb5cd542cf, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -0.33
+      value: -1.23
       objectReference: {fileID: 0}
     - target: {fileID: 4331868753360706, guid: 29ffd860ba65bfb4a9d815fb5cd542cf, type: 2}
       propertyPath: m_LocalPosition.z
@@ -781,6 +735,31 @@ Prefab:
     - target: {fileID: 1391113482145804, guid: 29ffd860ba65bfb4a9d815fb5cd542cf, type: 2}
       propertyPath: m_Name
       value: T1P1 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 114273509430191774, guid: 29ffd860ba65bfb4a9d815fb5cd542cf,
+        type: 2}
+      propertyPath: TeamId
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114273509430191774, guid: 29ffd860ba65bfb4a9d815fb5cd542cf,
+        type: 2}
+      propertyPath: characterName
+      value: Bee
+      objectReference: {fileID: 0}
+    - target: {fileID: 212848362411960890, guid: 29ffd860ba65bfb4a9d815fb5cd542cf,
+        type: 2}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 212848362411960890, guid: 29ffd860ba65bfb4a9d815fb5cd542cf,
+        type: 2}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 212848362411960890, guid: 29ffd860ba65bfb4a9d815fb5cd542cf,
+        type: 2}
+      propertyPath: m_Color.b
+      value: 0.08965516
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 29ffd860ba65bfb4a9d815fb5cd542cf, type: 2}
@@ -1817,6 +1796,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraTrans: {fileID: 781442028}
   cameraOffset: {x: 0, y: 0, z: -10}
+  TargetRedical: {fileID: 0}
+  PlayerIcon: {fileID: 0}
+  targetTrans: {fileID: 0}
 --- !u!4 &724297059
 Transform:
   m_ObjectHideFlags: 0

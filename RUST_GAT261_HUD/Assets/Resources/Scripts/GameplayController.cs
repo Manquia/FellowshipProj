@@ -11,9 +11,11 @@ struct ShowWeatherBar { } // W
 struct HideWeatherBar { } // Shift + W
 
 // ChangeTarget             -> Tab
-// SwitchCharacter          -> S
+// Switch Character          -> S
 // IncreaseDecreaseHealth   -> +-
 // ChangeWindSpeed          -> E, Shift + E
+// Aim                      -> Up, Down Arrow
+
 
 public class GameplayController : FFComponent
 {
@@ -37,6 +39,8 @@ public class GameplayController : FFComponent
         updateSeq = action.Sequence();
         cameraSeq = action.Sequence();
 
+        updateSeq.Delay(Time.fixedDeltaTime * 1.5f); // wait 1-2 frames before staring game
+        updateSeq.Sync();
         updateSeq.Call(BeginGame);
 	}
 
@@ -99,14 +103,15 @@ public class GameplayController : FFComponent
     }
     int targetCharacterIndex = 0;
     Character targetCharacter;
-    Transform targetTrans;
+    [HideInInspector] public Transform targetTrans;
 
     List<FFRef<Vector3>> cameraTarget = new List<FFRef<Vector3>>();
 
     #region StateFunctions
 
     // Start of the game
-    void BeginGame() // -> BeginTurn
+    // -> InitTurn
+    void BeginGame() 
     {
         DisplayDebugState("BeginGame");
         // Get team Ids, Randomize order
@@ -133,7 +138,7 @@ public class GameplayController : FFComponent
         }
 
         // Start turn of first team
-        updateSeq.Call(BeginTurn);
+        updateSeq.Call(InitTurn);
     }
 
     // -> BeginTurn
@@ -259,9 +264,19 @@ public class GameplayController : FFComponent
         }
 
         // Update Targeting
+        if(targetTrans != null)
         {
+            // if target is not player, Do Target Redical
+            if(targetTrans != character.transform)
+                playerController.targetRedical.gameObject.SetActive(true);
+            else // targeting player, don't need to show targeting redical
+                playerController.targetRedical.gameObject.SetActive(false);
 
 
+            // Update Targeting Redical Positions
+            {
+                playerController.targetRedical.position = targetTrans.position + (Vector3.up * 1.25f);
+            }
         }
 
 
