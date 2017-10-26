@@ -122,7 +122,8 @@ public class GameplayController : FFComponent
     }
     int targetCharacterIndex = 0;
     Character targetCharacter;
-    [HideInInspector] public Transform targetTrans;
+
+    public Transform targetTrans;
 
     List<FFRef<Vector3>> cameraTarget = new List<FFRef<Vector3>>();
 
@@ -143,17 +144,17 @@ public class GameplayController : FFComponent
                 teamInfo.Add(ti);
             }
 
-            var teamCount = teamInfo.Count;
-            var randomSwapCount = teamCount * 10;
-            for (int i = 0; i < randomSwapCount; ++i)
-            {
-                var randStart = UnityEngine.Random.Range(0, teamCount);
-                var randEnd = UnityEngine.Random.Range(0, teamCount);
-
-                TeamInfo temp = teamInfo[randStart];
-                teamInfo[randStart] = teamInfo[randEnd];
-                teamInfo[randEnd] = temp;
-            }
+            //var teamCount = teamInfo.Count;
+            //var randomSwapCount = teamCount * 10;
+            //for (int i = 0; i < randomSwapCount; ++i)
+            //{
+            //    var randStart = UnityEngine.Random.Range(0, teamCount);
+            //    var randEnd = UnityEngine.Random.Range(0, teamCount);
+            //
+            //    TeamInfo temp = teamInfo[randStart];
+            //    teamInfo[randStart] = teamInfo[randEnd];
+            //    teamInfo[randEnd] = temp;
+            //}
         }
 
         // Start turn of first team
@@ -172,6 +173,9 @@ public class GameplayController : FFComponent
 
         targetCharacter = character;        // target is self
         targetTrans = character.transform;  // target is self
+
+        targetTeamIndex = teamIndex + 1;
+        targetCharacterIndex = 0;
 
         cameraTarget.Clear(); // no camera targets
 
@@ -217,11 +221,17 @@ public class GameplayController : FFComponent
     void UpdateTurn()
     {
         DisplayDebugState("UpdateTurn");
+        
+
         // Get Info
         var ti = teamInfo[teamIndex];
         var roster = Character.TeamRosters[ti.teamId];
         var character = roster[ti.characterIndex % roster.Count];
         var playerController = character.GetComponent<PlayerController>();
+
+
+        //Debug.Log("Team Index: " + teamIndex);
+        //Debug.Log("Character Index: " + ti.characterIndex);
 
         // Update Character
         UpdateTurn up; up.dt = Time.fixedDeltaTime;
@@ -240,7 +250,7 @@ public class GameplayController : FFComponent
                 cameraTarget.RemoveAt(1);
             }
 
-            var targetTeamInfo = teamInfo[targetTeamIndex];
+            TeamInfo targetTeamInfo = teamInfo[targetTeamIndex];
             var targetTeamRoster = Character.TeamRosters[targetTeamInfo.teamId];
 
             // Apply changes to indexes, info as needed
@@ -265,6 +275,10 @@ public class GameplayController : FFComponent
                 targetCharacterIndex += shiftDirection;
             }
 
+
+            //Debug.Log("Target Team Index: " + targetTeamInfo.teamId);
+            //Debug.Log("Target Index: " + targetCharacterIndex);
+
             targetCharacter = targetTeamRoster[targetCharacterIndex];
             targetTrans = targetCharacter.transform;
 
@@ -275,6 +289,7 @@ public class GameplayController : FFComponent
 
             ResetCameraSeq();
         }
+
         // Skip to next character
         if(Input.GetKeyDown(KeyCode.S)) // skip turn
         {
@@ -294,7 +309,8 @@ public class GameplayController : FFComponent
 
             // Update Targeting Redical Positions
             {
-                playerController.targetRedical.position = targetTrans.position + (Vector3.up * 1.25f);
+                playerController.targetRedical.position = targetTrans.position +
+                    (Vector3.up * 0.3f) + (-Vector3.forward * 0.1f);
             }
         }
 

@@ -53,7 +53,7 @@ public class PlayerController : MonoBehaviour
         healthBar       = transform.Find("UI").Find("HealthBar");
         healthBarText   = transform.Find("UI").Find("HealthBarText");
         gameplayerController = GameObject.Find("GameplayController").GetComponent<GameplayController>();
-
+        
 
         // Get Dashes
         dashRoot = transform.Find("DashRoot");
@@ -61,7 +61,12 @@ public class PlayerController : MonoBehaviour
 		{
 			dashes.Add(child);
 		}
-	}
+
+        for (int i = 0; i < dashes.Count; ++i) // disable all dashes
+        {
+            dashes[i].gameObject.SetActive(false);
+        }
+    }
 	
 	void OnDestroy()
 	{
@@ -124,6 +129,12 @@ public class PlayerController : MonoBehaviour
         targetRedical.gameObject.SetActive(false);
         healthBar.gameObject.SetActive(true);
         healthBarText.gameObject.SetActive(true);
+
+
+        for (int i = 0; i < dashes.Count; ++i) // disable all dashes
+        {
+            dashes[i].gameObject.SetActive(false);
+        }
     }
 
     void OnUpdateTurn(UpdateTurn e)
@@ -241,17 +252,17 @@ public class PlayerController : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.Tab))
             {
-                switch (uiState)
-                {
-                    case UIState.Game: // -> Weapons
-                        uiState = UIState.Weapons;
-                        break;
-                    case UIState.Weapons: // -> Game
-                        uiState = UIState.Game;
-                        break;
-                    case UIState.Menu: // Nothing
-                        break;
-                }
+                //switch (uiState)
+                //{
+                //    case UIState.Game: // -> Weapons
+                //        uiState = UIState.Weapons;
+                //        break;
+                //    case UIState.Weapons: // -> Game
+                //        uiState = UIState.Game;
+                //        break;
+                //    case UIState.Menu: // Nothing
+                //        break;
+                //}
             }
             if (Input.GetKey(KeyCode.Escape))
             {
