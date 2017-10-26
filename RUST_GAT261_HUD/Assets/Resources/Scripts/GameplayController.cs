@@ -11,7 +11,7 @@ struct ShowWeatherBar { } // W
 struct HideWeatherBar { } // Shift + W
 
 // ChangeTarget             -> Tab
-// Switch Character          -> S
+// Switch Character         -> S
 // IncreaseDecreaseHealth   -> +-
 // ChangeWindSpeed          -> E, Shift + E
 // Aim                      -> Up, Down Arrow
