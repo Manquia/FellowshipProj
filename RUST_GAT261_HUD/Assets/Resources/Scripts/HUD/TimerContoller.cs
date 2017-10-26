@@ -11,10 +11,17 @@ public class TimerContoller : FFComponent {
 
     Vector3 scaleSave;
 
+    TextMesh timeText;
+    SpriteRenderer timeBackground;
+    public float DemoStartTime = 10.0f;
+    float timer = 0;
+    bool running = false;
+
 	// Use this for initialization
 	void Start ()
     {
         scaleSave = transform.localScale;
+        scaleMultiplierSav = scaleMultiplier;
 
         seq = action.Sequence();
 
@@ -22,6 +29,8 @@ public class TimerContoller : FFComponent {
         FFMessage<HideGameTimer>.Connect(OnHideGameTimer);
 
 
+        timeText = transform.Find("Text").GetComponent<TextMesh>();
+        timeBackground = transform.Find("Background").GetComponent<SpriteRenderer>();
     }
 
     void OnDestroy()
@@ -33,16 +42,61 @@ public class TimerContoller : FFComponent {
 
     private void OnShowGameTimer(ShowGameTimer e)
     {
+        running = true;
+        timer = DemoStartTime;
         Activate();
     }
     private void OnHideGameTimer(HideGameTimer e)
     {
+        running = false;
         Deactivate();
+    }
+
+    public Color normalColor;
+    public Color warnColor;
+    public Color endColor;
+
+    void Update()
+    {
+        if (running == false)
+            return;
+
+        // Update Timer
+        timer = Mathf.Max(0.0f, timer - Time.deltaTime);
+        
+
+        { // Update Text contents
+            string str = "";
+            str += timer.ToString("0.0"); ;
+            timeText.text = str;
+        }
+
+        { //  Manage Color Changes + Pulse value
+            if (timer >= 5.0f)
+            {
+                timeBackground.color = normalColor;
+            }
+            else if (timer < 5.0f && timer > 0.0f) // make color change
+            {
+                var delta = (1 - timer / 5.2f) * 2.0f;
+                scaleMultiplier = scaleMultiplierSav + (scaleMultiplierSav * delta);
+
+                timeBackground.color = warnColor;
+            }
+            else
+            {
+                transform.localScale = scaleSave;
+                seq.ClearSequence();
+                timeBackground.color = endColor;
+                running = false;
+            }
+        }
     }
 
 
 
     public float scaleMultiplier = 2.0f;
+    float scaleMultiplierSav;
 
     public float deactivationTime = 0.4f;
     public AnimationCurve deactivationMoveCurve;
@@ -89,6 +143,7 @@ public class TimerContoller : FFComponent {
     void reset()
     {
         transform.localScale = scaleSave;
+        scaleMultiplier = scaleMultiplierSav;
     }
 
     

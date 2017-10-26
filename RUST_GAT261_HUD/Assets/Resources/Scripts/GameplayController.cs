@@ -3,11 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-struct ShowGameTimer { }
-struct HideGameTimer { }
+struct ShowGameTimer { } // T
+struct HideGameTimer { } // Shift + T
+struct ShowNotificationBar { } // N
+struct HideNotificationBar { } // Shift + N
+struct ShowWeatherBar { } // W
+struct HideWeatherBar { } // Shift + W
 
-
-
+// ChangeTarget             -> Tab
+// SwitchCharacter          -> S
+// IncreaseDecreaseHealth   -> +-
+// ChangeWindSpeed          -> E, Shift + E
 
 public class GameplayController : FFComponent
 {
@@ -17,6 +23,8 @@ public class GameplayController : FFComponent
     FFAction.ActionSequence updateSeq;
     FFAction.ActionSequence cameraSeq;
 
+    public Transform TargetRedical;
+    public Transform PlayerIcon;
 
     public struct TurnInfo
     {
@@ -49,6 +57,23 @@ public class GameplayController : FFComponent
             FFMessage<ShowGameTimer>.SendToLocal(new ShowGameTimer());
         }
 
+        if(Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.N))
+        {
+            FFMessage<HideNotificationBar>.SendToLocal(new HideNotificationBar());
+        }
+        else if (Input.GetKeyDown(KeyCode.N)) //show timer
+        {
+            FFMessage<ShowNotificationBar>.SendToLocal(new ShowNotificationBar());
+        }
+
+        if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.W))
+        {
+            FFMessage<HideWeatherBar>.SendToLocal(new HideWeatherBar());
+        }
+        else if (Input.GetKeyDown(KeyCode.W)) //show timer
+        {
+            FFMessage<ShowWeatherBar>.SendToLocal(new ShowWeatherBar());
+        }
     }
 
     public struct TeamInfo
@@ -132,6 +157,9 @@ public class GameplayController : FFComponent
             (v) => { characterTrans.position = v; }
             ));
 
+        BeginTurn bt;
+        FFMessageBoard<BeginTurn>.SendToLocal(bt, character.gameObject);
+
         updateSeq.Call(BeginTurn);
     }
 
@@ -169,10 +197,11 @@ public class GameplayController : FFComponent
         var ti = teamInfo[teamIndex];
         var roster = Character.TeamRosters[ti.teamId];
         var character = roster[ti.characterIndex % roster.Count];
+        var playerController = character.GetComponent<PlayerController>();
 
         // Update Character
-        UpdatePlayer up; up.dt = Time.fixedDeltaTime;
-        FFMessageBoard<UpdatePlayer>.SendToLocal(up, character.gameObject);
+        UpdateTurn up; up.dt = Time.fixedDeltaTime;
+        FFMessageBoard<UpdateTurn>.SendToLocal(up, character.gameObject);
 
         // Z-target an enemy
         if(Input.GetKeyDown(KeyCode.Tab))
@@ -222,13 +251,20 @@ public class GameplayController : FFComponent
 
             ResetCameraSeq();
         }
-
+        // Skip to next character
         if(Input.GetKeyDown(KeyCode.S)) // skip turn
         {
             updateSeq.Call(EndTurn);
             return;
         }
-        
+
+        // Update Targeting
+        {
+
+
+        }
+
+
         updateSeq.Sync();
         updateSeq.Call(UpdateTurn);
     }
@@ -246,7 +282,10 @@ public class GameplayController : FFComponent
         ti.characterIndex += 1;
         teamInfo[teamIndex] = ti;
 
-        // @TODO, Game ended?
+        EndTurn et;
+        FFMessageBoard<EndTurn>.SendToLocal(et, character.gameObject);
+
+        // @TODO, Check for Game ended?
 
         // Goto next team to update
         ++teamIndex;

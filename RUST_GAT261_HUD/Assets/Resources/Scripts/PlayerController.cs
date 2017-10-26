@@ -4,10 +4,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public struct UpdatePlayer
+public struct UpdateTurn
 {
 	public float dt;
 }
+public struct BeginTurn { }
+public struct EndTurn { }
 
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour 
@@ -15,8 +17,11 @@ public class PlayerController : MonoBehaviour
     ProjectilePhysics projectilePhysics;
 
     Rigidbody rigid;
-	
-	enum UIState
+
+    Transform targetRedical;
+    Transform playerRedical;
+
+    enum UIState
 	{
 		Game,
 		Weapons,
@@ -35,8 +40,14 @@ public class PlayerController : MonoBehaviour
 		rigid = GetComponent<Rigidbody>();
         projectilePhysics = GameObject.Find("ProjectilePhysics").GetComponent<ProjectilePhysics>();
 
-        FFMessageBoard<UpdatePlayer>.Connect(OnUpdatePlayer, gameObject);
-		
+        FFMessageBoard<UpdateTurn>.Connect(OnUpdateTurn, gameObject);
+        FFMessageBoard<BeginTurn>.Connect(OnBeginTurn, gameObject);
+        FFMessageBoard<EndTurn>.Connect(OnEndTurn, gameObject);
+
+        // Get Redicals
+        targetRedical = transform.Find("TargetRedical");
+        playerRedical = transform.Find("PlayerRedical");
+
 		// Get Dashes
 		dashRoot = transform.Find("DashRoot");
 		foreach(Transform child in dashRoot)
@@ -47,11 +58,14 @@ public class PlayerController : MonoBehaviour
 	
 	void OnDestroy()
 	{
-		FFMessageBoard<UpdatePlayer>.Disconnect(OnUpdatePlayer, gameObject);
-	}
-	
-	#region PlayerStateData
-	private UIState uiState = UIState.Game;
+		FFMessageBoard<UpdateTurn>.Disconnect(OnUpdateTurn, gameObject);
+        FFMessageBoard<BeginTurn>.Disconnect(OnBeginTurn, gameObject);
+        FFMessageBoard<EndTurn>.Disconnect(OnEndTurn, gameObject);
+    }
+    
+    
+    #region PlayerStateData
+    private UIState uiState = UIState.Game;
 	private PlayerState playerState = PlayerState.None;
 	
 	
@@ -75,8 +89,8 @@ public class PlayerController : MonoBehaviour
 	
 	#region PoolData
 	Transform dashRoot;
+    List<Transform> dashes = new List<Transform>();
     public Transform arrowDash;
-	List<Transform> dashes = new List<Transform>();
 	#endregion PoolData
 	
     
@@ -90,7 +104,16 @@ public class PlayerController : MonoBehaviour
     public float distanceBetweenDashes = 0.1f;
     public float speedToDashRation = 5.0f;
 
-    void OnUpdatePlayer(UpdatePlayer e)
+    private void OnBeginTurn(BeginTurn e)
+    {
+
+    }
+    private void OnEndTurn(EndTurn e)
+    {
+
+    }
+
+    void OnUpdateTurn(UpdateTurn e)
 	{
         UpdateDemoActions();
 
@@ -194,7 +217,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void UpdatePlayerInput(UpdatePlayer e)
+    void UpdatePlayerInput(UpdateTurn e)
 	{
 		playerState = PlayerState.None;
 
