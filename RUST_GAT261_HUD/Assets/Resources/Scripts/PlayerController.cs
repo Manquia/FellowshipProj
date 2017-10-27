@@ -24,6 +24,8 @@ public class PlayerController : MonoBehaviour
     [HideInInspector]public Transform healthBar;
     [HideInInspector]public Transform healthBarText;
 
+    public AudioClip fireReleaseSound;
+
     enum UIState
 	{
 		Game,
@@ -47,13 +49,13 @@ public class PlayerController : MonoBehaviour
         FFMessageBoard<BeginTurn>.Connect(OnBeginTurn, gameObject);
         FFMessageBoard<EndTurn>.Connect(OnEndTurn, gameObject);
 
-        // Get Redicals
+        // Get objects
         targetRedical   = transform.Find("TargetRadical"); targetRedical.gameObject.SetActive(false);
         playerRedical   = transform.Find("PlayerRadical"); playerRedical.gameObject.SetActive(false);
         healthBar       = transform.Find("UI").Find("HealthBar");
         healthBarText   = transform.Find("UI").Find("HealthBarText");
         gameplayerController = GameObject.Find("GameplayController").GetComponent<GameplayController>();
-        
+        shootSoundSource = transform.Find("ShootSoundSource").GetComponent<AudioSource>();
 
         // Get Dashes
         dashRoot = transform.Find("DashRoot");
@@ -231,7 +233,7 @@ public class PlayerController : MonoBehaviour
                 ChangeHealthEvent de;
                 de.delta = 0.35f;
                 de.origin = transform;
-                FFMessageBoard<ChangeHealthEvent>.SendToLocalToAllConnected(de, gameplayerController.targetTrans.gameObject);
+                FFMessageBoard<ChangeHealthEvent>.SendToLocalDown(de, gameplayerController.targetTrans.gameObject);
             }
             if (Input.GetKey(KeyCode.Minus) ||
                Input.GetKey(KeyCode.Underscore))
@@ -239,7 +241,7 @@ public class PlayerController : MonoBehaviour
                 ChangeHealthEvent de;
                 de.delta = -0.35f;
                 de.origin = transform;
-                FFMessageBoard<ChangeHealthEvent>.SendToLocalToAllConnected(de, gameplayerController.targetTrans.gameObject);
+                FFMessageBoard<ChangeHealthEvent>.SendToLocalDown(de, gameplayerController.targetTrans.gameObject);
             }
         }
     }
@@ -332,18 +334,30 @@ public class PlayerController : MonoBehaviour
                 firingTimer += e.dt;
                 shootSpeed = Mathf.Lerp(minShootSpeed, MaxShootSpeed, Mathf.Min(firingTimer, firingTime) / firingTime);
 
+                if(shootSoundSource.isPlaying == false)
+                {
+                    shootSoundSource.Play();
+                }
+                shootSoundSource.pitch = 0.5f + (1.5f * (firingTimer / firingTime));
+
                 playerState |= PlayerState.Shooting;
             }
             else
             {
+                shootSoundSource.Stop();
                 shootSpeed = minShootSpeed;
                 firingTimer = 0.0f;
+            }
+
+            if(Input.GetKeyUp(KeyCode.Space))
+            {
+                AudioHandler.Play(fireReleaseSound);
             }
 		}
 
     }
 
-
+    AudioSource shootSoundSource;
 
 }
 

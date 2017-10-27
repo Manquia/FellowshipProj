@@ -13,6 +13,7 @@ public class TimerContoller : FFComponent {
 
     TextMesh timeText;
     SpriteRenderer timeBackground;
+    public AudioClip finishedTimerSound;
     public float DemoStartTime = 10.0f;
     float timer = 0;
     bool running = false;
@@ -42,6 +43,11 @@ public class TimerContoller : FFComponent {
 
     private void OnShowGameTimer(ShowGameTimer e)
     {
+
+        var audioSrc = GetComponent<AudioSource>();
+        audioSrc.loop = true;
+        audioSrc.Play();
+
         running = true;
         timer = DemoStartTime;
         Activate();
@@ -60,6 +66,7 @@ public class TimerContoller : FFComponent {
     {
         if (running == false)
             return;
+        
 
         // Update Timer
         timer = Mathf.Max(0.0f, timer - Time.deltaTime);
@@ -85,6 +92,11 @@ public class TimerContoller : FFComponent {
             }
             else
             {
+                var audioSrc = GetComponent<AudioSource>();
+                audioSrc.Stop();
+                audioSrc.loop = false;
+                audioSrc.PlayOneShot(finishedTimerSound);
+
                 transform.localScale = scaleSave;
                 seq.ClearSequence();
                 timeBackground.color = endColor;

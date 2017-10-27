@@ -51,43 +51,59 @@ public class GameplayController : FFComponent
         UpdateDemoActions();
     }
 
+    public AudioClip timerSound;
+    public AudioClip notificationSound;
+    public AudioClip windSound;
+    public AudioClip damageSound;
+    public AudioClip pickupItemSound;
+
+    public AudioClip switchTargetSound;
+    public AudioClip switchPlayerSound;
+
     void UpdateDemoActions()
     {
         // Timer
         if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.T)) // hide timer
         {
             FFMessage<HideGameTimer>.SendToLocal(new HideGameTimer());
+            AudioHandler.Play(timerSound);
         }
         else if (Input.GetKeyDown(KeyCode.T)) //show timer
         {
-            Debug.Log("Show timer");
+            //Debug.Log("Show timer");
             FFMessage<ShowGameTimer>.SendToLocal(new ShowGameTimer());
+            AudioHandler.Play(timerSound);
         }
 
         // Notifications
         if(Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.N))
         {
             FFMessage<HideNotificationBar>.SendToLocal(new HideNotificationBar());
+            AudioHandler.Play(notificationSound);
         }
-        else if (Input.GetKeyDown(KeyCode.N)) //show timer
+        else if (Input.GetKeyDown(KeyCode.N)) //show notification
         {
             FFMessage<ShowNotificationBar>.SendToLocal(new ShowNotificationBar());
+            AudioHandler.Play(notificationSound);
         }
 
         // Weather
         if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.W))
         {
             FFMessage<HideWeatherBar>.SendToLocal(new HideWeatherBar());
+            AudioHandler.Play(windSound);
         }
-        else if (Input.GetKeyDown(KeyCode.W)) //show timer
+        else if (Input.GetKeyDown(KeyCode.W)) //show weather
         {
             FFMessage<ShowWeatherBar>.SendToLocal(new ShowWeatherBar());
+            AudioHandler.Play(windSound);
         }
 
         // Damage
         if (Input.GetKeyDown(KeyCode.D))
         {
             FFMessage<DamageFeedback>.SendToLocal(new DamageFeedback());
+            AudioHandler.Play(damageSound);
         }
 		
         // Pickup Item
@@ -96,6 +112,7 @@ public class GameplayController : FFComponent
 			var ipn = new ItemPickupNotification();
 			ipn.handled = false;
             FFMessage<ItemPickupNotification>.SendToLocal(ipn);
+            AudioHandler.Play(pickupItemSound);
         }
     }
 
@@ -288,11 +305,13 @@ public class GameplayController : FFComponent
                 (v) => { targetTrans.position = v; }));
 
             ResetCameraSeq();
+            AudioHandler.Play(switchTargetSound);
         }
 
         // Skip to next character
         if(Input.GetKeyDown(KeyCode.S)) // skip turn
         {
+            AudioHandler.Play(switchPlayerSound);
             updateSeq.Call(EndTurn);
             return;
         }
