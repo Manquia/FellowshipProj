@@ -54,6 +54,9 @@ public class TimerContoller : FFComponent {
     }
     private void OnHideGameTimer(HideGameTimer e)
     {
+        var audioSrc = GetComponent<AudioSource>();
+        audioSrc.Stop();
+
         running = false;
         Deactivate();
     }
