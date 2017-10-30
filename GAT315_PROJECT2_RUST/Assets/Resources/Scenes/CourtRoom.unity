@@ -208,7 +208,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 256162754}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0}
   m_LocalScale: {x: 0.0019999999, y: 0.0019999999, z: 0.02}
   m_Children: []
   m_Father: {fileID: 457513776}
@@ -216,8 +216,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.61700004, y: 0.5}
-  m_AnchoredPosition: {x: -0.074881, y: -0.1691}
-  m_SizeDelta: {x: 600.6086, y: 431.0909}
+  m_AnchoredPosition: {x: -0.074881, y: -0.1919}
+  m_SizeDelta: {x: 600.6086, y: 408.2564}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &256162756
 MonoBehaviour:
@@ -693,7 +693,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Revoke Drivers Licence
+  m_Text: '4 points, 250$ fine
+
+'
 --- !u!222 &459500782
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -767,7 +769,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Revoke Drivers Licence
+  m_Text: '10 Points, 1000$ fine.
+
+    (Next offence lose Licence)'
 --- !u!222 &542503939
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1804,7 +1808,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1967768349}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0}
   m_LocalScale: {x: 0.0019999999, y: 0.0019999999, z: 0.02}
   m_Children: []
   m_Father: {fileID: 457513776}
@@ -1812,8 +1816,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.61700004, y: 0.5}
-  m_AnchoredPosition: {x: -0.07061, y: 0.355}
-  m_SizeDelta: {x: 596.3932, y: 58.0335}
+  m_AnchoredPosition: {x: -0.0766, y: 0.3413}
+  m_SizeDelta: {x: 602.4141, y: 71.7323}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1967768351
 MonoBehaviour:
@@ -1836,7 +1840,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 25
+    m_FontSize: 50
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -1847,7 +1851,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Tom Light Savage, Age 25
+  m_Text: Tom Light Savage [25]
 --- !u!222 &1967768352
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1889,7 +1893,7 @@ MonoBehaviour:
   m_sprintMultiplier: 0.75
   m_maxMoveSpeed: 4.5
   m_movementDecay: 0.1
-  m_mouseSensitivity: 0.5
+  m_mouseSensitivity: 2.5
 --- !u!136 &2057141895
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1910,7 +1914,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2057141893}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.7, y: 1.391, z: -12.745}
+  m_LocalPosition: {x: 0.7, y: 1.578, z: -12.537}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 443240362}
