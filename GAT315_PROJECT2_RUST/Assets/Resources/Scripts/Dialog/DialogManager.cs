@@ -215,29 +215,10 @@ public class DialogManager : FFComponent
     {
         for(int i = 0; i < dialog.conversation.Length; ++i)
         {
-            var echoDisplayTime = Mathf.Max(minDisplayTime, ((float)dialog.conversation[i].text.Length / averageLengthPerWord) * displayTimePerWord);
-            var orator = dialog.conversation[i].orator;
             var text = dialog.conversation[i].text;
-            
-            var speechRoot = Orators[orator].GetComponent<Character>().GetSpeachRoot();
-            var speechController = speechRoot.GetComponent<SpeechController>();
-
-            var textWithNewLines = AddNewlines(text, charactersPerLine);
-
-
-            QueuedDialog qd = new QueuedDialog();
-
-            qd.controller = speechController;
-            qd.text = textWithNewLines;
-            qd.time = echoDisplayTime;
-            qd.dialogSeq = dialogSequence;
-            qd.type = dialog.conversation[i].type;
-            
-            { // Queue the Dialog
-                dialogSequence.Sync();
-                dialogSequence.Call(Speak, qd);
-                dialogSequence.Sync();
-            }
+            var orator = dialog.conversation[i].orator;
+            var type = dialog.conversation[i].type;
+            CharacterOrate(orator, text, type);
         }
     }
 
@@ -247,6 +228,35 @@ public class DialogManager : FFComponent
 
     public float FadeInTime = 0.35f;
     public float FadeOutTime = 0.15f;
+
+    public float CharacterOrate(OratorNames orator, string text, QueuedDialog.Type type)
+    {
+        var echoDisplayTime = Mathf.Max(minDisplayTime, ((float)text.Length / averageLengthPerWord) * displayTimePerWord);
+
+        var speechRoot = Orators[orator].GetComponent<Character>().GetSpeachRoot();
+        var speechController = speechRoot.GetComponent<SpeechController>();
+
+        var textWithNewLines = AddNewlines(text, charactersPerLine);
+
+
+        QueuedDialog qd = new QueuedDialog
+        {
+            controller = speechController,
+            text = textWithNewLines,
+            time = echoDisplayTime,
+            dialogSeq = dialogSequence,
+            type = type
+        };
+
+        { // Queue the Dialog
+            dialogSequence.Sync();
+            dialogSequence.Call(Speak, qd);
+            dialogSequence.Sync();
+        }
+
+        return echoDisplayTime;
+    }
+
 
     void Speak(object queuedDialog)
     {
