@@ -38,6 +38,18 @@ public class ExComicController : FFComponent {
 
 	}
 
+    public void Move(int index)
+    {
+        seq.ClearSequence();
+        int currIndex = currentPointNumber;
+        currentPointNumber = index;
+
+        if (index >= currIndex)// move forward
+            MoveForward();
+        else
+            MoveBackward();
+    }
+
     // Move forward state
     void MoveForward()
     {

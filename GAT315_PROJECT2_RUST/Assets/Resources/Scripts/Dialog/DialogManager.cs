@@ -23,7 +23,17 @@ public class QueuedDialog
 
 public class DialogManager : FFComponent
 {
+    private static DialogManager singleton;
+    public static DialogManager sing()
+    {
+        return singleton;
+    }
+
     List<CharacterDialog.Dialog> gameDialog = new List<CharacterDialog.Dialog>();
+    
+    public SentenceController sentence1;
+    public SentenceController sentence2;
+    public SentenceController sentence3;
 
     public enum OratorNames
     {
@@ -41,7 +51,6 @@ public class DialogManager : FFComponent
         public OratorNames name;
         public Transform trans;
     }
-    public NameToTrans[] OratorMapping;
 
     Dictionary<OratorNames, Transform> Orators = new Dictionary<OratorNames, Transform>();
     
@@ -53,16 +62,14 @@ public class DialogManager : FFComponent
     // Use this for initialization
     void Start ()
     {
+        // Set Singleton
+        Debug.Assert(singleton == null, "Dialog Manager Singleton already setup. Duplicate Dialog Managers?");
+        Debug.Log("Start Dialog Manager");
+        singleton = this;
+
         updateDialogSeq = action.Sequence();
         dialogSequence = action.Sequence();
-
-        // Add mapping to dictionary
-        foreach (var mapping in OratorMapping)
-        {
-            if(mapping.name != OratorNames.None && mapping.trans != null)
-            Orators.Add(mapping.name, mapping.trans);
-        }
-
+        
         // Add Dialogs
         {
             foreach(Transform child in transform)
@@ -77,6 +84,13 @@ public class DialogManager : FFComponent
         
         // Start update of dialogs
         UpdateDialog();
+    }
+    void OnDestroy()
+    {
+        Debug.Assert(singleton != null, "OnDestroy of DialogManager Singleton value was already null");
+        Debug.Assert(singleton == this, "OnDestroy of DialogManager Singleton value was not set to our value");
+
+        singleton = null;
     }
     
     Dictionary<string, bool> CustomStatus = new Dictionary<string, bool>();
@@ -93,9 +107,6 @@ public class DialogManager : FFComponent
         {
             CustomStatus.Add(e.tag, true);
         }
-    }
-    private void OnDestroy()
-    {
     }
 
     public void SetOrator(OratorNames name, Transform trans)

@@ -5,6 +5,7 @@ using UnityEngine;
 public class ToolTip : MonoBehaviour, Interactable
 {
     public string toolTipTitle;
+    public Vector3 localOffset;
     //public string toolTipText;
 
 
@@ -20,7 +21,7 @@ public class ToolTip : MonoBehaviour, Interactable
             toolTip = Instantiate(toolTipPrefab);
 
             toolTip.transform.SetParent(transform);
-            toolTip.transform.localPosition = Vector3.zero;
+            toolTip.transform.localPosition = localOffset;
             toolTip.SetActive(false);
         }
 
@@ -51,6 +52,10 @@ public class ToolTip : MonoBehaviour, Interactable
             var distToCamera = vecToCamera.magnitude;
 
             toolTip.transform.localScale = new Vector3(1 + distToCamera, 1 + distToCamera, 1 + distToCamera);
+
+            var background = toolTip.transform.Find("Background");
+            var title = background.Find("Title");
+            title.GetComponent<UnityEngine.UI.Text>().text = toolTipTitle;
         }
     }
 

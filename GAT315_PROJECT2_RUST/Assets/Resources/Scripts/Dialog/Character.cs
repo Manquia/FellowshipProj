@@ -11,9 +11,25 @@ public struct CustomEvent
 }
 #endregion
 
-struct BeginCharacterHearing
+public struct BeginCharacterHearing
 {
+}
 
+public struct EndCharacterHearing
+{
+}
+
+[Serializable]
+public struct Sentence
+{
+    public enum Type
+    {
+        Soft,
+        Hard,
+    }
+
+    public string text;
+    public Type type;
 }
 
 public class Character : FFComponent, Interactable
@@ -21,7 +37,8 @@ public class Character : FFComponent, Interactable
     [Serializable]
     public struct Details
     {
-        public DialogManager.OratorNames person;
+        public string name;
+        public DialogManager.OratorNames oratorMapping;
     }
     public Details details;
     
@@ -36,13 +53,15 @@ public class Character : FFComponent, Interactable
 
     void Start()
     {
-        FFMessageBoard<BeginCharacterHearing>.Connect(OnCharacterHearing, gameObject);
+        FFMessageBoard<BeginCharacterHearing>.Connect(OnBeginCharacterHearing, gameObject);
+        FFMessageBoard<EndCharacterHearing>.Connect(OnEndCharacterHearing, gameObject);
     }
     
 
     void OnDestroy()
     {
-        FFMessageBoard<BeginCharacterHearing>.Disconnect(OnCharacterHearing, gameObject);
+        FFMessageBoard<BeginCharacterHearing>.Disconnect(OnBeginCharacterHearing, gameObject);
+        FFMessageBoard<EndCharacterHearing>.Disconnect(OnEndCharacterHearing, gameObject);
     }
     
     // Update is called once per frame
@@ -55,19 +74,22 @@ public class Character : FFComponent, Interactable
     {
 
     }
+    
+
+    public CharacterDialog.Dialog.Echo[] enterDialog;
+    public CharacterDialog.Dialog.Echo[] talkDialog;
+    public CharacterDialog.Dialog.Echo[] exitHardSentence;
+    public CharacterDialog.Dialog.Echo[] exitSoftSentence;
 
 
-    public string[] enterDialog;
-    public string[] talkDialog;
-    public string[] exitHardSentence;
-    public string[] exitSoftSentence;
+    private void OnBeginCharacterHearing(BeginCharacterHearing e)
+    {
+    }
 
-
-    private void OnCharacterHearing(BeginCharacterHearing e)
+    private void OnEndCharacterHearing(EndCharacterHearing e)
     {
         throw new NotImplementedException();
     }
-
 
     public void MouseOver(bool active)
     {

@@ -29,13 +29,19 @@ public class PlayerController : MonoBehaviour
 
     public float m_mouseSensitivity = 0.4f;
     
-
+    public void ToggleMouseCapture()
+    {
+        if (Cursor.visible == false)
+            CaptureMouse(true);
+        else
+            CaptureMouse(false);
+    }
     public void CaptureMouse(bool capture)
     {
         if(capture)
         {
             Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.lockState = CursorLockMode.Confined | CursorLockMode.Locked;
         }
         else
         {
@@ -49,6 +55,7 @@ public class PlayerController : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
+        CaptureMouse(true);
         rigid = GetComponent<Rigidbody>();
         UpdatePlayerControllerData();
         
@@ -68,6 +75,16 @@ public class PlayerController : MonoBehaviour
         UpdatePlayerControllerData();
         CaptureMouse(false);
         active = false;
+    }
+
+    void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            ToggleMouseCapture();
+        }
+
+
     }
 
     // Update is called once per frame
