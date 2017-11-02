@@ -86,7 +86,6 @@ public class Character : FFComponent, Interactable
 
     void BecomePerson()
     {
-
     }
     
 
@@ -103,7 +102,6 @@ public class Character : FFComponent, Interactable
 
     private void OnEndCharacterHearing(EndCharacterHearing e)
     {
-        throw new NotImplementedException();
     }
 
     public void MouseOver(bool active)
