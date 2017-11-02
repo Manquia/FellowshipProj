@@ -32,6 +32,20 @@ public struct Sentence
     public Type type;
 }
 
+[Serializable]
+public struct Crime
+{
+    public string[] charges;
+    public string[] chargesNotes;
+
+    public string characterNameAge;
+    public string characterNotes;
+
+    public Sentence sent1;
+    public Sentence sent2;
+    public Sentence sent3;
+}
+
 public class Character : FFComponent, Interactable
 {
     [Serializable]
@@ -80,6 +94,7 @@ public class Character : FFComponent, Interactable
     public CharacterDialog.Dialog.Echo[] talkDialog;
     public CharacterDialog.Dialog.Echo[] exitHardSentence;
     public CharacterDialog.Dialog.Echo[] exitSoftSentence;
+    public Crime crime;
 
 
     private void OnBeginCharacterHearing(BeginCharacterHearing e)

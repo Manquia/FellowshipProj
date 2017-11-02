@@ -761,40 +761,40 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4746113168416988, guid: b9012cba8e9349a43a663b40225708e7, type: 2}
+    - target: {fileID: 4470753598123544, guid: 869656f9624ef5742a372abc8e545306, type: 2}
       propertyPath: m_LocalPosition.x
       value: -4.36
       objectReference: {fileID: 0}
-    - target: {fileID: 4746113168416988, guid: b9012cba8e9349a43a663b40225708e7, type: 2}
+    - target: {fileID: 4470753598123544, guid: 869656f9624ef5742a372abc8e545306, type: 2}
       propertyPath: m_LocalPosition.y
       value: 0.61
       objectReference: {fileID: 0}
-    - target: {fileID: 4746113168416988, guid: b9012cba8e9349a43a663b40225708e7, type: 2}
+    - target: {fileID: 4470753598123544, guid: 869656f9624ef5742a372abc8e545306, type: 2}
       propertyPath: m_LocalPosition.z
       value: 5.54
       objectReference: {fileID: 0}
-    - target: {fileID: 4746113168416988, guid: b9012cba8e9349a43a663b40225708e7, type: 2}
+    - target: {fileID: 4470753598123544, guid: 869656f9624ef5742a372abc8e545306, type: 2}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4746113168416988, guid: b9012cba8e9349a43a663b40225708e7, type: 2}
+    - target: {fileID: 4470753598123544, guid: 869656f9624ef5742a372abc8e545306, type: 2}
       propertyPath: m_LocalRotation.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4746113168416988, guid: b9012cba8e9349a43a663b40225708e7, type: 2}
+    - target: {fileID: 4470753598123544, guid: 869656f9624ef5742a372abc8e545306, type: 2}
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4746113168416988, guid: b9012cba8e9349a43a663b40225708e7, type: 2}
+    - target: {fileID: 4470753598123544, guid: 869656f9624ef5742a372abc8e545306, type: 2}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 4746113168416988, guid: b9012cba8e9349a43a663b40225708e7, type: 2}
+    - target: {fileID: 4470753598123544, guid: 869656f9624ef5742a372abc8e545306, type: 2}
       propertyPath: m_RootOrder
       value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: b9012cba8e9349a43a663b40225708e7, type: 2}
+  m_ParentPrefab: {fileID: 100100000, guid: 869656f9624ef5742a372abc8e545306, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &542503936
 GameObject:
@@ -2149,20 +2149,57 @@ Prefab:
         type: 2}
       propertyPath: people.Array.data[0]
       value: 
-      objectReference: {fileID: 1714048830595782, guid: b9012cba8e9349a43a663b40225708e7,
-        type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 114639887097792422, guid: 5c1f311302f2a714d84f8acc5f394ebb,
         type: 2}
       propertyPath: people.Array.data[1]
       value: 
-      objectReference: {fileID: 1714048830595782, guid: b9012cba8e9349a43a663b40225708e7,
-        type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 114639887097792422, guid: 5c1f311302f2a714d84f8acc5f394ebb,
         type: 2}
       propertyPath: people.Array.data[2]
       value: 
-      objectReference: {fileID: 1714048830595782, guid: b9012cba8e9349a43a663b40225708e7,
+      objectReference: {fileID: 0}
+    - target: {fileID: 114639887097792422, guid: 5c1f311302f2a714d84f8acc5f394ebb,
         type: 2}
+      propertyPath: people.Array.data[0].name
+      value: Tom Light Savage
+      objectReference: {fileID: 0}
+    - target: {fileID: 114639887097792422, guid: 5c1f311302f2a714d84f8acc5f394ebb,
+        type: 2}
+      propertyPath: people.Array.data[0].stage
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114639887097792422, guid: 5c1f311302f2a714d84f8acc5f394ebb,
+        type: 2}
+      propertyPath: people.Array.data[1].name
+      value: Tom Light Savage
+      objectReference: {fileID: 0}
+    - target: {fileID: 114639887097792422, guid: 5c1f311302f2a714d84f8acc5f394ebb,
+        type: 2}
+      propertyPath: people.Array.data[1].stage
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114639887097792422, guid: 5c1f311302f2a714d84f8acc5f394ebb,
+        type: 2}
+      propertyPath: people.Array.data[1].sent
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114639887097792422, guid: 5c1f311302f2a714d84f8acc5f394ebb,
+        type: 2}
+      propertyPath: people.Array.data[2].name
+      value: Tom Light Savage
+      objectReference: {fileID: 0}
+    - target: {fileID: 114639887097792422, guid: 5c1f311302f2a714d84f8acc5f394ebb,
+        type: 2}
+      propertyPath: people.Array.data[2].stage
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114639887097792422, guid: 5c1f311302f2a714d84f8acc5f394ebb,
+        type: 2}
+      propertyPath: people.Array.data[2].sent
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5c1f311302f2a714d84f8acc5f394ebb, type: 2}
   m_IsPrefabParent: 0
