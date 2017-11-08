@@ -20,11 +20,13 @@ public class PlayerInteractor : MonoBehaviour {
     {
 		
 	}
-
+    public bool active = true;
     // Update is called once per frame
     int lastOverEnumeration = 0;
 	void FixedUpdate ()
     {
+        if (!active) return;
+
         ++lastOverEnumeration;
 
         bool leftMouseDown = Input.GetMouseButtonUp(0);
@@ -65,7 +67,7 @@ public class PlayerInteractor : MonoBehaviour {
                 var interactables = hit.transform.GetComponents<Interactable>();
                 foreach (var inter in interactables)
                 {
-                    Debug.Log("Over New Interactable! True");
+                    //Debug.Log("Over New Interactable! True");
                     inter.MouseOver(true);
                 }
 
@@ -86,7 +88,7 @@ public class PlayerInteractor : MonoBehaviour {
                 {
                     inter.MouseOver(false);
                 }
-                Debug.Log("Over New Interactable! False");
+                //Debug.Log("Over New Interactable! False");
                 overObjects.RemoveAt(i);
             }
         }

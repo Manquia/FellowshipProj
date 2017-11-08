@@ -7,7 +7,7 @@ public class GavelController : MonoBehaviour, Interactable {
 
     public ToolTip tooltip;
 
-    float delayBetweenActions = 3.5f;
+    public float delayBetweenActions = 3.5f;
     float delayTimer = 0.0f;
 
     public enum State
@@ -18,7 +18,7 @@ public class GavelController : MonoBehaviour, Interactable {
     }
 
     State state;
-
+    
     bool chosenSentence = false;
 
 	// Use this for initialization

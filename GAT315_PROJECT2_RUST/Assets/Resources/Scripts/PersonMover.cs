@@ -2,7 +2,7 @@
 
 public class PersonMover : FFComponent
 { 
-    FFAction.ActionSequence seq;
+    FFAction.ActionSequence seq = null;
 
     public float distAlongPath = 0;
 
@@ -17,11 +17,12 @@ public class PersonMover : FFComponent
     void Awake()
     {
         currentPointIndex = startingIndex;
-        seq = action.Sequence();
     }
 
     public void Move(int index)
     {
+        if (seq == null) seq = action.Sequence();
+
         seq.ClearSequence();
         int currIndex = currentPointIndex;
         currentPointIndex = index;

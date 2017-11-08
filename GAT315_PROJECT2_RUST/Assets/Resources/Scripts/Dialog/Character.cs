@@ -24,10 +24,13 @@ public struct Sentence
 {
     public enum Type
     {
+        None,
         Soft,
         Hard,
+        End,
     }
-
+    public int appearsWeeksLater;
+    public int stage;
     public string text;
     public Type type;
 }
@@ -69,6 +72,10 @@ public class Character : FFComponent, Interactable
     {
         FFMessageBoard<BeginCharacterHearing>.Connect(OnBeginCharacterHearing, gameObject);
         FFMessageBoard<EndCharacterHearing>.Connect(OnEndCharacterHearing, gameObject);
+
+        var judgeDesk = GameObject.Find("JudgeDesk").GetComponent<JudgeDesk>();
+
+        judgeDesk.SetupDesk(this);
     }
     
 

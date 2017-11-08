@@ -18,6 +18,7 @@ struct SentenceChosen
 struct PassSentence
 {
     public Sentence sent;
+    public string name;
 }
 
 [RequireComponent(typeof(UnityEngine.UI.Image))]
@@ -28,14 +29,16 @@ public class SentenceController : MonoBehaviour, Interactable {
     public Color chosenColor;
 
     Sentence curSentence;
+    string curAccused;
     bool chosen = false;
     
 
-    public void SetupSentence(Sentence sent)
+    public void SetupSentence(Sentence sent, string accused)
     {
         var textDisplay = transform.Find("Text").GetComponent<UnityEngine.UI.Text>();
 
         curSentence = sent;
+        curAccused = accused;
         textDisplay.text = sent.text;
     }
 
@@ -63,10 +66,11 @@ public class SentenceController : MonoBehaviour, Interactable {
 
     private void OnEndCharacterHearing(EndCharacterHearing e)
     {
-        if(chosen)
+        if(chosen && curSentence.type != Sentence.Type.End)
         {
             PassSentence ps;
             ps.sent = curSentence;
+            ps.name = curAccused;
             FFMessage<PassSentence>.SendToLocal(ps);
         }
     }

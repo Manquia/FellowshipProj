@@ -23,15 +23,17 @@ public class JudgeDesk : MonoBehaviour {
 		return transform.Find("Gavel");
 	}
 	
-	void SetupDesk(Crime crime)
+	public void SetupDesk(Character character)
 	{
-		var charges = ChargesRoot();
-		var accused = AccusedRoot();
-		var sentence = SentenceRoot();
-		var gavel = GavelRoot();
-		
-		// Add changes
-		{
+        Crime crime = character.crime;
+
+        var charges = ChargesRoot(); Debug.Assert(charges != null);
+		var accused = AccusedRoot(); Debug.Assert(accused != null);
+        var sentence = SentenceRoot(); Debug.Assert(sentence != null);
+        var gavel = GavelRoot(); Debug.Assert(gavel != null);
+
+        // Add changes
+        {
 			var description = charges.Find("Description").GetComponent<UnityEngine.UI.Text>();
 			string str = "";
 			foreach(var charge in crime.charges)
@@ -51,8 +53,32 @@ public class JudgeDesk : MonoBehaviour {
 				str += "\n";
 			}
 			additionalNotes.text = str;
-			
 		}
+
+        // Add Accussed name
+        {
+            var name = accused.Find("Detail_Name_Age");
+            var nameText  = name.GetComponent<UnityEngine.UI.Text>();
+
+            nameText.text = crime.characterNameAge;
+        }
+        // Accused Notes
+        {
+            var additionalNotes = accused.Find("Additional Notes");
+            var notesText = additionalNotes.GetComponent<UnityEngine.UI.Text>();
+            notesText.text = crime.characterNotes;
+        }
+
+        // Sentences
+        {
+            var sent1 = sentence.Find("SentenceOption1");
+            var sent2 = sentence.Find("SentenceOption2");
+            var sent3 = sentence.Find("SentenceOption3");
+
+            sent1.GetComponent<SentenceController>().SetupSentence(crime.sent1, character.name);
+            sent2.GetComponent<SentenceController>().SetupSentence(crime.sent2, character.name);
+            sent3.GetComponent<SentenceController>().SetupSentence(crime.sent3, character.name);
+        }
 		
 		
 	}

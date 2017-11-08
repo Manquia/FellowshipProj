@@ -106,7 +106,7 @@ public class FFSystem : MonoBehaviour {
         //FFMessage<GameObjectNetIdRecievedEvent>.Disconnect(OnGameObjectNetIdRecieved);
         //FFMessage<NetObjectCreatedEvent>.Disconnect(OnNetObjectCreatedEvent);
         //FFMessage<NetObjectDestroyedEvent>.Disconnect(OnNetObjectDestroyedEvent);
-        Debug.Log("On Destroy of FFSystem, recieved Messages erased: " + recievedMessages.Count);
+        //Debug.Log("On Destroy of FFSystem, recieved Messages erased: " + recievedMessages.Count);
     }
     #endregion
 
