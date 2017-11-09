@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 114572489129612446}
   - component: {fileID: 114050363291459774}
   m_Layer: 0
-  m_Name: NicholasWoodBaron[2][Soft]
+  m_Name: JayEastHammerton[2]
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -241,7 +241,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   details:
-    name: Nicholas Wood Baron
+    name: Jay East Hammerton
     oratorMapping: 3
   enterDialog:
   - orator: 2
@@ -255,31 +255,30 @@ MonoBehaviour:
   exitSoftSentence: []
   crime:
     charges:
-    - '- Murder'
-    - '- Rape'
-    - '- Breaking and Entering'
+    - '- Recklass driving'
+    - '- Manslaughter'
+    - '- Speeding 20 over in residential area'
+    - '- Sped through stop sign'
     chargesNotes:
-    - '- Nicholas broke into the Yvonne resedency late in the night. No apparent reason
-      aside to visit and apparently rape his girl friend.'
-    - '- Polina (17) was attacked in her home and would have been raped if her brother
-      hadn''t come into the room to help resolve the situation.'
-    characterNameAge: Nicholas Wood Baron [19]
-    characterNotes: 'Nicholas Wood enter the '
+    - '- Morom sped through stop sign killing 5 year old Emmy Branch Sayman.'
+    - '- Tom did everything he could to try and help Emmy make it to emergency services.'
+    characterNameAge: Jay East Hammerton [25]
+    characterNotes: Tom has a record or recklass driving. I am surprise his licence
+      wasn't removed for his last charge. Tom was all in all a nice guy who recently
+      lost his job. Says the morning of the accident he was late for an interview
+      in downtown.
     sent1:
-      appearsWeeksLater: 19
-      stage: 2
-      text: 18 weeks low-sec prison. 200 hr. Community Service
-      type: 1
+      appearsWeeksLater: 0
+      stage: 0
+      text: '24 Months low-sec prison. 200 hr. Community Service '
     sent2:
       appearsWeeksLater: 0
-      stage: 111
-      text: 108 weeks low-sec prison. 400 hr. Community Service
-      type: 1
+      stage: 0
+      text: 36 Months in low-sec prison. 400 hr. Community Service
     sent3:
       appearsWeeksLater: 0
       stage: 0
-      text: 5 years in low-sec prison. 1000 hr community service
-      type: 3
+      text: 48 Months in low-sec prison. 500 hr. Community Service
 --- !u!114 &114630283270765282
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 114572489129612446}
   - component: {fileID: 114050363291459774}
   m_Layer: 0
-  m_Name: JanisDavidThomson[2][Soft]
+  m_Name: JanisDavidThomson[2]
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -266,17 +266,14 @@ MonoBehaviour:
       appearsWeeksLater: 20
       stage: 2
       text: Have a day in prison
-      type: 1
     sent2:
       appearsWeeksLater: 30
       stage: 2
       text: Have a week in prison
-      type: 0
     sent3:
       appearsWeeksLater: 1000
       stage: 2
       text: Have life in prison (good behavior to bail)
-      type: 2
 --- !u!114 &114630283270765282
 MonoBehaviour:
   m_ObjectHideFlags: 1

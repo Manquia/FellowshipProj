@@ -11,24 +11,6 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1240050105488208}
   m_IsPrefabParent: 1
---- !u!1 &1229471295265490
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4196583396047408}
-  - component: {fileID: 33132581004117394}
-  - component: {fileID: 136216556350664910}
-  - component: {fileID: 23314243233014040}
-  m_Layer: 0
-  m_Name: Capsule
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &1240050105488208
 GameObject:
   m_ObjectHideFlags: 0
@@ -42,23 +24,42 @@ GameObject:
   - component: {fileID: 23186369441037458}
   - component: {fileID: 114572489129612446}
   - component: {fileID: 114050363291459774}
+  - component: {fileID: 114302850119569570}
   m_Layer: 0
-  m_Name: NicholasWoodBaron[1]
+  m_Name: TomLightSavage[0]
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1678984714193704
+--- !u!1 &1488186917484782
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4950662889066762}
+  - component: {fileID: 4277902260206082}
   m_Layer: 0
   m_Name: CharacterVisuals
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1548786008109236
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4485479097818016}
+  - component: {fileID: 33179654715057816}
+  - component: {fileID: 136101338710128006}
+  - component: {fileID: 23156561317789250}
+  m_Layer: 0
+  m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -94,18 +95,19 @@ Transform:
   m_Father: {fileID: 4470753598123544}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4196583396047408
+--- !u!4 &4277902260206082
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1229471295265490}
+  m_GameObject: {fileID: 1488186917484782}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4950662889066762}
-  m_RootOrder: 0
+  m_Children:
+  - {fileID: 4485479097818016}
+  m_Father: {fileID: 4470753598123544}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4470753598123544
 Transform:
@@ -114,28 +116,59 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1240050105488208}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.36, y: 0.61, z: 5.54}
+  m_LocalPosition: {x: 0.97, y: 0.61, z: -7.98}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4149674094716244}
-  - {fileID: 4950662889066762}
+  - {fileID: 4277902260206082}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4950662889066762
+--- !u!4 &4485479097818016
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1678984714193704}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_GameObject: {fileID: 1548786008109236}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 4196583396047408}
-  m_Father: {fileID: 4470753598123544}
-  m_RootOrder: 1
+  m_Children: []
+  m_Father: {fileID: 4277902260206082}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!23 &23156561317789250
+MeshRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1548786008109236}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 1
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!23 &23186369441037458
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -168,44 +201,12 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!23 &23314243233014040
-MeshRenderer:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1229471295265490}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 1
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
---- !u!33 &33132581004117394
+--- !u!33 &33179654715057816
 MeshFilter:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1229471295265490}
+  m_GameObject: {fileID: 1548786008109236}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!33 &33337241434601982
 MeshFilter:
@@ -225,10 +226,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c92026002a719d4cbde3e238886a601, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distAlongPath: 0
+  distAlongPath: 0.088
   movementSpeed: 1.1
   startingIndex: 0
   PathToFollow: {fileID: 0}
+--- !u!114 &114302850119569570
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1240050105488208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 919a25704d0d2484d8fdfc7c7e186871, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114572489129612446
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -241,7 +253,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   details:
-    name: Nicholas Wood Baron
+    name: Tom Light Savage
     oratorMapping: 3
   enterDialog:
   - orator: 2
@@ -255,32 +267,28 @@ MonoBehaviour:
   exitSoftSentence: []
   crime:
     charges:
-    - '- Sexual Assault of a minor'
-    - '- Breaking and entering'
+    - '- Speeding ticket 10 over in residential area.'
+    - '- Sped through stop-sign at high speed'
     chargesNotes:
-    - '- Nicholas broke into the Yvonne resedency late in the night. No apparent reason
-      aside to visit and apparently rape his girl friend.'
-    - '- Polina (17) was attacked in her home and would have been raped if her brother
-      hadn''t come into the room to help resolve the situation.'
-    characterNameAge: Nicholas Wood Baron [18]
-    characterNotes: Nicholas is a highschool student Jr/Sr Shella High. Nicholas had
-      apparently been dating Polina but recently broke up. Turns out Nicholas didn't
-      like the arrangement and decided to be more aggressive over the weekend.
+    - '- Driver was late for work and decided that public safty was less important
+      than his job.'
+    - '- Said he was an office worker with a **** boss.'
+    characterNameAge: Tom Light Savage [25]
+    characterNotes: This guy lives alon in a small apartment in downtown. His friends
+      say he is an alright guy and a cursory check indicates that he is an outstanding
+      guy.
     sent1:
-      appearsWeeksLater: 19
+      appearsWeeksLater: 2
       stage: 2
-      text: 18 weeks low-sec prison. 200 hr. Community Service
-      type: 1
+      text: 4 points, 250$ fine
     sent2:
-      appearsWeeksLater: 0
-      stage: 75
-      text: 108 weeks low-sec prison. 400 hr. Community Service
-      type: 1
+      appearsWeeksLater: 5
+      stage: 2
+      text: 10 points, 1000$ fine (next offence lose licence)
     sent3:
-      appearsWeeksLater: 0
-      stage: 0
-      text: 5 years in prison. 1000 hr community service.
-      type: 3
+      appearsWeeksLater: 10
+      stage: 2
+      text: Revoke driver's licence
 --- !u!114 &114630283270765282
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -307,12 +315,12 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: -1.4, z: 0}
---- !u!136 &136216556350664910
+--- !u!136 &136101338710128006
 CapsuleCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1229471295265490}
+  m_GameObject: {fileID: 1548786008109236}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1

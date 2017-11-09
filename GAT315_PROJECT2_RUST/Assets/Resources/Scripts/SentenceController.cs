@@ -66,7 +66,7 @@ public class SentenceController : MonoBehaviour, Interactable {
 
     private void OnEndCharacterHearing(EndCharacterHearing e)
     {
-        if(chosen && curSentence.type != Sentence.Type.End)
+        if(chosen && curSentence.stage != -1)
         {
             PassSentence ps;
             ps.sent = curSentence;

@@ -23,7 +23,6 @@ public struct PersonIndex
     public int appearanceWeek;
     public string name;
     public int stage;
-    public Sentence.Type sent;
 }
 
 public class CountRoomController : MonoBehaviour {
@@ -33,7 +32,7 @@ public class CountRoomController : MonoBehaviour {
     Dictionary<int, List<PersonIndex>> people = new Dictionary<int, List<PersonIndex>>();
 
     int peopleIndex = 0;
-    int weekIndex = 1;
+    int weekIndex = 0;
 
     List<Transform> createdPeople = new List<Transform>();
 
@@ -76,7 +75,6 @@ public class CountRoomController : MonoBehaviour {
         PersonIndex pi;
         pi.appearanceWeek = appearanceWeek;
         pi.name = e.name;
-        pi.sent = e.sent.type;
         pi.stage = e.sent.stage;
         people[appearanceWeek].Add(pi);
     }
@@ -132,7 +130,6 @@ public class CountRoomController : MonoBehaviour {
             }
         }
         
-        ++peopleIndex;
     }
     
 
@@ -142,7 +139,9 @@ public class CountRoomController : MonoBehaviour {
 
         var curPeople = people[weekIndex];
         if(peopleIndex >= curPeople.Count)
+		{
             return null;
+		}
 
         string prefabName = "Characters/";
         // build prefab name
@@ -150,6 +149,7 @@ public class CountRoomController : MonoBehaviour {
             prefabName += curPeople[peopleIndex].name;
             prefabName += "[" + curPeople[peopleIndex].stage + "]";
 
+			/*
             switch (curPeople[peopleIndex].sent)
             {
                 case Sentence.Type.None:
@@ -166,14 +166,18 @@ public class CountRoomController : MonoBehaviour {
                     Debug.Assert(false, "Unhandled Sentence type of End");
                     break;
             }
+			*/
         }
 
         Debug.Log("Name: " + prefabName);
         GameObject person = FFResource.Load_Prefab(prefabName);
 
+		
+        ++peopleIndex;
         if (person == null)
             return null;
         else
+			
             return Instantiate(person);
     }
 

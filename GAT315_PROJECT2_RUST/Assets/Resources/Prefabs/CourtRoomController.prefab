@@ -66,7 +66,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1058130511156902}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.25, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4655846360347402}
@@ -94,7 +94,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1699149019096730}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 1.91, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4655846360347402}
@@ -111,10 +111,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61c64130b26ef4848b9c379f528bb0e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  people:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  characterStarting:
+  - appearanceWeek: 0
+    name: TomLightSavage
+    stage: 0
+  - appearanceWeek: 0
+    name: JanisDavidThomson
+    stage: 0
+  - appearanceWeek: 0
+    name: NickolasWoodBaron
+    stage: 0
+  - appearanceWeek: 0
+    name: JayEastHammerton
+    stage: 0
   enterPath: {fileID: 114840287224862334}
   exitPath: {fileID: 114689178572100564}
 --- !u!114 &114689178572100564
@@ -134,18 +143,20 @@ MonoBehaviour:
   SmoothBetweenPoints: 0
   ModifyAndDraw: 0
   points:
-  - {x: 1.011, y: 1, z: -8.23}
-  - {x: 1.011, y: 1, z: -8.23}
-  - {x: 1.63, y: 1, z: -7.03}
-  - {x: 1.93, y: 1, z: -0.02}
-  - {x: 3.72, y: 1.398, z: -0.13}
+  - {x: -1.0093999, y: 1, z: -8.23}
+  - {x: -1.0093999, y: 1, z: -8.23}
+  - {x: -0.39039993, y: 1, z: -7.03}
+  - {x: -0.09039998, y: 1, z: -0.01999998}
+  - {x: 3.46, y: 1.398, z: 0.6920004}
+  - {x: 3.46, y: 1.398, z: 0.6920004}
   linearDistanceAlongPath:
   - 0
   - 0
   - 1.3502442
   - 8.366661
-  - 10.2036705
-  - 18.753939
+  - 12.009557
+  - 12.009557
+  - 21.99635
 --- !u!114 &114840287224862334
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -163,15 +174,15 @@ MonoBehaviour:
   SmoothBetweenPoints: 0
   ModifyAndDraw: 0
   points:
-  - {x: -1.12, y: 1, z: 2.14}
-  - {x: -1.12, y: 1, z: 2.14}
-  - {x: 0.39999998, y: 1, z: -0.96}
-  - {x: 1.017, y: 1, z: -8.226}
-  - {x: 1.017, y: 1, z: -8.226}
+  - {x: -0.9888, y: 1, z: 2.1400003}
+  - {x: -0.9888, y: 1, z: 2.1400003}
+  - {x: 0.5312, y: 1, z: -0.96000004}
+  - {x: 1.1481999, y: 1, z: -8.226}
+  - {x: 1.1481999, y: 1, z: -8.226}
   linearDistanceAlongPath:
   - 0
   - 0
-  - 3.4525933
+  - 3.4525936
   - 10.744743
   - 10.744743
   - 21.328728

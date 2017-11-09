@@ -40,10 +40,10 @@ GameObject:
   - component: {fileID: 33337241434601982}
   - component: {fileID: 136719501622675058}
   - component: {fileID: 23186369441037458}
-  - component: {fileID: 114572489129612446}
   - component: {fileID: 114050363291459774}
+  - component: {fileID: 114572489129612446}
   m_Layer: 0
-  m_Name: TomLightSavage[2][Soft]
+  m_Name: JanisDavidThomson[0]
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -241,7 +241,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   details:
-    name: Tom Light Savage
+    name: Janis David Thomson
     oratorMapping: 3
   enterDialog:
   - orator: 2
@@ -254,34 +254,22 @@ MonoBehaviour:
   exitHardSentence: []
   exitSoftSentence: []
   crime:
-    charges:
-    - '- Recklass driving'
-    - '- Manslaughter'
-    - '- Speeding 20 over in residential area'
-    - '- Sped through stop sign'
-    chargesNotes:
-    - '- Morom sped through stop sign killing 5 year old Emmy Branch Sayman.'
-    - '- Tom did everything he could to try and help Emmy make it to emergency services.'
-    characterNameAge: Tom Light Savage [25]
-    characterNotes: Tom has a record or recklass driving. I am surprise his licence
-      wasn't removed for his last charge. Tom was all in all a nice guy who recently
-      lost his job. Says the morning of the accident he was late for an interview
-      in downtown.
+    charges: []
+    chargesNotes: []
+    characterNameAge: Janis David Thomson[25]
+    characterNotes: 
     sent1:
       appearsWeeksLater: 0
       stage: 0
-      text: '24 Months low-sec prison. 200 hr. Community Service '
-      type: 3
+      text: 
     sent2:
       appearsWeeksLater: 0
       stage: 0
-      text: 36 Months in low-sec prison. 400 hr. Community Service
-      type: 3
+      text: 
     sent3:
       appearsWeeksLater: 0
       stage: 0
-      text: 48 Months in low-sec prison. 500 hr. Community Service
-      type: 3
+      text: 
 --- !u!114 &114630283270765282
 MonoBehaviour:
   m_ObjectHideFlags: 1

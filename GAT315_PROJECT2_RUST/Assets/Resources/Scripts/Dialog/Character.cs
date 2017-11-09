@@ -22,17 +22,9 @@ public struct EndCharacterHearing
 [Serializable]
 public struct Sentence
 {
-    public enum Type
-    {
-        None,
-        Soft,
-        Hard,
-        End,
-    }
     public int appearsWeeksLater;
     public int stage;
     public string text;
-    public Type type;
 }
 
 [Serializable]

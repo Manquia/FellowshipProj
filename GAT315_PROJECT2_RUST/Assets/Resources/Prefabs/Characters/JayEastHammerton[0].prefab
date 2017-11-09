@@ -11,16 +11,19 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1240050105488208}
   m_IsPrefabParent: 1
---- !u!1 &1129425497091992
+--- !u!1 &1229471295265490
 GameObject:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4444841368060092}
+  - component: {fileID: 4196583396047408}
+  - component: {fileID: 33132581004117394}
+  - component: {fileID: 136216556350664910}
+  - component: {fileID: 23314243233014040}
   m_Layer: 0
-  m_Name: CharacterVisuals
+  m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -40,7 +43,22 @@ GameObject:
   - component: {fileID: 114572489129612446}
   - component: {fileID: 114050363291459774}
   m_Layer: 0
-  m_Name: TomLightSavage[2][Hard]
+  m_Name: JayEastHammerton[0]
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1678984714193704
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4950662889066762}
+  m_Layer: 0
+  m_Name: CharacterVisuals
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -63,24 +81,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1839310488548422
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4848139946659346}
-  - component: {fileID: 33718371582367956}
-  - component: {fileID: 136848007603042456}
-  - component: {fileID: 23438699947926380}
-  m_Layer: 0
-  m_Name: Capsule
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!4 &4149674094716244
 Transform:
   m_ObjectHideFlags: 1
@@ -94,19 +94,18 @@ Transform:
   m_Father: {fileID: 4470753598123544}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4444841368060092
+--- !u!4 &4196583396047408
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1129425497091992}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_GameObject: {fileID: 1229471295265490}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 4848139946659346}
-  m_Father: {fileID: 4470753598123544}
-  m_RootOrder: 1
+  m_Children: []
+  m_Father: {fileID: 4950662889066762}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4470753598123544
 Transform:
@@ -119,22 +118,23 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4149674094716244}
-  - {fileID: 4444841368060092}
+  - {fileID: 4950662889066762}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4848139946659346
+--- !u!4 &4950662889066762
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1839310488548422}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_GameObject: {fileID: 1678984714193704}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4444841368060092}
-  m_RootOrder: 0
+  m_Children:
+  - {fileID: 4196583396047408}
+  m_Father: {fileID: 4470753598123544}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &23186369441037458
 MeshRenderer:
@@ -168,12 +168,12 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!23 &23438699947926380
+--- !u!23 &23314243233014040
 MeshRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1839310488548422}
+  m_GameObject: {fileID: 1229471295265490}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -200,19 +200,19 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!33 &33132581004117394
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1229471295265490}
+  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!33 &33337241434601982
 MeshFilter:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1240050105488208}
-  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
---- !u!33 &33718371582367956
-MeshFilter:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1839310488548422}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!114 &114050363291459774
 MonoBehaviour:
@@ -241,7 +241,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   details:
-    name: Tom Light Savage
+    name: Jay East Hammerton
     oratorMapping: 3
   enterDialog:
   - orator: 2
@@ -255,32 +255,24 @@ MonoBehaviour:
   exitSoftSentence: []
   crime:
     charges:
-    - '- Resisting arrest'
-    - '- Assault with intent to rob'
-    - '- Attempted Escape from lawful custody'
+    - '- DID A BAD THING'
     chargesNotes:
-    - '- This thug beat up my boys good. This ***** deserves some serious time.'
-    characterNameAge: Tom Light Savage [26]
-    characterNotes: Street thug, says all of his friends and family left him out after
-      he lost his drivers licence. Says he just needed some money to pay for rent
-      while he was looking for a new job. [Personal Notes] Tom broke down in tears
-      in the investigation. This guy really has a bad string of luck and deserves
-      a second chance, be light.
+    - '- Morom sped through stop sign killing 5 year old Emmy Branch Sayman.'
+    - '- Tom did everything he could to try and help Emmy make it to emergency services.'
+    characterNameAge: Jay East Hammerton [32]
+    characterNotes: Jay is a bad guy
     sent1:
-      appearsWeeksLater: 0
-      stage: 0
-      text: 24 Months in low-security prison
-      type: 3
+      appearsWeeksLater: 30
+      stage: 2
+      text: Soft Choice
     sent2:
-      appearsWeeksLater: 0
-      stage: 0
-      text: 48 Months in low-security prison
-      type: 3
+      appearsWeeksLater: 40
+      stage: 2
+      text: Soft Choice
     sent3:
-      appearsWeeksLater: 0
-      stage: 0
-      text: 60 Months in medium-security prison
-      type: 3
+      appearsWeeksLater: 60
+      stage: 2
+      text: Hard Choie
 --- !u!114 &114630283270765282
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -307,12 +299,12 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: -1.4, z: 0}
---- !u!136 &136719501622675058
+--- !u!136 &136216556350664910
 CapsuleCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1240050105488208}
+  m_GameObject: {fileID: 1229471295265490}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
@@ -320,12 +312,12 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!136 &136848007603042456
+--- !u!136 &136719501622675058
 CapsuleCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1839310488548422}
+  m_GameObject: {fileID: 1240050105488208}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1

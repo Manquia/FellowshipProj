@@ -254,14 +254,8 @@ MonoBehaviour:
   exitHardSentence: []
   exitSoftSentence: []
   crime:
-    charges:
-    - '- Recklass driving'
-    - '- Manslaughter'
-    - '- Speeding 20 over in residential area'
-    - '- Sped through stop sign'
-    chargesNotes:
-    - '- Morom sped through stop sign killing 5 year old Emmy Branch Sayman.'
-    - '- Tom did everything he could to try and help Emmy make it to emergency services.'
+    charges: []
+    chargesNotes: []
     characterNameAge: Janis David Thomson[25]
     characterNotes: Tom has a record or recklass driving. I am surprise his licence
       wasn't removed for his last charge. Tom was all in all a nice guy who recently
@@ -271,17 +265,14 @@ MonoBehaviour:
       appearsWeeksLater: 0
       stage: 0
       text: '24 Months low-sec prison. 200 hr. Community Service '
-      type: 0
     sent2:
       appearsWeeksLater: 0
       stage: 0
       text: 36 Months in low-sec prison. 400 hr. Community Service
-      type: 0
     sent3:
       appearsWeeksLater: 0
       stage: 0
       text: 48 Months in low-sec prison. 500 hr. Community Service
-      type: 1
 --- !u!114 &114630283270765282
 MonoBehaviour:
   m_ObjectHideFlags: 1
