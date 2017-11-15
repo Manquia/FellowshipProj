@@ -21,7 +21,10 @@ public class SpeechController : FFComponent
 
     void Start()
     {
-        mainCamera = GameObject.Find("Main Camera").transform;
+        mainCamera = GameObject.Find("Camera").transform;
+
+        // setup sub elements
+        transform.Find("Text").localPosition = new Vector3(0, 1.25f, -0.1f);
 
         BubbleSprite().color = BubbleSprite().color.MakeClear();
         GetDialogText().color = GetDialogText().color.MakeClear();
@@ -29,7 +32,10 @@ public class SpeechController : FFComponent
 
     void Update()
     {
-        transform.LookAt(mainCamera.transform.position + new Vector3(0,0,0), Vector3.Normalize(-Vector3.right + Vector3.up));
+        var vecToCamera = mainCamera.position - transform.position;
+        var oppositePosCamera = transform.position + (-vecToCamera);
+
+        transform.LookAt(oppositePosCamera, Vector3.up);
     }
 
     public SpriteRenderer BubbleSprite()
@@ -39,6 +45,16 @@ public class SpeechController : FFComponent
     public TextMesh GetDialogText()
     {
         return transform.Find("Text").GetComponent<TextMesh>();
+    }
+
+    public void DisableTooltip()
+    {
+        transform.parent.Find("TalkToolTip").gameObject.SetActive(false);
+    }
+
+    public void EnableTooltip()
+    {
+        transform.parent.Find("TalkToolTip").gameObject.SetActive(true);
     }
 
 }

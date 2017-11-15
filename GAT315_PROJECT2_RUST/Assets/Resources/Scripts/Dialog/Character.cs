@@ -53,20 +53,25 @@ public class Character : FFComponent, Interactable
     
     public Transform GetSpeachRoot()
     {
-        return transform.Find("SpeechRoot");
+        return transform.Find("SpeechController");
     }
     public SpeechController GetSpeechController()
     {
-        return transform.Find("SpeechRoot").GetComponent<SpeechController>();
+        return transform.Find("SpeechController").GetComponent<SpeechController>();
     }
 
+    Transform toolTip;
+    DialogManager dialogManager;
     void Start()
     {
         FFMessageBoard<BeginCharacterHearing>.Connect(OnBeginCharacterHearing, gameObject);
         FFMessageBoard<EndCharacterHearing>.Connect(OnEndCharacterHearing, gameObject);
 
         var judgeDesk = GameObject.Find("JudgeDesk").GetComponent<JudgeDesk>();
+        dialogManager = GameObject.Find("DialogManager").GetComponent<DialogManager>();
+        Debug.Assert(dialogManager != null, "No Dialog manager found");
 
+        dialogManager.SetOrator(details.oratorMapping, transform);
         judgeDesk.SetupDesk(this);
     }
     
@@ -92,6 +97,9 @@ public class Character : FFComponent, Interactable
     public CharacterDialog.Dialog.Echo[] talkDialog;
     public CharacterDialog.Dialog.Echo[] exitHardSentence;
     public CharacterDialog.Dialog.Echo[] exitSoftSentence;
+
+    int inTrialDialogIndex = 0;
+    public CharacterDialog.Dialog.Echo[] inTrialDialog;
     public Crime crime;
 
 
@@ -118,6 +126,17 @@ public class Character : FFComponent, Interactable
 
     public void Use()
     {
+        // in Trial
+        if (inTrialDialogIndex < inTrialDialog.Length)
+        {
+            Debug.Log("InTrialDialog Queue");
 
+            dialogManager.CharacterOrate(
+                inTrialDialog[inTrialDialogIndex].orator,
+                inTrialDialog[inTrialDialogIndex].text,
+                inTrialDialog[inTrialDialogIndex].type);
+            
+            ++inTrialDialogIndex;
+        }
     }
 }
