@@ -1,0 +1,25 @@
+GAT 315 Task List
+
+-+ Model gavel
+-+ Animate Gavel on useage
+-+ Add sound to gavel
+-+ Add crowd music noises
+-+ Add environmental noises 
+-+ Add all text to game
+-+ Do Character Icon!!!
+-+ Add Sentence button noises
+-+ Add Begining Screen
+-+ Add Ending Screen
+-+ Add Credits Screen
+
+- Make it so there is a crowd which switches out between people.
+- Fix bug which happenes between days...
+- Add ability to have noices like crying, yelling connected to dialog...
+- Clear sentence sheet once you have dismissed the charcter
+- Talk tooltip doesn't show if there is no text to see
+- Override Next Investigation text with Hate speech directed at player (CainShyamaMiran)
+- Deck Lights court Room modification
+- Move text for TOM to online
+- Make door close/open to court room
+- Add Roof to Court room
+- Grips may harm hurt player???

@@ -70,9 +70,6 @@ public class SceneTransition : FFComponent {
     void InputUpdate()
     {
         var fadeToNextLevel =
-            Input.GetButtonUp("A" + 1) ||
-            Input.GetButtonUp("A" + 2) ||
-            Input.GetButtonUp("A" + 3) ||
             Input.anyKey;
 
         if (fadeToNextLevel)

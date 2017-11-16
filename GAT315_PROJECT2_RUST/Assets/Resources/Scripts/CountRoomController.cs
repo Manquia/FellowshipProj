@@ -135,6 +135,10 @@ public class CountRoomController : MonoBehaviour {
                 FadeToEndGame fteg;
                 FFMessage<FadeToEndGame>.SendToLocal(fteg);
 
+                // Do fading to level with FadeScreen obj + SceneTransition
+                CustomEvent ce;
+                ce.tag = "EndGame";
+                FFMessageBoard<CustomEvent>.Box("EndGame").SendToLocal(ce);
             }
         }
         

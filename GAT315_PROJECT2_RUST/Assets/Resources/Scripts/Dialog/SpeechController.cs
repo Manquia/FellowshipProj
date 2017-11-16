@@ -24,7 +24,9 @@ public class SpeechController : FFComponent
         mainCamera = GameObject.Find("Camera").transform;
 
         // setup sub elements
-        transform.Find("Text").localPosition = new Vector3(0, 1.25f, -0.1f);
+        transform.Find("Text").localPosition = new Vector3(0, 0.6f, -0.1f);
+        transform.Find("Text").GetComponent<TextMesh>().fontSize = 300;
+        transform.localScale = new Vector3(0.6f, 0.6f, 0.6f);
 
         BubbleSprite().color = BubbleSprite().color.MakeClear();
         GetDialogText().color = GetDialogText().color.MakeClear();
