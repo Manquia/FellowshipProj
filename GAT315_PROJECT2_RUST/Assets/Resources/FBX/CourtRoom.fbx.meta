@@ -61,6 +61,10 @@ ModelImporter:
     100106: Platform3
     100108: MiniDoor2
     100110: MiniDoor3
+    100112: Ceiling
+    100114: Wall5
+    100116: Wall6
+    100118: Wall7
     400000: //RootNode
     400002: pCube1
     400004: pCube2
@@ -117,6 +121,10 @@ ModelImporter:
     400106: Platform3
     400108: MiniDoor2
     400110: MiniDoor3
+    400112: Ceiling
+    400114: Wall5
+    400116: Wall6
+    400118: Wall7
     2300000: pCube1
     2300002: pCube2
     2300004: Desk
@@ -172,6 +180,10 @@ ModelImporter:
     2300104: Platform3
     2300106: MiniDoor2
     2300108: MiniDoor3
+    2300110: Ceiling
+    2300112: Wall5
+    2300114: Wall6
+    2300116: Wall7
     3300000: pCube1
     3300002: pCube2
     3300004: Desk
@@ -227,6 +239,10 @@ ModelImporter:
     3300104: Platform3
     3300106: MiniDoor2
     3300108: MiniDoor3
+    3300110: Ceiling
+    3300112: Wall5
+    3300114: Wall6
+    3300116: Wall7
     4300000: pCube1
     4300002: pCube2
     4300004: Desk
@@ -282,6 +298,10 @@ ModelImporter:
     4300104: Chair32
     4300106: MiniDoor2
     4300108: MiniDoor3
+    4300110: Ceiling
+    4300112: Wall5
+    4300114: Wall6
+    4300116: Wall7
     6400000: pCube1
     6400002: pCube2
     6400004: Desk
@@ -337,6 +357,10 @@ ModelImporter:
     6400104: Platform3
     6400106: MiniDoor2
     6400108: MiniDoor3
+    6400110: Ceiling
+    6400112: Wall5
+    6400114: Wall6
+    6400116: Wall7
     9500000: //RootNode
   materials:
     importMaterials: 1
