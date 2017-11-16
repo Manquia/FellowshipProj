@@ -46,13 +46,7 @@ public class JudgeDesk : MonoBehaviour {
 		// Add changes Notes
 		{
 			var additionalNotes = charges.Find("Additional Notes").GetComponent<UnityEngine.UI.Text>(); 
-			string str = "";
-			foreach(var notes in crime.chargesNotes)
-			{
-				str += notes;
-				str += "\n";
-			}
-			additionalNotes.text = str;
+			additionalNotes.text = crime.chargesNotes;
 		}
 
         // Add Accussed name
@@ -66,7 +60,7 @@ public class JudgeDesk : MonoBehaviour {
         {
             var additionalNotes = accused.Find("Additional Notes");
             var notesText = additionalNotes.GetComponent<UnityEngine.UI.Text>();
-            notesText.text = crime.characterNotes;
+            notesText.text = crime.Investigation;
         }
 
         // Sentences

@@ -365,8 +365,9 @@ public class DialogManager : FFComponent
                 text.color.b,
                 0);
         }
-        
+
         // Get text Item to set text
+        qd.controller.DisableTooltip();
         qd.controller.GetDialogText().text = qd.text;
         
     }
@@ -374,6 +375,7 @@ public class DialogManager : FFComponent
     {
         QueuedDialog qd = (QueuedDialog)queuedDialog;
 
+        qd.controller.EnableTooltip();
         qd.controller.GetDialogText().color = Color.clear;
         qd.controller.BubbleSprite().color = Color.clear;
     }

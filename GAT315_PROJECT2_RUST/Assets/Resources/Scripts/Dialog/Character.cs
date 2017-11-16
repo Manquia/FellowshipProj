@@ -31,10 +31,9 @@ public struct Sentence
 public struct Crime
 {
     public string[] charges;
-    public string[] chargesNotes;
-
+    public string chargesNotes;
     public string characterNameAge;
-    public string characterNotes;
+    public string Investigation;
 
     public Sentence sent1;
     public Sentence sent2;
