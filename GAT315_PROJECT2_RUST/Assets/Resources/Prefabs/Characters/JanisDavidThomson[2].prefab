@@ -402,7 +402,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   details:
-    name: Janis David Thomson
+    name: JanisDavidThomson
     oratorMapping: 3
   enterDialog:
   - orator: 2
@@ -416,32 +416,40 @@ MonoBehaviour:
   exitSoftSentence: []
   inTrialDialog:
   - orator: 3
-    text: I am a person who does stuff!!!
+    text: "I don\u2019t have anything to say. My life is over. After Fredrick kicked
+      me out I have been living on the streets."
     type: 0
   - orator: 0
-    text: This is the second thing I sya!!!
+    text: "On the day, I just lost it\u2026 I needed money, I needed a roof and I
+      felt angry. So angry. My fucking family, friends, my kids they all left me!
+      [ \u2026 crying \u2026 ]"
+    type: 0
+  - orator: 3
+    text: "[ \u2026 crying \u2026 ]"
     type: 0
   crime:
     charges:
-    - '- A bad dude which killed someone'
-    - '- Manslaughter I think'
-    chargesNotes:
-    - '- Morom sped through stop sign killing 5 year old Emmy Branch Sayman.'
-    - '- Tom did everything he could to try and help Emmy make it to emergency services.'
+    - '- Assault'
+    - '- Attempted Mugging'
+    chargesNotes: Janis [Age 28] assaulted and attempted to rob Peter Brook in a downtown
+      alley near baker street. Janis inflicted minor injury to Peter causing Peter
+      no lasting injury. Peter was unable to go to work for the next 4 days.
     characterNameAge: Janis David Thomson [36]
-    characterNotes: 'YO YO, I AM A DUDE! ## PLACE HOLDER'
+    Investigation: From the looks of things Janis is homeless and living on the streets.
+      She recently lost everything (family, job, friends, home) over some petty theft
+      charges.
     sent1:
-      appearsWeeksLater: 20
-      stage: 2
-      text: Have a day in prison
+      appearsWeeksLater: -1
+      stage: -1
+      text: '2 years in jail, parole after 1 year '
     sent2:
-      appearsWeeksLater: 30
-      stage: 2
-      text: Have a week in prison
+      appearsWeeksLater: -1
+      stage: -1
+      text: 3 years in jail, parole after 2 year
     sent3:
-      appearsWeeksLater: 1000
-      stage: 2
-      text: Have life in prison (good behavior to bail)
+      appearsWeeksLater: -1
+      stage: -1
+      text: 5 years in jail, parole after 2 year
 --- !u!114 &114630283270765282
 MonoBehaviour:
   m_ObjectHideFlags: 1

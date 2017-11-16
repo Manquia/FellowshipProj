@@ -11,17 +11,34 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1240050105488208}
   m_IsPrefabParent: 1
---- !u!1 &1072282207337816
+--- !u!1 &1145112730657240
 GameObject:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4195927251539184}
-  - component: {fileID: 212593016199937020}
+  - component: {fileID: 4720352488108344}
+  - component: {fileID: 212852919958908946}
   m_Layer: 0
   m_Name: Bubble
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1178857383726500
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4681574710960994}
+  - component: {fileID: 23433824716298158}
+  - component: {fileID: 102113153531517674}
+  m_Layer: 0
+  m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -59,40 +76,7 @@ GameObject:
   - component: {fileID: 114572489129612446}
   - component: {fileID: 114050363291459774}
   m_Layer: 0
-  m_Name: JanisDavidThomson[1]
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!1 &1559635839458290
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4445373592753630}
-  - component: {fileID: 23057100942766068}
-  - component: {fileID: 102667304883949882}
-  m_Layer: 0
-  m_Name: Text
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!1 &1676847670094656
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4114429000819818}
-  - component: {fileID: 114334488851505868}
-  m_Layer: 0
-  m_Name: SpeechController
+  m_Name: EdnaSelah'Efrayim[0]
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -108,6 +92,22 @@ GameObject:
   - component: {fileID: 4950662889066762}
   m_Layer: 0
   m_Name: CharacterVisuals
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1700108477819078
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4738302694104106}
+  - component: {fileID: 114885396900426398}
+  m_Layer: 0
+  m_Name: SpeechController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -130,21 +130,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4114429000819818
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1676847670094656}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 4445373592753630}
-  - {fileID: 4195927251539184}
-  m_Father: {fileID: 4470753598123544}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4149674094716244
 Transform:
   m_ObjectHideFlags: 1
@@ -157,19 +142,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4470753598123544}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4195927251539184
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1072282207337816}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 6, y: 2, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4114429000819818}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4196583396047408
 Transform:
@@ -184,19 +156,6 @@ Transform:
   m_Father: {fileID: 4950662889066762}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4445373592753630
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1559635839458290}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.15, z: -0.01}
-  m_LocalScale: {x: 0.01, y: 0.01, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4114429000819818}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4470753598123544
 Transform:
   m_ObjectHideFlags: 1
@@ -209,9 +168,50 @@ Transform:
   m_Children:
   - {fileID: 4149674094716244}
   - {fileID: 4950662889066762}
-  - {fileID: 4114429000819818}
+  - {fileID: 4738302694104106}
   m_Father: {fileID: 0}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4681574710960994
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1178857383726500}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.15, z: -0.01}
+  m_LocalScale: {x: 0.01, y: 0.01, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4738302694104106}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4720352488108344
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1145112730657240}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 6, y: 2, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4738302694104106}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4738302694104106
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1700108477819078}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 2.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 4681574710960994}
+  - {fileID: 4720352488108344}
+  m_Father: {fileID: 4470753598123544}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4950662889066762
 Transform:
@@ -227,38 +227,6 @@ Transform:
   m_Father: {fileID: 4470753598123544}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!23 &23057100942766068
-MeshRenderer:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1559635839458290}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_Materials:
-  - {fileID: 10100, guid: 0000000000000000e000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
 --- !u!23 &23186369441037458
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -323,6 +291,38 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!23 &23433824716298158
+MeshRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1178857383726500}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_Materials:
+  - {fileID: 10100, guid: 0000000000000000e000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!33 &33132581004117394
 MeshFilter:
   m_ObjectHideFlags: 1
@@ -337,13 +337,13 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1240050105488208}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
---- !u!102 &102667304883949882
+--- !u!102 &102113153531517674
 TextMesh:
   serializedVersion: 3
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1559635839458290}
+  m_GameObject: {fileID: 1178857383726500}
   m_Text: '#######Default Text##########
 
     |
@@ -379,17 +379,6 @@ MonoBehaviour:
   movementSpeed: 1.1
   startingIndex: 0
   PathToFollow: {fileID: 0}
---- !u!114 &114334488851505868
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1676847670094656}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c13d569ce5e6a124fb4ee7fb0235d817, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114572489129612446
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -402,7 +391,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   details:
-    name: JanisDavidThomson
+    name: EdnaSelah'Efrayim
     oratorMapping: 3
   enterDialog:
   - orator: 2
@@ -416,44 +405,41 @@ MonoBehaviour:
   exitSoftSentence: []
   inTrialDialog:
   - orator: 3
-    text: I needed to eat. They kicked me out and now I have nothing. Please you must
-      understand. I know I said never again, but I was desperate.
+    text: "Uhhhh, Judge, I was just making some money on the side. I girl gotta do
+      what a girl gotta do. I don\u2019t even know why I am here? Prostitution is
+      legal in many states even in this country! I can\u2019t believe I am even here."
     type: 0
   - orator: 3
-    text: "Please give me a second chance. I really don\u2019t want to go to prison."
+    text: "Ok, I am sorry and promise I won\u2019t ever use myself again to make money.
+      I was just desperate for some quick cash to pay for rent. Paying for school
+      and housing is really a nightmare."
     type: 0
   - orator: 3
-    text: "[ ... crying \u2026]"
+    text: "What else do you want? I am soooorry... Can you just fine me and I\u2019ll
+      be on my way. I am missing a class for this and really need to get back to work."
     type: 0
   crime:
     charges:
-    - -Larceny
-    - '- Resisting Arrest'
-    chargesNotes: Janis [Age 28] entered TallMart, a grocery store, and filled a cart
-      full of food. Then took the cart out the door. Security was notified and followed
-      Janis. Janis noticed she was being followed and so ran with the cart. After
-      a short chase, Janis had been taken into custody by the police.
-    characterNameAge: Janis David Thomson[27]
-    Investigation: "Janis [Age 28], formerly Mrs. Thompson, recently divorced, lives
-      alone in a small apartment in the ghettos of East Block of the city. A cursory
-      investigation indicates that she has nothing to her name. Even the apartment
-      isn\u2019t under her name, but an old friend, Fredrick, from high school. Janis
-      said she stole because she needed to eat, this is probably accurate to some
-      degree. When asked why she didn\u2019t just go to a food bank, she become confused
-      and said, and I quote \u201CWhy would someone be so paranoid as to lock up their
-      food in a vault?\u201D. "
+    - '- Prostitution for money (multiple accounts)'
+    chargesNotes: Edna [Age 23] has been found guilty of prostitution under the downtown
+      courts. Multiple anonymous accounts and unregistered earning in her personal
+      finances back these claims.
+    characterNameAge: Edna Selah' Efrayim [Age 23]
+    Investigation: 'Edna [Age 23] has been studying at the Ballard University downtown
+      and lives in a small apartment in downtown. This is the first offence she has
+      on her record. '
     sent1:
-      appearsWeeksLater: -1
-      stage: -1
-      text: 2 days in jail, $200 fine
+      appearsWeeksLater: 12
+      stage: 1
+      text: 1 week in jail, bail $500
     sent2:
-      appearsWeeksLater: -1
-      stage: -1
-      text: 3 days in jail, $300 fine
+      appearsWeeksLater: 13
+      stage: 1
+      text: 3 week in jail, bail $1000
     sent3:
-      appearsWeeksLater: 11
+      appearsWeeksLater: 15
       stage: 2
-      text: 1 week in jail, $700 bail
+      text: 6 week in jail, bail $2000
 --- !u!114 &114630283270765282
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -467,6 +453,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   toolTipTitle: Talk
   localOffset: {x: 0, y: 0, z: 0}
+--- !u!114 &114885396900426398
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1700108477819078}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c13d569ce5e6a124fb4ee7fb0235d817, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!136 &136082163781093550
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -506,12 +503,12 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!212 &212593016199937020
+--- !u!212 &212852919958908946
 SpriteRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1072282207337816}
+  m_GameObject: {fileID: 1145112730657240}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0

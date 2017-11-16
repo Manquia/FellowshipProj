@@ -11,17 +11,34 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1240050105488208}
   m_IsPrefabParent: 1
---- !u!1 &1077665326862608
+--- !u!1 &1145112730657240
 GameObject:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4238575352173744}
-  - component: {fileID: 114224226281904722}
+  - component: {fileID: 4720352488108344}
+  - component: {fileID: 212852919958908946}
   m_Layer: 0
-  m_Name: SpeechController
+  m_Name: Bubble
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1178857383726500
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4681574710960994}
+  - component: {fileID: 23433824716298158}
+  - component: {fileID: 102113153531517674}
+  m_Layer: 0
+  m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -59,23 +76,7 @@ GameObject:
   - component: {fileID: 114572489129612446}
   - component: {fileID: 114050363291459774}
   m_Layer: 0
-  m_Name: NickolasWoodBaron[0]
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!1 &1332451159481350
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4236464588062558}
-  - component: {fileID: 212949892963362328}
-  m_Layer: 0
-  m_Name: Bubble
+  m_Name: ChristopherBernardoTiras[0]
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -96,18 +97,17 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1762985151516302
+--- !u!1 &1700108477819078
 GameObject:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4761928107498808}
-  - component: {fileID: 23791264791991056}
-  - component: {fileID: 102622183980724260}
+  - component: {fileID: 4738302694104106}
+  - component: {fileID: 114885396900426398}
   m_Layer: 0
-  m_Name: Text
+  m_Name: SpeechController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -156,34 +156,6 @@ Transform:
   m_Father: {fileID: 4950662889066762}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4236464588062558
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1332451159481350}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 6, y: 2, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4238575352173744}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4238575352173744
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1077665326862608}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 4761928107498808}
-  - {fileID: 4236464588062558}
-  m_Father: {fileID: 4470753598123544}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4470753598123544
 Transform:
   m_ObjectHideFlags: 1
@@ -196,22 +168,50 @@ Transform:
   m_Children:
   - {fileID: 4149674094716244}
   - {fileID: 4950662889066762}
-  - {fileID: 4238575352173744}
+  - {fileID: 4738302694104106}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4761928107498808
+--- !u!4 &4681574710960994
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1762985151516302}
+  m_GameObject: {fileID: 1178857383726500}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1.15, z: -0.01}
   m_LocalScale: {x: 0.01, y: 0.01, z: 1}
   m_Children: []
-  m_Father: {fileID: 4238575352173744}
+  m_Father: {fileID: 4738302694104106}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4720352488108344
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1145112730657240}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 6, y: 2, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4738302694104106}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4738302694104106
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1700108477819078}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 2.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 4681574710960994}
+  - {fileID: 4720352488108344}
+  m_Father: {fileID: 4470753598123544}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4950662889066762
 Transform:
@@ -291,12 +291,12 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!23 &23791264791991056
+--- !u!23 &23433824716298158
 MeshRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1762985151516302}
+  m_GameObject: {fileID: 1178857383726500}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -337,13 +337,13 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1240050105488208}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
---- !u!102 &102622183980724260
+--- !u!102 &102113153531517674
 TextMesh:
   serializedVersion: 3
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1762985151516302}
+  m_GameObject: {fileID: 1178857383726500}
   m_Text: '#######Default Text##########
 
     |
@@ -379,17 +379,6 @@ MonoBehaviour:
   movementSpeed: 1.1
   startingIndex: 0
   PathToFollow: {fileID: 0}
---- !u!114 &114224226281904722
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1077665326862608}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c13d569ce5e6a124fb4ee7fb0235d817, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114572489129612446
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -402,7 +391,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   details:
-    name: Nicholas Wood Baron
+    name: ChristopherBernardoTiras
     oratorMapping: 3
   enterDialog:
   - orator: 2
@@ -414,31 +403,47 @@ MonoBehaviour:
   talkDialog: []
   exitHardSentence: []
   exitSoftSentence: []
+  inTrialDialog:
+  - orator: 3
+    text: Did wrong, I know I should have left Sarah alone, but she was really sweet
+      and kind. I thought we could make a great couple.
+    type: 0
+  - orator: 3
+    text: I remember Sarah saying she was very busy over the weekend or too tired.
+      I was not aware that she just was simply making excuses to avoid a date.
+    type: 0
+  - orator: 3
+    text: "I\u2019ve already lost my job, probably won\u2019t ever see Sarah ever
+      again."
+    type: 0
   crime:
     charges:
-    - '- Sexual Assault of a minor'
-    - '- Breaking and entering'
-    chargesNotes:
-    - '- Nicholas broke into the Yvonne resedency late in the night. No apparent reason
-      aside to visit and apparently rape his girl friend.'
-    - '- Polina (17) was attacked in her home and would have been raped if her brother
-      hadn''t come into the room to help resolve the situation.'
-    characterNameAge: Nicholas Wood Baron [18]
-    characterNotes: Nicholas is a highschool student Jr/Sr Shella High. Nicholas had
-      apparently been dating Polina but recently broke up. Turns out Nicholas didn't
-      like the arrangement and decided to be more aggressive over the weekend.
+    - Sexual Harassment
+    chargesNotes: 'Christopher repeatedly made advances on a  co-worker who refused
+      his advances. Christopher did not assault the victim, but was persistent. The
+      victim claims he would make an advance once every friday. This behavior lasted
+      for 3 months, until their superior found out and about the unwanted advances.
+      Christopher was promptly fired, and charges were filed 1 week later after. '
+    characterNameAge: Christopher Bernardo Tiras [Age 30]
+    Investigation: Christopher [Age 30] is an outstanding worker at Mastercorp who
+      lives alone in his apartment downtown. He has family out of state, but rarely
+      do they visit. Christopher graduated with a Bachelors in Business Management
+      so he should know that this sort of behavior is completely inappropriate. Comments
+      from his family indicate that he was never violent but when he wanted something
+      he would give his all to get it regardless of how much time and effort it costed
+      him.
     sent1:
-      appearsWeeksLater: 19
-      stage: 2
-      text: 18 weeks low-sec prison. 200 hr. Community Service
+      appearsWeeksLater: 2
+      stage: 1
+      text: '80 hr community service, $500 fine '
     sent2:
-      appearsWeeksLater: 0
-      stage: 75
-      text: 108 weeks low-sec prison. 400 hr. Community Service
+      appearsWeeksLater: 25
+      stage: 2
+      text: 2 Month in jail, $4,000 bail
     sent3:
-      appearsWeeksLater: 0
-      stage: 0
-      text: 5 years in prison. 1000 hr community service.
+      appearsWeeksLater: 25
+      stage: 2
+      text: 2 Month in jail and $2,000 fine
 --- !u!114 &114630283270765282
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -452,6 +457,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   toolTipTitle: Talk
   localOffset: {x: 0, y: 0, z: 0}
+--- !u!114 &114885396900426398
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1700108477819078}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c13d569ce5e6a124fb4ee7fb0235d817, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!136 &136082163781093550
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -491,12 +507,12 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!212 &212949892963362328
+--- !u!212 &212852919958908946
 SpriteRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1332451159481350}
+  m_GameObject: {fileID: 1145112730657240}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0

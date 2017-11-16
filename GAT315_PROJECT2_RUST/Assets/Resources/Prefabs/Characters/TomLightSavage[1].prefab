@@ -402,7 +402,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   details:
-    name: Tom Light Savage
+    name: TomLightSavage
     oratorMapping: 3
   enterDialog:
   - orator: 2
@@ -414,31 +414,40 @@ MonoBehaviour:
   talkDialog: []
   exitHardSentence: []
   exitSoftSentence: []
+  inTrialDialog:
+  - orator: 3
+    text: I just needed some cash to get myself up on my feet. When the police showed
+      up I panicked and ran.
+    type: 0
+  - orator: 3
+    text: "When the police caught me, I couldn\u2019t control myself and ended up
+      hurting them too. I need help."
+    type: 0
   crime:
     charges:
     - '- Resisting arrest'
     - '- Assault with intent to rob'
-    - '- Attempted Escape from lawful custody'
-    chargesNotes:
-    - '- This thug beat up my boys good. This ***** deserves some serious time.'
+    - '- Attempted Escape from police custody'
+    - '- Assaulting a police officer'
+    chargesNotes: This thug beat up my boys. This fucker deserves some serious time.
+      It doesn't look like he did much harm to the victim but he went crazy when we
+      tried to arrest him.
     characterNameAge: Tom Light Savage [26]
-    characterNotes: Street thug, says all of his friends and family left him out after
-      he lost his drivers licence. Says he just needed some money to pay for rent
-      while he was looking for a new job. [Personal Notes] Tom broke down in tears
-      in the investigation. This guy really has a bad string of luck and deserves
-      a second chance, be light.
+    Investigation: 'Tom [Age 26] tried to extort a citizen on the street for money.
+      Says he just needed some money to pay for rent while he was looking for a new
+      job. '
     sent1:
-      appearsWeeksLater: 0
-      stage: 0
-      text: 24 Months in low-security prison
+      appearsWeeksLater: -1
+      stage: -1
+      text: 4 Years in jail, parole possible after 2 years
     sent2:
-      appearsWeeksLater: 0
-      stage: 0
-      text: 48 Months in low-security prison
+      appearsWeeksLater: -1
+      stage: -1
+      text: 6 Years in jail, parole possible after 3 years
     sent3:
-      appearsWeeksLater: 0
-      stage: 0
-      text: 60 Months in medium-security prison
+      appearsWeeksLater: -1
+      stage: -1
+      text: 10 Years in jail, parole possible after 5 years
 --- !u!114 &114630283270765282
 MonoBehaviour:
   m_ObjectHideFlags: 1

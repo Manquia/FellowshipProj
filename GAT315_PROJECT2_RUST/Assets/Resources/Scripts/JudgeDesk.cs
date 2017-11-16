@@ -69,9 +69,9 @@ public class JudgeDesk : MonoBehaviour {
             var sent2 = sentence.Find("SentenceOption2");
             var sent3 = sentence.Find("SentenceOption3");
 
-            sent1.GetComponent<SentenceController>().SetupSentence(crime.sent1, character.name);
-            sent2.GetComponent<SentenceController>().SetupSentence(crime.sent2, character.name);
-            sent3.GetComponent<SentenceController>().SetupSentence(crime.sent3, character.name);
+            sent1.GetComponent<SentenceController>().SetupSentence(crime.sent1, character.details.name);
+            sent2.GetComponent<SentenceController>().SetupSentence(crime.sent2, character.details.name);
+            sent3.GetComponent<SentenceController>().SetupSentence(crime.sent3, character.details.name);
         }
 		
 		

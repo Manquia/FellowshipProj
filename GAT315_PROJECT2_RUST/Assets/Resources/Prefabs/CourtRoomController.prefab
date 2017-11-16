@@ -118,11 +118,14 @@ MonoBehaviour:
   - appearanceWeek: 0
     name: JanisDavidThomson
     stage: 0
-  - appearanceWeek: 0
-    name: NickolasWoodBaron
+  - appearanceWeek: 2
+    name: CainShyamaMiran
     stage: 0
-  - appearanceWeek: 0
-    name: JayEastHammerton
+  - appearanceWeek: 2
+    name: ChristopherBernardoTiras
+    stage: 0
+  - appearanceWeek: 3
+    name: EdnaSelah'Efrayim
     stage: 0
   enterPath: {fileID: 114840287224862334}
   exitPath: {fileID: 114689178572100564}

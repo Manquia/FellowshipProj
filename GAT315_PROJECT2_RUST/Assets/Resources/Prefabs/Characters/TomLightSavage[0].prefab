@@ -403,7 +403,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   details:
-    name: Tom Light Savage
+    name: TomLightSavage
     oratorMapping: 3
   enterDialog:
   - orator: 2
@@ -417,38 +417,36 @@ MonoBehaviour:
   exitSoftSentence: []
   inTrialDialog:
   - orator: 3
-    text: Hello world, Part 1
+    text: I am very sorry about speeding through the stop-sign. I was very late for
+      work and ended up getting fired only last week.
     type: 0
   - orator: 3
-    text: Part 2, I am hello world
-    type: 0
-  - orator: 3
-    text: Part 3, Length testing, How well does this wrap and how does it handle LOOOOOONG
-      words
+    text: "I promise I will always obey the rules of the road. Please don\u2019t revoke
+      my license. "
     type: 0
   crime:
     charges:
     - '- Speeding ticket 10 over in residential area.'
     - '- Sped through stop-sign at high speed'
-    chargesNotes:
-    - '- Driver was late for work and decided that public safty was less important
-      than his job.'
-    - '- Said he was an office worker with a **** boss.'
+    - '- Reckless Driving'
+    chargesNotes: Tom [Age 25] sped through a residential area 10 over the speed limit
+      and through a stop-sign. Tom was late for work and decided that public safety
+      was less important than his job.
     characterNameAge: Tom Light Savage [25]
-    characterNotes: This guy lives alon in a small apartment in downtown. His friends
-      say he is an alright guy and a cursory check indicates that he is an outstanding
-      guy.
+    Investigation: Tom [Age 25] lives alone in a small apartment in downtown. His
+      friends say he is an alright guy and a cursory check indicates that he is an
+      outstanding guy.
     sent1:
       appearsWeeksLater: 2
-      stage: 2
-      text: 4 points, 250$ fine
+      stage: 1
+      text: 5 points, 550$ fine
     sent2:
-      appearsWeeksLater: 5
-      stage: 2
+      appearsWeeksLater: 12
+      stage: 1
       text: 10 points, 1000$ fine (next offence lose licence)
     sent3:
-      appearsWeeksLater: 10
-      stage: 2
+      appearsWeeksLater: 9
+      stage: 1
       text: Revoke driver's licence
 --- !u!114 &114630283270765282
 MonoBehaviour:

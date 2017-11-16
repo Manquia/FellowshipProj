@@ -391,7 +391,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   details:
-    name: Tom Light Savage
+    name: TomLightSavage
     oratorMapping: 3
   enterDialog:
   - orator: 2
@@ -403,32 +403,40 @@ MonoBehaviour:
   talkDialog: []
   exitHardSentence: []
   exitSoftSentence: []
+  inTrialDialog:
+  - orator: 3
+    text: It all happened so fast. She just ran out into the street.
+    type: 0
+  - orator: 3
+    text: "I did everything I could to help after, but I\u2019ll never be able to
+      forgive myself for my carelessness."
+    type: 0
   crime:
     charges:
-    - '- Recklass driving'
+    - '- Reckless driving'
     - '- Manslaughter'
     - '- Speeding 20 over in residential area'
     - '- Sped through stop sign'
-    chargesNotes:
-    - '- Morom sped through stop sign killing 5 year old Emmy Branch Sayman.'
-    - '- Tom did everything he could to try and help Emmy make it to emergency services.'
+    chargesNotes: Tom [Age 25] sped through stop sign killing 5 year old Emmy Branch
+      Sayman. Tom did everything he could to try and help Emmy make it to emergency
+      services.
     characterNameAge: Tom Light Savage [25]
-    characterNotes: Tom has a record or recklass driving. I am surprise his licence
-      wasn't removed for his last charge. Tom was all in all a nice guy who recently
-      lost his job. Says the morning of the accident he was late for an interview
-      in downtown.
+    Investigation: 'Tom [Age 25] has a record or reckless driving. I am surprise his
+      licence wasn''t removed for his last charge. Tom was all in all a nice guy who
+      recently lost his job. Says the morning of the accident he was late for an interview
+      in downtown. '
     sent1:
-      appearsWeeksLater: 0
-      stage: 0
-      text: '24 Months low-sec prison. 200 hr. Community Service '
+      appearsWeeksLater: -1
+      stage: -1
+      text: 2 Years in jail, parole possible after 1 years
     sent2:
-      appearsWeeksLater: 0
-      stage: 0
-      text: 36 Months in low-sec prison. 400 hr. Community Service
+      appearsWeeksLater: -1
+      stage: -1
+      text: 3 Years in jail, parole possible after 2 years
     sent3:
-      appearsWeeksLater: 0
-      stage: 0
-      text: 48 Months in low-sec prison. 500 hr. Community Service
+      appearsWeeksLater: -1
+      stage: -1
+      text: 5 Years in jail, parole possible after 3 years
 --- !u!114 &114630283270765282
 MonoBehaviour:
   m_ObjectHideFlags: 1
