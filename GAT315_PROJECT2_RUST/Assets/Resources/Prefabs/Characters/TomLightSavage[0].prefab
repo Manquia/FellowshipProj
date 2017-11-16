@@ -405,6 +405,7 @@ MonoBehaviour:
   details:
     name: TomLightSavage
     oratorMapping: 3
+  mugshot: {fileID: 21300000, guid: f88d06ce247ac824c90fc1193f682eee, type: 3}
   enterDialog:
   - orator: 2
     text: 
@@ -432,7 +433,7 @@ MonoBehaviour:
     chargesNotes: Tom [Age 25] sped through a residential area 10 over the speed limit
       and through a stop-sign. Tom was late for work and decided that public safety
       was less important than his job.
-    characterNameAge: Tom Light Savage [25]
+    characterNameAge: Tom Light Savage Age:25
     Investigation: Tom [Age 25] lives alone in a small apartment in downtown. His
       friends say he is an alright guy and a cursory check indicates that he is an
       outstanding guy.

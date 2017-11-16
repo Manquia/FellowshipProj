@@ -393,6 +393,7 @@ MonoBehaviour:
   details:
     name: EdnaSelah'Efrayim
     oratorMapping: 3
+  mugshot: {fileID: 21300000, guid: deb007b13aebe0e44a138edbc6fccefd, type: 3}
   enterDialog:
   - orator: 2
     text: 
@@ -419,7 +420,7 @@ MonoBehaviour:
       the area and a well known member of The Grips. This was until we busted one
       of their dens in a strike operation. Since she is new member of the gang, her
       charges are less than some of the longstanding members we took in. "
-    characterNameAge: Edna Selah' Efrayim [Age 24]
+    characterNameAge: Edna Selah' Efrayim Age:24
     Investigation: Edna [Age 24] was recently charged with prostitution and served
       a small time in jail. While in jail she joined a street gang known as The Grips.
       Edna claims she joined the gang because she no longer had any scholarships for

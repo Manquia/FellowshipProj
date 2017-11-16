@@ -404,6 +404,7 @@ MonoBehaviour:
   details:
     name: TomLightSavage
     oratorMapping: 3
+  mugshot: {fileID: 21300000, guid: f88d06ce247ac824c90fc1193f682eee, type: 3}
   enterDialog:
   - orator: 2
     text: 
@@ -432,7 +433,7 @@ MonoBehaviour:
     chargesNotes: This thug beat up my boys. This fucker deserves some serious time.
       It doesn't look like he did much harm to the victim but he went crazy when we
       tried to arrest him.
-    characterNameAge: Tom Light Savage [26]
+    characterNameAge: Tom Light Savage Age:26
     Investigation: 'Tom [Age 26] tried to extort a citizen on the street for money.
       Says he just needed some money to pay for rent while he was looking for a new
       job. '

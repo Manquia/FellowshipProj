@@ -393,6 +393,7 @@ MonoBehaviour:
   details:
     name: ChristopherBernardoTiras
     oratorMapping: 3
+  mugshot: {fileID: 21300000, guid: db288a83bc1930945a8d35546c7b7b23, type: 3}
   enterDialog:
   - orator: 2
     text: 
@@ -424,7 +425,7 @@ MonoBehaviour:
       victim claims he would make an advance once every friday. This behavior lasted
       for 3 months, until their superior found out and about the unwanted advances.
       Christopher was promptly fired, and charges were filed 1 week later after. '
-    characterNameAge: Christopher Bernardo Tiras [Age 30]
+    characterNameAge: Christopher Bernardo Tiras Age:30
     Investigation: Christopher [Age 30] is an outstanding worker at Mastercorp who
       lives alone in his apartment downtown. He has family out of state, but rarely
       do they visit. Christopher graduated with a Bachelors in Business Management

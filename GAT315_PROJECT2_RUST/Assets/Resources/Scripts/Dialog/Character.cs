@@ -90,8 +90,8 @@ public class Character : FFComponent, Interactable
     void BecomePerson()
     {
     }
-    
 
+    public Sprite mugshot;
     public CharacterDialog.Dialog.Echo[] enterDialog;
     public CharacterDialog.Dialog.Echo[] talkDialog;
     public CharacterDialog.Dialog.Echo[] exitHardSentence;

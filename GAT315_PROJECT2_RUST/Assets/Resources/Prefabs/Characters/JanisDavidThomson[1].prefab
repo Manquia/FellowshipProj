@@ -404,6 +404,7 @@ MonoBehaviour:
   details:
     name: JanisDavidThomson
     oratorMapping: 3
+  mugshot: {fileID: 21300000, guid: f7090580a1fbffb498f67f5515591cb5, type: 3}
   enterDialog:
   - orator: 2
     text: 
@@ -433,7 +434,7 @@ MonoBehaviour:
       full of food. Then took the cart out the door. Security was notified and followed
       Janis. Janis noticed she was being followed and so ran with the cart. After
       a short chase, Janis had been taken into custody by the police.
-    characterNameAge: Janis David Thomson[27]
+    characterNameAge: Janis David Thomson Age:27
     Investigation: "Janis [Age 28], formerly Mrs. Thompson, recently divorced, lives
       alone in a small apartment in the ghettos of East Block of the city. A cursory
       investigation indicates that she has nothing to her name. Even the apartment

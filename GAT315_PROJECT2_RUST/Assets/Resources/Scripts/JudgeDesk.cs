@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
+using System.Linq;
 using UnityEngine;
 
 public class JudgeDesk : MonoBehaviour {
@@ -49,12 +51,25 @@ public class JudgeDesk : MonoBehaviour {
 			additionalNotes.text = crime.chargesNotes;
 		}
 
+        // Add Accused mugshot
+        {
+            var mugshot = accused.Find("Mugshot");
+            var mugshotImage = mugshot.GetComponent<UnityEngine.UI.Image>();
+            mugshotImage.sprite = character.mugshot;
+        }
         // Add Accussed name
         {
             var name = accused.Find("Detail_Name_Age");
             var nameText  = name.GetComponent<UnityEngine.UI.Text>();
+            var givenNames = crime.characterNameAge.Split(' ').ToList();
 
-            nameText.text = crime.characterNameAge;
+            var str = "";
+            foreach(var part in givenNames)
+            {
+                str += part;
+                str += "\n";
+            }
+            nameText.text = str;
         }
         // Accused Notes
         {

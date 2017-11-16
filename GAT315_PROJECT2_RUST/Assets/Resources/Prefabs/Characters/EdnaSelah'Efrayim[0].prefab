@@ -393,6 +393,7 @@ MonoBehaviour:
   details:
     name: EdnaSelah'Efrayim
     oratorMapping: 3
+  mugshot: {fileID: 21300000, guid: deb007b13aebe0e44a138edbc6fccefd, type: 3}
   enterDialog:
   - orator: 2
     text: 
@@ -424,7 +425,7 @@ MonoBehaviour:
     chargesNotes: Edna [Age 23] has been found guilty of prostitution under the downtown
       courts. Multiple anonymous accounts and unregistered earning in her personal
       finances back these claims.
-    characterNameAge: Edna Selah' Efrayim [Age 23]
+    characterNameAge: Edna Selah' Efrayim Age:24
     Investigation: 'Edna [Age 23] has been studying at the Ballard University downtown
       and lives in a small apartment in downtown. This is the first offence she has
       on her record. '

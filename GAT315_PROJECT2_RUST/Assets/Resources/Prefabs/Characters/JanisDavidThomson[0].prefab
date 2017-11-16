@@ -404,6 +404,7 @@ MonoBehaviour:
   details:
     name: JanisDavidThomson
     oratorMapping: 3
+  mugshot: {fileID: 21300000, guid: f7090580a1fbffb498f67f5515591cb5, type: 3}
   enterDialog:
   - orator: 2
     text: 
@@ -430,7 +431,7 @@ MonoBehaviour:
       Plasma TV and headed for the door. Janis was caught trying to load the TV into
       her vehicle. The security onsite said she resisted arrest by running away. Janis
       later turned herself in at the police station. '
-    characterNameAge: Janis David Thomson[27]
+    characterNameAge: Janis David Thomson Age:27
     Investigation: "Janis [Age 27] is married to Johnson Thompson with 2 children.
       The family was shocked by the news have reached for financial support from family
       extended members to pay bail. The medical bills Janis mentioned was for their
