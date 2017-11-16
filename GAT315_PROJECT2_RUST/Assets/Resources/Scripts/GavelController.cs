@@ -20,10 +20,12 @@ public class GavelController : MonoBehaviour, Interactable {
     State state;
     
     bool chosenSentence = false;
+    Transform GavekRoot;
 
 	// Use this for initialization
 	void Start ()
     {
+        GavekRoot = transform.Find("Gavel");
         chosenSentence = false;
         state = State.Idle;
         tooltip.toolTipTitle = "Start Session";
@@ -110,6 +112,10 @@ public class GavelController : MonoBehaviour, Interactable {
         {
             // reset timer
             delayTimer = 0.0f;
+
+            // Do animation
+            var gavelAnim = GavekRoot.GetComponent<Animator>();
+            gavelAnim.Play("StrikeGavel");
         }
 
         // Change to next state
