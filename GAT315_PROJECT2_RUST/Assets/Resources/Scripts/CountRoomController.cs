@@ -7,6 +7,9 @@ using UnityEngine;
 public struct SendInNextCharacter
 {
 }
+public struct SendOutLastCharacter
+{
+}
 
 public struct FadeToNextWeek
 {
@@ -53,15 +56,31 @@ public class CountRoomController : MonoBehaviour {
             people[person.appearanceWeek].Add(person);
         }
 
-
-
+        
         FFMessage<SendInNextCharacter>.Connect(OnSendInNextCharacter);
+        FFMessage<SendOutLastCharacter>.Connect(OnSendOutLastCharacter);
         FFMessage<PassSentence>.Connect(OnPassSentence);
 	}
     void OnDestroy()
     {
         FFMessage<SendInNextCharacter>.Disconnect(OnSendInNextCharacter);
+        FFMessage<SendOutLastCharacter>.Disconnect(OnSendOutLastCharacter);
         FFMessage<PassSentence>.Disconnect(OnPassSentence);
+    }
+
+    private void OnSendOutLastCharacter(SendOutLastCharacter e)
+    {
+        // Send Last person OUT
+        if (createdPeople.Count > 0)
+        {
+            Transform personTrans = createdPeople[createdPeople.Count - 1];
+            GameObject prevPerson = personTrans.gameObject;
+            PersonMover personMover = personTrans.GetComponent<PersonMover>();
+
+            personMover.PathToFollow = exitPath;
+            personMover.distAlongPath = 0.0f;
+            personMover.Move(exitPath.points.Length - 1);
+        }
     }
 
     private void OnPassSentence(PassSentence e)
@@ -81,17 +100,6 @@ public class CountRoomController : MonoBehaviour {
 
     private void OnSendInNextCharacter(SendInNextCharacter e)
     {
-        // Send Last person OUT
-        if(createdPeople.Count > 0)
-        {
-            Transform personTrans = createdPeople[createdPeople.Count -1];
-            GameObject prevPerson = personTrans.gameObject;
-            PersonMover personMover = personTrans.GetComponent<PersonMover>();
-            
-            personMover.PathToFollow = exitPath;
-            personMover.distAlongPath = 0.0f;
-            personMover.Move(exitPath.points.Length - 1);
-        }
 
         // Send Next Person In
         GameObject nextPerson = GetNextPerson();

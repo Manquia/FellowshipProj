@@ -3,7 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GavelController : MonoBehaviour, Interactable {
+public class GavelController : FFComponent, Interactable {
+
+
+    FFAction.ActionSequence audioSeq;
 
     public ToolTip tooltip;
 
@@ -20,12 +23,18 @@ public class GavelController : MonoBehaviour, Interactable {
     State state;
     
     bool chosenSentence = false;
-    Transform GavekRoot;
+    Transform GavelRoot;
+    float crowdNoiseVolumeSave;
+    AudioSource CrowdNoise;
 
 	// Use this for initialization
 	void Start ()
     {
-        GavekRoot = transform.Find("Gavel");
+        GavelRoot = transform.Find("Gavel");
+        CrowdNoise = GameObject.Find("CrowdNoise").GetComponent<AudioSource>();
+        audioSeq = action.Sequence();
+        crowdNoiseVolumeSave = CrowdNoise.volume;
+
         chosenSentence = false;
         state = State.Idle;
         tooltip.toolTipTitle = "Start Session";
@@ -114,8 +123,10 @@ public class GavelController : MonoBehaviour, Interactable {
             delayTimer = 0.0f;
 
             // Do animation
-            var gavelAnim = GavekRoot.GetComponent<Animator>();
+            var gavelAnim = GavelRoot.GetComponent<Animator>();
             gavelAnim.Play("StrikeGavel");
+            var gavelSound = GavelRoot.GetComponent<AudioSource>();
+            gavelSound.Play();
         }
 
         // Change to next state
@@ -127,23 +138,55 @@ public class GavelController : MonoBehaviour, Interactable {
 
             case State.Idle:
             {
+                state = State.OpenSession;
+                FadeOutCrowdNoise();
+
                 SendInNextCharacter sinc;
                 FFMessage<SendInNextCharacter>.SendToLocal(sinc);
 
                 BeginCharacterHearing bch;
                 FFMessage<BeginCharacterHearing>.SendToLocal(bch);
-                state = State.OpenSession;
             }
             break;
 
             case State.OpenSession:
             {
+                state = State.Idle;
+                FadeInCrowdNoise();
+
                 EndCharacterHearing e;
                 FFMessage<EndCharacterHearing>.SendToLocal(e);
-                state = State.Idle;
+
+                SendOutLastCharacter sonc;
+                FFMessage<SendOutLastCharacter>.SendToLocal(sonc);
+                    
             }
             break;
         }
     }
+
+    void FadeOutCrowdNoise()
+    {
+        audioSeq.ClearSequence();
+        audioSeq.Delay(0.6f);
+        audioSeq.Sync();
+        audioSeq.Property(CrowdVolumeRef(), 0.0f, FFEase.E_SmoothStart, 1.0f);
+    }
+    void FadeInCrowdNoise()
+    {
+        audioSeq.ClearSequence();
+        audioSeq.Delay(1.4f);
+        audioSeq.Sync();
+        audioSeq.Property(CrowdVolumeRef(), crowdNoiseVolumeSave, FFEase.E_SmoothEnd, 2.0f);
+    }
+
+    FFRef<float> CrowdVolumeRef()
+    {
+        return new FFRef<float>(
+            () => CrowdNoise.volume,
+            (v) => { CrowdNoise.volume = v; });
+    }
+
+
 
 }
