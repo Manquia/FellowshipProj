@@ -41,6 +41,16 @@ public class SentenceController : MonoBehaviour, Interactable {
         curAccused = accused;
         textDisplay.text = sent.text;
     }
+    public void ClearSentence()
+    {
+        var textDisplay = transform.Find("Text").GetComponent<UnityEngine.UI.Text>();
+
+        curSentence.text = "";
+        curSentence.appearsWeeksLater = -1;
+        curSentence.stage = -1;
+        curAccused = "";
+        textDisplay.text = "";
+    }
 
     void Start()
     {

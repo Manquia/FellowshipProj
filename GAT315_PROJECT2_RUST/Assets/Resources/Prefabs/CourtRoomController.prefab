@@ -222,7 +222,7 @@ MonoBehaviour:
   accusedExitPath: {fileID: 114270608686210362}
   witnessEnterPath: {fileID: 114872413351634178}
   witnessExitPath: {fileID: 114689178572100564}
-  JudgeApprovalRatting: 75
+  JudgeFireRating: 39
 --- !u!114 &114689178572100564
 MonoBehaviour:
   m_ObjectHideFlags: 1

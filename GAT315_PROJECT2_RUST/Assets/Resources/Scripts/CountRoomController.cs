@@ -46,13 +46,13 @@ public class CountRoomController : MonoBehaviour {
     public FFPath witnessEnterPath;
     public FFPath witnessExitPath;
 
-    public static float JudgeApprovalRatting = 75.0f;
-    public float JudgeFireRating = 55.0f;
+    public static float JudgeApprovalRatting = 88.0f;
+    public float JudgeFireRating = 39.0f;
 
 	// Use this for initialization
 	void Start ()
     {
-        JudgeApprovalRatting = 75.0f;
+        JudgeApprovalRatting = 88.0f;
         // Add starting Characters to people List
         foreach (var person in characterStarting)
         {
@@ -79,6 +79,10 @@ public class CountRoomController : MonoBehaviour {
     {
         int inquiryCount = 0;
         int inquiriesMade = 0;
+
+        // Clear desk
+        var desk = GameObject.Find("JudgeDesk").GetComponent<JudgeDesk>();
+        desk.ClearDesk();
 
         // Send Last person OUT
         if (accusedCreated.Count > 0)
@@ -137,6 +141,10 @@ public class CountRoomController : MonoBehaviour {
 
     private void OnPassSentence(PassSentence e)
     {
+        // Does not get a next appearance
+        if (e.sent.stage == -1 ||e.sent.appearsWeeksLater == -1)
+            return;
+
         int appearanceWeek = weekIndex + e.sent.appearsWeeksLater;
         
         if(people.ContainsKey(appearanceWeek) == false)
@@ -218,16 +226,23 @@ public class CountRoomController : MonoBehaviour {
         
     }
     
-
+    public bool MoreCriminalsThisWeek()
+    {
+        var curPeople = people[weekIndex];
+        if (peopleIndex >= curPeople.Count)
+        {
+            return false;
+        }
+        return true;
+    }
     GameObject GetNextPerson()
     {
         if (weekIndex == -1) return null;
 
-        var curPeople = people[weekIndex];
-        if(peopleIndex >= curPeople.Count)
-		{
+        if (!MoreCriminalsThisWeek())
             return null;
-		}
+
+        var curPeople = people[weekIndex];
 
         string prefabName = "Characters/";
         // build prefab name

@@ -128,6 +128,7 @@ public class GavelController : FFComponent, Interactable {
             var gavelSound = GavelRoot.GetComponent<AudioSource>();
             gavelSound.Play();
         }
+        
 
         // Change to next state
         switch (state)
@@ -152,14 +153,25 @@ public class GavelController : FFComponent, Interactable {
             case State.OpenSession:
             {
                 state = State.Idle;
-                FadeInCrowdNoise();
-
+                    
                 EndCharacterHearing e;
                 FFMessage<EndCharacterHearing>.SendToLocal(e);
 
                 SendOutLastCharacter sonc;
                 FFMessage<SendOutLastCharacter>.SendToLocal(sonc);
-                    
+
+
+                var courtRoomController = GameObject.Find("CourtRoomController").GetComponent<CountRoomController>();
+                if (courtRoomController.MoreCriminalsThisWeek() == false) // are
+                {
+                    // Trigger end week in court room
+                    SendInNextCharacter sinc;
+                    FFMessage<SendInNextCharacter>.SendToLocal(sinc);
+                }
+                else
+                {
+                    FadeInCrowdNoise();
+                }
             }
             break;
         }

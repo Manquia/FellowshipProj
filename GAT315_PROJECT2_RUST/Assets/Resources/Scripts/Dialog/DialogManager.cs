@@ -88,7 +88,6 @@ public class DialogManager : FFComponent
     void OnDestroy()
     {
         Debug.Assert(singleton != null, "OnDestroy of DialogManager Singleton value was already null");
-        Debug.Assert(singleton == this, "OnDestroy of DialogManager Singleton value was not set to our value");
 
         singleton = null;
     }
@@ -390,10 +389,25 @@ public class DialogManager : FFComponent
         {
             int lineLength = Mathf.Min(charactersPerLine, charactersRemaining);
 
+            // if string contains any new lines
+            for(int i = 0; i < lineLength; ++i)
+            {
+                if(text[start + i] == '\n')
+                {
+                    textWithNewLines += text.Substring(start, i + 1);
+
+                    lineLength = Mathf.Min(charactersPerLine, charactersRemaining);
+                    charactersRemaining -= i + 1;
+                    start += i + 1;
+                    i = 0; // reset counter
+                }
+            }
+
             // All character cannot fit on the line
             if (charactersRemaining > charactersPerLine)
             {
-                while (lineLength > 0 && text[start + lineLength] != ' ')
+                while (lineLength > 0 &&
+                       text[start + lineLength] != ' ')
                 {
                     --lineLength;
                 }

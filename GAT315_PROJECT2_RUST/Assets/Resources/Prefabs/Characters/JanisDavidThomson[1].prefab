@@ -455,6 +455,7 @@ MonoBehaviour:
       appearsWeeksLater: 11
       stage: 2
       text: 1 week in jail, $700 bail
+  witness: {fileID: 0}
 --- !u!114 &114630283270765282
 MonoBehaviour:
   m_ObjectHideFlags: 1

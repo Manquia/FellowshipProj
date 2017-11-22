@@ -88,9 +88,56 @@ public class JudgeDesk : MonoBehaviour {
             sent2.GetComponent<SentenceController>().SetupSentence(crime.sent2, character.details.name);
             sent3.GetComponent<SentenceController>().SetupSentence(crime.sent3, character.details.name);
         }
-		
-		
 	}
+
+    public  void ClearDesk()
+    {
+        var charges = ChargesRoot(); Debug.Assert(charges != null);
+        var accused = AccusedRoot(); Debug.Assert(accused != null);
+        var sentence = SentenceRoot(); Debug.Assert(sentence != null);
+        var gavel = GavelRoot(); Debug.Assert(gavel != null);
+
+        // Add changes
+        {
+            var description = charges.Find("Description").GetComponent<UnityEngine.UI.Text>();
+            description.text = "";
+        }
+        // Add changes Notes
+        {
+            var additionalNotes = charges.Find("Additional Notes").GetComponent<UnityEngine.UI.Text>();
+            additionalNotes.text = "";
+        }
+
+        // Add Accused mugshot
+        {
+            var mugshot = accused.Find("Mugshot");
+            var mugshotImage = mugshot.GetComponent<UnityEngine.UI.Image>();
+            mugshotImage.sprite = null;
+        }
+        // Add Accussed name
+        {
+            var name = accused.Find("Detail_Name_Age");
+            var nameText = name.GetComponent<UnityEngine.UI.Text>();
+            nameText.text = "";
+        }
+        // Accused Notes
+        {
+            var additionalNotes = accused.Find("Additional Notes");
+            var notesText = additionalNotes.GetComponent<UnityEngine.UI.Text>();
+            notesText.text = "";
+        }
+
+        // Sentences
+        {
+            var sent1 = sentence.Find("SentenceOption1");
+            var sent2 = sentence.Find("SentenceOption2");
+            var sent3 = sentence.Find("SentenceOption3");
+
+            sent1.GetComponent<SentenceController>().ClearSentence();
+            sent2.GetComponent<SentenceController>().ClearSentence();
+            sent3.GetComponent<SentenceController>().ClearSentence();
+        }
+    }
 	
 	
 
