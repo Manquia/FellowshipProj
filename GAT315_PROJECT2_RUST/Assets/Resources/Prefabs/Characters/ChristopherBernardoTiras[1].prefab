@@ -442,7 +442,7 @@ MonoBehaviour:
     sent2:
       appearsWeeksLater: -1
       stage: -1
-      text: '25 years in prison, parole possible after 10 yearsSent #2'
+      text: 25 years in prison, parole possible after 10 years
     sent3:
       appearsWeeksLater: -1
       stage: -1

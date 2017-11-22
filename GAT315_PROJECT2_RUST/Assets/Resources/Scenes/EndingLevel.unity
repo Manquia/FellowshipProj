@@ -540,21 +540,9 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 886144337}
-  m_Text: 'Congradulations, you have successfully
-
-    judged 24 criminals and collectivly cost
-
-    94 years of jail time, $67,000 of fines,
-
-    and taken $34,000 for bail.
-
-
-    Thank you for your service,
-
-    The City
-
-
-    Press any key to continue'
+  m_Text: "Congratulations, you have successfully\r\njudged 24 criminals and collectively
+    sentenced\r\n94 years of jail time, $67,000 of fines,\r\nand take $34,000 for
+    bail.\r\n\r\nThank you for your service,\r\nThe City\r\n\r\nPress any key to continue"
   m_OffsetZ: 0
   m_CharacterSize: 1
   m_LineSpacing: 1

@@ -414,20 +414,19 @@ MonoBehaviour:
   crime:
     charges:
     - Excessive use of force on civilian protestor
-    chargesNotes: Officer Miran Cain [Age 38] has been accused of beating a civilian
-      protester. The victim, Robert Douse, claims that he was attacked by Officer
-      Miran Cain without cause. Officer Cain, has great reputation with the force
-      and is an outstanding gentleman. He claims that he felt threatened by Robert
-      because he went to draw something from within his jacket. Cain reacted by drawing
-      a taser and stunning the man. Once on the ground with the taser spent, the man
-      continued to try and reach inside his jacket at which point the officer beat
-      Robert in an attempt to place him in cuffs. A second officer on-site can verify
-      his story.
+    chargesNotes: 'Officer Miran Cain [Age 38] has been accused of beating a civilian
+      protester. The victim, Robert Douse, claims that Officer Miran Cain attacked
+      him without cause. '
     characterNameAge: Cain Shyama Miran Age:38
-    Investigation: 'Cain is one of the most respective officers in the downtown office.
-      He has worked for many years dutifully with this encounter being his first notable
-      offense in 8 years of service. Cain has a wife and 2 kids who frequently visit
-      the station and are known by the other officers.  '
+    Investigation: 'Cain said he felt threatened by Robert because he went to draw
+      something from within his jacket. Cain reacted by using his taser to stunning
+      the man. Once on the ground with the taser spent, Robert continued to try and
+      reach inside his jacket. Officer Cain became violent with Robert in an attempt
+      to place him in cuffs. A second officer on-site can verify his story.  Cain
+      is one of the most respected officers in the downtown office. He has worked
+      for many years dutifully with this encounter being his first notable offense
+      in 8 years of service. Cain has a wife and two kids who frequently visit the
+      station and are known by the other officers.  '
     sent1:
       appearsWeeksLater: 6
       stage: 1
