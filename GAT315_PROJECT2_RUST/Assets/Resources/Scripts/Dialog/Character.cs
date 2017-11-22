@@ -130,9 +130,12 @@ public class Character : FFComponent, Interactable
         {
             Debug.Log("InTrialDialog Queue");
 
+            string text = "[" + details.name + "]" + "\n" + inTrialDialog[inTrialDialogIndex].text;
+
+
             dialogManager.CharacterOrate(
                 inTrialDialog[inTrialDialogIndex].orator,
-                inTrialDialog[inTrialDialogIndex].text,
+                text,
                 inTrialDialog[inTrialDialogIndex].type);
             
             ++inTrialDialogIndex;

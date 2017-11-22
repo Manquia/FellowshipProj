@@ -116,7 +116,7 @@ public class CountRoomController : MonoBehaviour {
             float percentageOfInquiries = 100.0f * ((float)inquiriesMade / (float)inquiryCount);
 
             // Shifting average
-            float newApprovalrRating = ((JudgeApprovalRatting * 2) + percentageOfInquiries) / 3.0f;
+            float newApprovalrRating = ((JudgeApprovalRatting * 3.0f) + percentageOfInquiries) / 4.0f;
 
             // @TODO: Make this info known to player so they know if they did well on the trial.
             JudgeApprovalRatting = newApprovalrRating;

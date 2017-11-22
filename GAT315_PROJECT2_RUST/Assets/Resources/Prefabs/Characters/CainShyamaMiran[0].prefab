@@ -406,7 +406,7 @@ MonoBehaviour:
   exitSoftSentence: []
   inTrialDialog:
   - orator: 3
-    text: 'I was out of line, I was too rough when I realize that after the fact. '
+    text: 'I was out of line; I was too rough, I realize that after the fact. '
     type: 0
   - orator: 3
     text: 'I was given a tough call, and felt endangered by Robert. '
@@ -439,6 +439,7 @@ MonoBehaviour:
       appearsWeeksLater: -1
       stage: -1
       text: Dismiss Officer
+  witness: {fileID: 0}
 --- !u!114 &114630283270765282
 MonoBehaviour:
   m_ObjectHideFlags: 1
