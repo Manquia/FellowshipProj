@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System;
 
 public struct SendInNextCharacter
 {
@@ -16,8 +16,9 @@ public struct FadeToNextWeek
     public int week;
 }
 
-public struct FadeToEndGame
+public struct FadeToLevelTransition
 {
+    public string LevelName;
 }
 
 [Serializable]
@@ -37,17 +38,23 @@ public class CountRoomController : MonoBehaviour {
     int peopleIndex = 0;
     int weekIndex = 0;
 
-    List<Transform> createdPeople = new List<Transform>();
+    List<Transform> accusedCreated = new List<Transform>();
+    List<Transform> witnessCreated = new List<Transform>();
 
-    public FFPath enterPath;
-    public FFPath exitPath;
+    public FFPath accusedEnterPath;
+    public FFPath accusedExitPath;
+    public FFPath witnessEnterPath;
+    public FFPath witnessExitPath;
+
+    public static float JudgeApprovalRatting = 75.0f;
+    public float JudgeFireRating = 55.0f;
 
 	// Use this for initialization
 	void Start ()
     {
-
+        JudgeApprovalRatting = 75.0f;
         // Add starting Characters to people List
-        foreach(var person in characterStarting)
+        foreach (var person in characterStarting)
         {
             if(people.ContainsKey(person.appearanceWeek) == false)
             {
@@ -70,17 +77,62 @@ public class CountRoomController : MonoBehaviour {
 
     private void OnSendOutLastCharacter(SendOutLastCharacter e)
     {
-        // Send Last person OUT
-        if (createdPeople.Count > 0)
-        {
-            Transform personTrans = createdPeople[createdPeople.Count - 1];
-            GameObject prevPerson = personTrans.gameObject;
-            PersonMover personMover = personTrans.GetComponent<PersonMover>();
+        int inquiryCount = 0;
+        int inquiriesMade = 0;
 
-            personMover.PathToFollow = exitPath;
+        // Send Last person OUT
+        if (accusedCreated.Count > 0)
+        {
+            Transform personTrans = accusedCreated[accusedCreated.Count - 1];
+            PersonMover personMover = personTrans.GetComponent<PersonMover>();
+            Character personCharacter = personTrans.GetComponent<Character>();
+
+            personMover.PathToFollow = accusedExitPath;
             personMover.distAlongPath = 0.0f;
-            personMover.Move(exitPath.points.Length - 1);
+            personMover.Move(accusedExitPath.points.Length - 1);
+
+            inquiryCount += personCharacter.inTrialDialog.Length;
+            inquiriesMade += personCharacter.inTrialDialogIndex;
+
+            // Sent witness out of the court room
+            if(personCharacter.witness != null)
+            {
+                GameObject witnessGO = personCharacter.witness;
+                Transform witnessTrans = witnessGO.transform;
+                PersonMover witnessMover = witnessTrans.GetComponent<PersonMover>();
+                Character witnessCharacter = witnessGO.GetComponent<Character>();
+
+                witnessMover.PathToFollow = witnessExitPath;
+                witnessMover.distAlongPath = 0.0f;
+                witnessMover.Move(accusedExitPath.points.Length - 1);
+
+                inquiryCount += witnessCharacter.inTrialDialog.Length;
+                inquiriesMade += witnessCharacter.inTrialDialogIndex;
+            }
         }
+
+        // Adjust approval rating changes
+        {
+            float percentageOfInquiries = 100.0f * ((float)inquiriesMade / (float)inquiryCount);
+
+            // Shifting average
+            float newApprovalrRating = ((JudgeApprovalRatting * 2) + percentageOfInquiries) / 3.0f;
+
+            // @TODO: Make this info known to player so they know if they did well on the trial.
+            JudgeApprovalRatting = newApprovalrRating;
+
+            if(JudgeApprovalRatting < JudgeFireRating)
+            {
+                LoadFiredLevel();
+            }
+        }
+    }
+
+    void LoadFiredLevel()
+    {
+        FadeToLevelTransition fteg;
+        fteg.LevelName = "FiredLevel";
+        FFMessage<FadeToLevelTransition>.SendToLocal(fteg);
     }
 
     private void OnPassSentence(PassSentence e)
@@ -105,19 +157,45 @@ public class CountRoomController : MonoBehaviour {
         GameObject nextPerson = GetNextPerson();
         if (nextPerson != null)
         {
-            Transform personTrans;
-            PersonMover personMover;
+            Transform accusedTrans;
+            PersonMover accusedMover;
+            Character accusedCharacter;
             
-            personTrans = nextPerson.transform;
+            accusedTrans = nextPerson.transform;
+            accusedCharacter = nextPerson.GetComponent<Character>();
 
             // Set starting Position
-            personTrans.position = enterPath.PositionAtPoint(0);
+            accusedTrans.position = accusedEnterPath.PositionAtPoint(0);
 
             // Set path
-            personMover = nextPerson.GetComponent<PersonMover>();
-            personMover.PathToFollow = enterPath;
-            personMover.Move(enterPath.points.Length - 1);
-            createdPeople.Add(personTrans);
+            accusedMover = nextPerson.GetComponent<PersonMover>();
+            accusedMover.PathToFollow = accusedEnterPath;
+            accusedMover.Move(accusedEnterPath.points.Length - 1);
+            accusedCreated.Add(accusedTrans);
+
+            // Setup desk
+            var judgeDesk = GameObject.Find("JudgeDesk").GetComponent<JudgeDesk>();
+            judgeDesk.SetupDesk(accusedCharacter);
+
+            // Create witness
+            if (accusedTrans.GetComponent<Character>().witness != null)
+            {
+                GameObject witnessGO = Instantiate(accusedCharacter.witness);
+                Transform witnessTrans = witnessGO.transform;
+                PersonMover witnessMover = witnessGO.GetComponent<PersonMover>();
+
+                // Set the GO to the in world character
+                accusedCharacter.witness = witnessGO;
+                
+                // Set starting Position
+                witnessTrans.position = witnessEnterPath.PositionAtPoint(0);
+
+                // Set path
+                witnessMover = nextPerson.GetComponent<PersonMover>();
+                witnessMover.PathToFollow = witnessEnterPath;
+                witnessMover.Move(witnessEnterPath.points.Length - 1);
+                witnessCreated.Add(witnessTrans);
+            }
         }
         else // Count is over!
         {
@@ -132,13 +210,9 @@ public class CountRoomController : MonoBehaviour {
             else // Game is over!
             {
                 weekIndex = -1; // invalid index becuase end of game!
-                FadeToEndGame fteg;
-                FFMessage<FadeToEndGame>.SendToLocal(fteg);
-
-                // Do fading to level with FadeScreen obj + SceneTransition
-                CustomEvent ce;
-                ce.tag = "EndGame";
-                FFMessageBoard<CustomEvent>.Box("EndGame").SendToLocal(ce);
+                FadeToLevelTransition fteg;
+                fteg.LevelName = "EndingLevel";
+                FFMessage<FadeToLevelTransition>.SendToLocal(fteg);
             }
         }
         

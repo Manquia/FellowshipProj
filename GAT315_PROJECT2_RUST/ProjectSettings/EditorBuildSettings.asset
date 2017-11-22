@@ -17,3 +17,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Resources/Scenes/CreditsLevel.unity
     guid: 053a7c9211f677c488fcb7915fd77ca1
+  - enabled: 1
+    path: Assets/Resources/Scenes/FiredLevel.unity
+    guid: d4b3751d6f7bf97409d85b652b31edb5

@@ -65,13 +65,11 @@ public class Character : FFComponent, Interactable
     {
         FFMessageBoard<BeginCharacterHearing>.Connect(OnBeginCharacterHearing, gameObject);
         FFMessageBoard<EndCharacterHearing>.Connect(OnEndCharacterHearing, gameObject);
-
-        var judgeDesk = GameObject.Find("JudgeDesk").GetComponent<JudgeDesk>();
+        
         dialogManager = GameObject.Find("DialogManager").GetComponent<DialogManager>();
         Debug.Assert(dialogManager != null, "No Dialog manager found");
 
         dialogManager.SetOrator(details.oratorMapping, transform);
-        judgeDesk.SetupDesk(this);
     }
     
 
@@ -97,9 +95,11 @@ public class Character : FFComponent, Interactable
     public CharacterDialog.Dialog.Echo[] exitHardSentence;
     public CharacterDialog.Dialog.Echo[] exitSoftSentence;
 
-    int inTrialDialogIndex = 0;
+    [System.NonSerialized] public int inTrialDialogIndex = 0;
     public CharacterDialog.Dialog.Echo[] inTrialDialog;
     public Crime crime;
+
+    public GameObject witness;
 
 
     private void OnBeginCharacterHearing(BeginCharacterHearing e)

@@ -21,7 +21,6 @@ public class SceneTransition : FFComponent {
     }
     private FFAction.ActionSequence FadeSequence;
     public StartTransitionToNextLevel trigger;
-    public string triggerName = "";
 
     // Use this for initialization
     void Start () {
@@ -49,20 +48,21 @@ public class SceneTransition : FFComponent {
             }
             else
             {
-                var triggerBox = FFMessageBoard<CustomEvent>.Box(triggerName);
-                triggerBox.Connect(OnTriggerFade);
+                FFMessage<FadeToLevelTransition>.Connect(OnTriggerFade);
             }
         }
 	}
 
     private void OnDestroy()
     {
-        var triggerBox = FFMessageBoard<CustomEvent>.Box(triggerName);
-        triggerBox.Disconnect(OnTriggerFade);
+        FFMessage<FadeToLevelTransition>.Disconnect(OnTriggerFade);
     }
 
-    private void OnTriggerFade(CustomEvent e)
+    private void OnTriggerFade(FadeToLevelTransition e)
     {
+        if (e.LevelName != null)
+            LevelToLoad = e.LevelName;
+
         FadeToNextLevel();
     }
 

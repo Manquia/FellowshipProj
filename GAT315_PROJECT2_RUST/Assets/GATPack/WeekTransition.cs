@@ -55,9 +55,29 @@ public class WeekTransition : FFComponent {
     {
         // Init Details
         LockPlayerController();
+        var approvalRating = CountRoomController.JudgeApprovalRatting;
+        string approvalLetter = "_";
+
+        if (approvalRating < 60.0f)
+            approvalLetter = "F";
+        else if (approvalRating < 70.0f)
+            approvalLetter = "D";
+        else if (approvalRating < 80.0f)
+            approvalLetter = "C";
+        else if (approvalRating < 90.0f)
+            approvalLetter = "B";
+        else if (approvalRating <= 93.0f)
+            approvalLetter = "A";
+        else if (approvalRating <= 100.0f)
+            approvalLetter = "A+";
+
+
         var title = transform.Find("Title");
         var pressToContinue = transform.Find("PressToContinue");
-        title.GetComponent<TextMesh>().text = "Week " + weekIndex;
+        title.GetComponent<TextMesh>().text = "Week " + weekIndex + "\n";
+
+        pressToContinue.GetComponent<TextMesh>().text = "Approval Rating: " + approvalRating.ToString("0.#") + "\n" +
+            approvalLetter + "\n\n" + "Press any key\n to continue";
 
         // Fade out
         FadeSequence.Sync();
