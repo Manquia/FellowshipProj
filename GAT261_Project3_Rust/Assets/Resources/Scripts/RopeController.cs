@@ -33,6 +33,7 @@ public class RopeController : MonoBehaviour
     void FixedUpdate()
     {
         UpdateRopeMovement(Time.fixedDeltaTime);
+        UpdateRopeVisuals();
     }
 
 
@@ -105,28 +106,40 @@ public class RopeController : MonoBehaviour
 
     void UpdateRopeVisuals()
     {
-        // Draw visuals along rope
+        Debug.Assert(path.DynamicPath, "Path must be set to dynamic");
+        Debug.Log("UpdateRopeVisuals PathLength: " + path.PathLength);
 
-        float distAlongPath = 0;
+        var ropeVec = path.PositionAtPoint(1) - path.PositionAtPoint(0);
+        var ropeVecNorm = Vector3.Normalize(ropeVec);
+
+        var down = Vector3.Normalize(Physics.gravity);
+        var rightVec = -Vector3.Cross(ropeVecNorm, down);
+        var vecAlongEdgeOfSphere = Vector3.Normalize(Vector3.Cross(ropeVecNorm, rightVec));
+
+        // Draw visuals along rope
         int indexElement = 0;
-        do
+        for(float distAlongPath = 0; distAlongPath <= path.PathLength; distAlongPath += distBetweenRopeVisuals, ++indexElement)
         {
             Transform element;
-            if (indexElement > visualElements.Count)
+            if (indexElement == visualElements.Count)
                 AddVisualElement();
 
             element = visualElements[indexElement];
-
+            element.gameObject.SetActive(true);
             element.position = path.PointAlongPath(distAlongPath);
+            element.rotation = Quaternion.LookRotation(vecAlongEdgeOfSphere, -ropeVecNorm);
+        }
 
-
-            distAlongPath += distBetweenRopeVisuals;
-        } while (distAlongPath <= path.PathLength);
+        for(;indexElement < visualElements.Count; ++indexElement)
+        {
+            visualElements[indexElement].gameObject.SetActive(false);
+        }
     }
 
     void AddVisualElement()
     {
-        var element = FFResource.Load_Prefab("RopeVisualElement").transform;
+        var element = Instantiate(FFResource.Load_Prefab("RopeVisualElement")).transform;
+        element.SetParent(transform);
         visualElements.Add(element);
     }
 

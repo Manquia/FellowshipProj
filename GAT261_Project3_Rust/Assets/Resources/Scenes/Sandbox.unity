@@ -1239,7 +1239,7 @@ MonoBehaviour:
   springForce: 45
   velocity: {x: 0, y: 0, z: 0}
   friction: 0
-  distBetweenRopeVisuals: 0.3
+  distBetweenRopeVisuals: 0.2
 --- !u!114 &1395499675
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1253,7 +1253,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InterpolationType: 0
   Circuit: 0
-  DynamicPath: 0
+  DynamicPath: 1
   SmoothBetweenPoints: 0
   ModifyAndDraw: 0
   points:
