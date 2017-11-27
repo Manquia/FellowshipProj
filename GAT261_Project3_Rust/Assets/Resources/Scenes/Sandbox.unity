@@ -1239,7 +1239,7 @@ MonoBehaviour:
   springForce: 45
   velocity: {x: 0, y: 0, z: 0}
   friction: 0
-  distBetweenRopeVisuals: 0.2
+  distBetweenRopeVisuals: 0.04
 --- !u!114 &1395499675
 MonoBehaviour:
   m_ObjectHideFlags: 0
