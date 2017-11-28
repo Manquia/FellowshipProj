@@ -31,8 +31,6 @@ public class IK_Snap : MonoBehaviour {
 
     private Animator anim;
 
-    public RopeController rope;
-
 	// Use this for initialization
 	void Start ()
     {

@@ -10,32 +10,48 @@ public struct RopeChange
 public class RopeController : MonoBehaviour
 {
     private FFPath path; // rope is exactly 2 points
-
-
+    public FFPath GetPath() { return path; }
 
     public float length = 25.0f;
     public float mass = 1.5f;
     public float springForce = 45.0f;
 
     public Vector3 velocity = Vector3.zero;
-    public float speed{ get { return velocity.magnitude; } }
+    public float speed { get { return velocity.magnitude; } }
     public float friction = 0.05f;
 
+    public Vector3 VelocityAtDistUpRope(float distUpRope)
+    {
+        var pathLength = path.PathLength;
+        var distOnPath = Mathf.Clamp(pathLength - distUpRope, 0.0f, pathLength);
 
+        return velocity * (distOnPath / pathLength);
+    }
 
-	// Use this for initialization
-	void Start ()
+    public Quaternion RopeRotation()
+    {
+        var ropeVec = path.PositionAtPoint(1) - path.PositionAtPoint(0);
+        var ropeVecNorm = Vector3.Normalize(ropeVec);
+        var down = Vector3.Normalize(Physics.gravity);
+        var rightVec = -Vector3.Cross(ropeVecNorm, down);
+        var vecAlongEdgeOfSphere = Vector3.Normalize(Vector3.Cross(ropeVecNorm, rightVec));
+
+        return Quaternion.LookRotation(vecAlongEdgeOfSphere, -ropeVecNorm);
+    }
+
+    // Use this for initialization
+    void Start()
     {
         path = GetComponent<FFPath>();
         Debug.Assert(path.points.Length == 2);
-	}
-	
+    }
+
     void FixedUpdate()
     {
         UpdateRopeMovement(Time.fixedDeltaTime);
         UpdateRopeVisuals();
     }
-
+    
 
     void UpdateRopeMovement(float dt)
     {
