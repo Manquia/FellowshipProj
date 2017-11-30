@@ -76,7 +76,7 @@ GameObject:
   - component: {fileID: 114572489129612446}
   - component: {fileID: 114050363291459774}
   m_Layer: 0
-  m_Name: CainShyamaMiran[0]
+  m_Name: OfficerBradley
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -391,55 +391,40 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   details:
-    name: CainShyamaMiran
-    oratorMapping: 3
-  mugshot: {fileID: 21300000, guid: 660b14e22fcd8494eac8e1fe2d7c8f90, type: 3}
-  enterDialog:
-  - orator: 2
-    text: 
-    type: 0
-  - orator: 0
-    text: 
-    type: 0
+    name: OfficerBradley
+    oratorMapping: 2
+  mugshot: {fileID: 0}
+  enterDialog: []
   talkDialog: []
   exitHardSentence: []
   exitSoftSentence: []
   inTrialDialog:
-  - orator: 3
-    text: 'I was out of line; I was too rough, I realize that after the fact. '
+  - orator: 2
+    text: Officer Cain was diligent in preventing a possible incident at the protest.
+      His actions were justified.
     type: 0
-  - orator: 3
-    text: 'I was given a tough call, and felt endangered by Robert. '
+  - orator: 2
+    text: "Officer Cain is a good officer who has worked long and hard over the years
+      to keep this city\u2019s people safe."
     type: 0
   crime:
-    charges:
-    - Excessive use of force on civilian protestor
-    chargesNotes: 'Officer Miran Cain [Age 38] has been accused of beating a civilian
-      protester. The victim, Robert Douse, claims that Officer Miran Cain attacked
-      him without cause. '
-    characterNameAge: Cain Shyama Miran Age:38
-    Investigation: 'Cain said he felt threatened by Robert because he went to draw
-      something from within his jacket. Cain reacted by using his taser to stunning
-      the man. Once on the ground with the taser spent, Robert continued to try and
-      reach inside his jacket. Officer Cain became violent with Robert in an attempt
-      to place him in cuffs. A second officer on-site can verify his story.  Cain
-      is one of the most respected officers in the downtown office. He has worked
-      for many years dutifully with this encounter being his first notable offense
-      in 8 years of service. Cain has a wife and two kids who frequently visit the
-      station and are known by the other officers.  '
+    charges: []
+    chargesNotes: 0
+    characterNameAge: 0
+    Investigation: 0
     sent1:
-      appearsWeeksLater: 6
-      stage: 1
-      text: No Sentence, free to go
+      appearsWeeksLater: 0
+      stage: 0
+      text: 0
     sent2:
-      appearsWeeksLater: 10
-      stage: 1
-      text: 1 Month suspension, with renewal at the end of the month
+      appearsWeeksLater: 0
+      stage: 0
+      text: 0
     sent3:
-      appearsWeeksLater: -1
-      stage: -1
-      text: Dismiss Officer
-  witness: {fileID: 1240050105488208, guid: 417bdb79e40c83b4d9caf1a0442d083a, type: 2}
+      appearsWeeksLater: 0
+      stage: 0
+      text: 0
+  witness: {fileID: 0}
 --- !u!114 &114630283270765282
 MonoBehaviour:
   m_ObjectHideFlags: 1

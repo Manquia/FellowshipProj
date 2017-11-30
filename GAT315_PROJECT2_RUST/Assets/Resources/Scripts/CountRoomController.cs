@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 
 public struct SendInNextCharacter
 {
@@ -186,7 +185,7 @@ public class CountRoomController : MonoBehaviour {
             judgeDesk.SetupDesk(accusedCharacter);
 
             // Create witness
-            if (accusedTrans.GetComponent<Character>().witness != null)
+            if (accusedCharacter.witness != null)
             {
                 GameObject witnessGO = Instantiate(accusedCharacter.witness);
                 Transform witnessTrans = witnessGO.transform;
@@ -199,7 +198,6 @@ public class CountRoomController : MonoBehaviour {
                 witnessTrans.position = witnessEnterPath.PositionAtPoint(0);
 
                 // Set path
-                witnessMover = nextPerson.GetComponent<PersonMover>();
                 witnessMover.PathToFollow = witnessEnterPath;
                 witnessMover.Move(witnessEnterPath.points.Length - 1);
                 witnessCreated.Add(witnessTrans);

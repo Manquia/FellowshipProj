@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311926, g: 0.38074008, b: 0.35872707, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311992, g: 0.38074034, b: 0.35872713, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -86,7 +86,7 @@ LightmapSettings:
     m_PVRFilteringAtrousColorSigma: 1
     m_PVRFilteringAtrousNormalSigma: 1
     m_PVRFilteringAtrousPositionSigma: 1
-  m_LightingDataAsset: {fileID: 112000002, guid: 1fcad3caf3d28b54d9453d7d626895ca,
+  m_LightingDataAsset: {fileID: 112000002, guid: 9928674b0773ebb41af9dab0903af666,
     type: 2}
   m_UseShadowmask: 0
 --- !u!196 &4
@@ -988,7 +988,7 @@ Prefab:
       objectReference: {fileID: 2100000, guid: 57bbf05b82a74dc45ad8f32fed827bc6, type: 2}
     - target: {fileID: 400112, guid: 4251c84f48fc28a4584ed64acb62df25, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -21.2
+      value: -19.55
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4251c84f48fc28a4584ed64acb62df25, type: 3}
@@ -4503,26 +4503,6 @@ Prefab:
     - target: {fileID: 4655846360347402, guid: 5c1f311302f2a714d84f8acc5f394ebb, type: 2}
       propertyPath: m_RootOrder
       value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 1699149019096730, guid: 5c1f311302f2a714d84f8acc5f394ebb, type: 2}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 1097250620029404, guid: 5c1f311302f2a714d84f8acc5f394ebb, type: 2}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 1716792918999134, guid: 5c1f311302f2a714d84f8acc5f394ebb, type: 2}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 1099437903808914, guid: 5c1f311302f2a714d84f8acc5f394ebb, type: 2}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 1058130511156902, guid: 5c1f311302f2a714d84f8acc5f394ebb, type: 2}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5c1f311302f2a714d84f8acc5f394ebb, type: 2}

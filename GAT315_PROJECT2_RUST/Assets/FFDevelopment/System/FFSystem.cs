@@ -119,7 +119,7 @@ public class FFSystem : MonoBehaviour {
     public static double time
     {
         //get { return FFClient.clientTime; }
-        get { return clientWatchTime; }
+        get { return timeCounter; }
     }
     public static double clientWatchTime
     {
@@ -193,9 +193,12 @@ public class FFSystem : MonoBehaviour {
         FFMessage<FFLocalEvents.UpdateEvent>.SendToLocal(e);
     }
 
+    static float timeCounter = 0.0f;
     void FixedUpdate()
     {
         ExecuteMessages();
+
+        timeCounter += Time.fixedDeltaTime;
 
         FFLocalEvents.FixedUpdateEvent e;
         e.dt = Time.fixedDeltaTime;

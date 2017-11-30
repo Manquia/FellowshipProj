@@ -114,8 +114,6 @@ public class Character : FFComponent, Interactable
     {
         if(active)
         {
-
-
         }
         else
         {
@@ -130,8 +128,33 @@ public class Character : FFComponent, Interactable
         else
             return false;
     }
+
+
+    private void FixedUpdate()
+    {
+        if (orateTimes.Count > 0)
+            orateTimes[0] -= Time.fixedDeltaTime;
+
+    }
+    public List<float> orateTimes = new List<float>();
     public void Use()
     {
+        Debug.Log("Use");
+
+        // If already talking
+        if(orateTimes.Count > 0)
+        {
+            float timeRemaining = orateTimes[0];
+            dialogManager.TimeWarp(timeRemaining);
+            orateTimes.RemoveAt(0);
+
+            FastForwardOrate ffo;
+            ffo.time = timeRemaining;
+            FFMessageBoard<FastForwardOrate>.SendToLocalToAllConnected(ffo, gameObject);
+            return;
+        }
+
+
         // in Trial
         if (inTrialDialogIndex < inTrialDialog.Length)
         {
@@ -157,12 +180,45 @@ public class Character : FFComponent, Interactable
 
             text += inTrialDialog[inTrialDialogIndex].text;
 
-            dialogManager.CharacterOrate(
+            float time = dialogManager.CharacterOrate(
                 inTrialDialog[inTrialDialogIndex].orator,
                 text,
                 inTrialDialog[inTrialDialogIndex].type);
-            
+
+            orateTimes.Add(time);
+            Debug.Log("time To finish Dialog: " + time);
+
+            // for 
+            OrateEvent oe;
+            oe.orator = inTrialDialog[inTrialDialogIndex].orator;
+            oe.text = inTrialDialog[inTrialDialogIndex].text;
+            oe.type = inTrialDialog[inTrialDialogIndex].type;
+            oe.time = time;
+            FFMessageBoard<OrateEvent>.SendToLocalToAllConnected(oe, gameObject);
+
             ++inTrialDialogIndex;
         }
+
+        // Finished
+        if(inTrialDialogIndex >= inTrialDialog.Length)
+        {
+            DisableOration disOrientation;
+            FFMessageBoard<DisableOration>.SendToLocalToAllConnected(disOrientation, gameObject);
+        }
+    }
+
+    public struct OrateEvent
+    {
+        public float time;
+        public DialogManager.OratorNames orator;
+        public string text;
+        public QueuedDialog.Type type;
+    }
+    public struct FastForwardOrate
+    {
+        public float time;
+    }
+    public struct DisableOration
+    {
     }
 }

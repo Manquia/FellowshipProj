@@ -132,7 +132,12 @@ public class DialogManager : FFComponent
             AddDialog(dialog);
         }
     }
-    
+
+    internal void TimeWarp(float timeRemaining)
+    {
+        dialogSequence.TimeWarpAhead(timeRemaining);
+    }
+
     void AddDialog(CharacterDialog.Dialog dialog)
     {
         gameDialog.Add(dialog);

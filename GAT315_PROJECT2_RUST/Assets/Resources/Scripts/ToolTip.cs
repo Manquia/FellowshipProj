@@ -39,6 +39,13 @@ public class ToolTip : MonoBehaviour, Interactable
         {
             playerCamera = GameObject.Find("Camera").transform;
         }
+
+        // Are we a character Dialog Tooltip?
+        if (transform.parent.GetComponent<Character>() != null)
+            gameObject.AddComponent<DialogueToolTipController>();
+
+
+        // for dialogue tooltips
 	}
 	
 	// Update is called once per frame

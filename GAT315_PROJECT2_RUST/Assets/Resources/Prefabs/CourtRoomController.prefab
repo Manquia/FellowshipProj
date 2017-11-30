@@ -25,7 +25,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1097250620029404
 GameObject:
@@ -41,7 +41,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1099437903808914
 GameObject:
@@ -57,7 +57,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1699149019096730
 GameObject:
@@ -73,7 +73,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1716792918999134
 GameObject:
@@ -89,7 +89,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &4301117504363510
 Transform:
@@ -128,7 +128,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1699149019096730}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.2, y: 0, z: -10.61}
+  m_LocalPosition: {x: -3, y: 0, z: -10.58}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4655846360347402}
@@ -141,7 +141,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1716792918999134}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.2, y: 0, z: -10.61}
+  m_LocalPosition: {x: -3, y: 0, z: -10.58}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4655846360347402}
@@ -240,16 +240,18 @@ MonoBehaviour:
   SmoothBetweenPoints: 0
   ModifyAndDraw: 0
   points:
-  - {x: 1.6867335, y: 1.4926666, z: -2.027667}
+  - {x: 1.8542335, y: 1.2396665, z: -1.5836668}
+  - {x: 1.8542335, y: 1.2396665, z: -1.5836668}
   - {x: -1.6832669, y: 1.0186665, z: -1.3856668}
   - {x: -4.233267, y: 1.0186665, z: -1.5456667}
   - {x: -4.5532665, y: 1.0526665, z: -3.9076662}
   linearDistanceAlongPath:
   - 0
-  - 3.4631984
-  - 6.0182133
-  - 8.402033
-  - 14.933924
+  - 0
+  - 3.549923
+  - 6.1049376
+  - 8.488758
+  - 15.307262
 --- !u!114 &114840287224862334
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -299,12 +301,12 @@ MonoBehaviour:
   - {x: -4.5532665, y: 1.0526665, z: -3.9076662}
   - {x: -3.6932666, y: 1.0526665, z: -2.2456665}
   - {x: -0.5132668, y: 1.0526665, z: -1.9656668}
-  - {x: 1.6867335, y: 1.4926666, z: -2.027667}
-  - {x: 1.6867335, y: 1.4926666, z: -2.027667}
+  - {x: 1.8542335, y: 1.2396665, z: -1.5836668}
+  - {x: 1.8542335, y: 1.2396665, z: -1.5836668}
   linearDistanceAlongPath:
   - 0
   - 1.8713211
   - 5.063624
-  - 7.308049
-  - 7.308049
-  - 13.839939
+  - 7.469024
+  - 7.469024
+  - 14.287529

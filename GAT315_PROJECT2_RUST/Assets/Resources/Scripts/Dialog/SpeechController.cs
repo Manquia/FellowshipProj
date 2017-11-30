@@ -33,6 +33,14 @@ public class SpeechController : FFComponent
         DialogueBubble.localPosition = Vector3.zero;
 
         DialogueBubble.GetComponent<Canvas>().worldCamera = mainCamera.GetComponent<Camera>();
+
+        // Witness has differently sized bubble
+        if(transform.parent.GetComponent<Character>().details.oratorMapping == DialogManager.OratorNames.Witness)
+        {
+            // CHange Size
+            transform.localScale *= 0.35f;
+            transform.localPosition *= 0.6f;
+        }
         
         //transform.localScale = new Vector3(0.6f, 0.6f, 0.6f);
 
