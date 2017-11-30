@@ -715,16 +715,21 @@ public class FFAction : MonoBehaviour
         var actionSequenceListCopy = new List<ActionSequence>(ActionSequenceList);
         for (int i = 0; i < actionSequenceListCopy.Count; ++i)
         {
-            const double timeEpsilon = 0.0001f;
+            const double timeEpsilon = 0.001f;
 
             float timeoutTime = 60.0f;
             float timeoutTimer = 0.0f;
+            float timeRemaining = (float)((double)(FFSystem.time - actionSequenceListCopy[i].seqTime) + timeEpsilon);
 
-            while (actionSequenceListCopy[i].seqTime <= FFSystem.time + timeEpsilon)
+            while (actionSequenceListCopy[i].seqTime + timeEpsilon <= FFSystem.time)
             {
-                float dt = Mathf.Min(Time.fixedDeltaTime, (float)((double)(FFSystem.time - actionSequenceListCopy[i].seqTime) + timeEpsilon));
-                
-                if(!unlimitedTimeWarp && timeoutTimer > timeoutTime)
+                float dt = Mathf.Max(Time.fixedDeltaTime, 0.016f);
+                if(timeRemaining < dt && timeRemaining > dt * 0.01f)
+                {
+                    dt = timeRemaining;
+                }
+
+                if (!unlimitedTimeWarp && timeoutTimer > timeoutTime)
                 {
                     Debug.LogError("Action Sequence time-warped more than 60 seconds, if this is intended behavior be sure to set unlimited timewarp to true");
                     break;
@@ -899,7 +904,7 @@ public class FFAction : MonoBehaviour
                     }
                 }
 
-
+                timeRemaining -= dt;
                 timeoutTimer += dt;
                 ActionSequenceList[i].seqTime += dt;
             }
