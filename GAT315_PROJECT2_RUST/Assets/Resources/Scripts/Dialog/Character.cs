@@ -123,15 +123,39 @@ public class Character : FFComponent, Interactable
         }
     }
 
+    bool CapitalLetter(char character)
+    {
+        if (character > 64 && character < 91)
+            return true;
+        else
+            return false;
+    }
     public void Use()
     {
         // in Trial
         if (inTrialDialogIndex < inTrialDialog.Length)
         {
             Debug.Log("InTrialDialog Queue");
+            string text = "";
 
-            string text = "[" + details.name + "]" + "\n" + inTrialDialog[inTrialDialogIndex].text;
+            if (details.name != null && details.name.Length > 1)
+            {
+                text += ">";
 
+                text += details.name[0];
+                for (int i = 1; i < details.name.Length; ++i)
+                {
+                    if (CapitalLetter(details.name[i]))
+                    {
+                        text += " ";
+                    }
+                    text += details.name[i];
+                }
+
+                text += "<" + "\n";
+            }
+
+            text += inTrialDialog[inTrialDialogIndex].text;
 
             dialogManager.CharacterOrate(
                 inTrialDialog[inTrialDialogIndex].orator,

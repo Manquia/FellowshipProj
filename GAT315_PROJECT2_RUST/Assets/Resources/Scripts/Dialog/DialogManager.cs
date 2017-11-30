@@ -332,7 +332,7 @@ public class DialogManager : FFComponent
 
         { // Setup text and bubble
             var text = qd.controller.GetDialogText();
-            var bubble = qd.controller.BubbleSprite();
+            var bubble = qd.controller.BubbleImage();
 
             if (qd.type == QueuedDialog.Type.Scream)
             {
@@ -376,7 +376,7 @@ public class DialogManager : FFComponent
 
         qd.controller.EnableTooltip();
         qd.controller.GetDialogText().color = Color.clear;
-        qd.controller.BubbleSprite().color = Color.clear;
+        qd.controller.BubbleImage().color = Color.clear;
     }
 
     string AddNewlines(string text, int charactersPerLine)

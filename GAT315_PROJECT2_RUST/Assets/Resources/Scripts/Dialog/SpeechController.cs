@@ -8,7 +8,7 @@ public class SpeechController : FFComponent
     
     public FFRef<Color> BubbleColor()
     {
-        return new FFRef<Color>(() => BubbleSprite().color, (v) => { transform.Find("Bubble").GetComponent<SpriteRenderer>().color = v; });
+        return new FFRef<Color>(() => BubbleImage().color, (v) => { BubbleImage().color = v; });
     }
     public FFRef<Color> TextColor()
     {
@@ -18,17 +18,25 @@ public class SpeechController : FFComponent
     #endregion
 
     Transform mainCamera;
+    Transform DialogueBubble;
 
     void Start()
     {
         mainCamera = GameObject.Find("Camera").transform;
 
-        // setup sub elements
-        transform.Find("Text").localPosition = new Vector3(0, 0.6f, -0.1f);
-        transform.Find("Text").GetComponent<TextMesh>().fontSize = 300;
-        transform.localScale = new Vector3(0.6f, 0.6f, 0.6f);
+        // Destroy some old crap if its there... too laze to do this in editor, Unity could really use an upgraded editor...
+        if(transform.Find("Text") != null)  Destroy(transform.Find("Text").gameObject);
+        if (transform.Find("Bubble") != null) Destroy(transform.Find("Bubble").gameObject);
 
-        BubbleSprite().color = BubbleSprite().color.MakeClear();
+        DialogueBubble = Instantiate(FFResource.Load_Prefab("DialogueBubble")).transform;
+        DialogueBubble.SetParent(transform);
+        DialogueBubble.localPosition = Vector3.zero;
+
+        DialogueBubble.GetComponent<Canvas>().worldCamera = mainCamera.GetComponent<Camera>();
+        
+        //transform.localScale = new Vector3(0.6f, 0.6f, 0.6f);
+
+        BubbleImage().color = BubbleImage().color.MakeClear();
         GetDialogText().color = GetDialogText().color.MakeClear();
     }
 
@@ -40,13 +48,13 @@ public class SpeechController : FFComponent
         transform.LookAt(oppositePosCamera, Vector3.up);
     }
 
-    public SpriteRenderer BubbleSprite()
+    public UnityEngine.UI.Image BubbleImage()
     {
-        return transform.Find("Bubble").GetComponent<SpriteRenderer>();
+        return DialogueBubble.GetComponent<UnityEngine.UI.Image>();
     }
-    public TextMesh GetDialogText()
+    public UnityEngine.UI.Text GetDialogText()
     {
-        return transform.Find("Text").GetComponent<TextMesh>();
+        return DialogueBubble.transform.GetChild(0).GetComponent<UnityEngine.UI.Text>();
     }
 
     public void DisableTooltip()
