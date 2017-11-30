@@ -95,7 +95,8 @@ public class PlayerController : MonoBehaviour
         UpdatePlayerControllerData();
         UpdateDirectionalMovement();
         UpdatePlayerJump();
-        UpdateRotation();
+
+        // UpdateRotation(); // moved to camera controller
 
         UpdateUI();
 
