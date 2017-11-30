@@ -5,6 +5,7 @@ using UnityEngine;
 public struct RopeChange
 {
     public RopeController controller;
+    public float dt;
 }
 
 public class RopeController : MonoBehaviour
@@ -19,6 +20,8 @@ public class RopeController : MonoBehaviour
     public Vector3 velocity = Vector3.zero;
     public float speed { get { return velocity.magnitude; } }
     public float friction = 0.05f;
+
+    public float ropeRotation = 0.0f;
 
     public Vector3 VelocityAtDistUpRope(float distUpRope)
     {
@@ -48,20 +51,31 @@ public class RopeController : MonoBehaviour
 
     void FixedUpdate()
     {
-        UpdateRopeMovement(Time.fixedDeltaTime);
+        float dt = Time.fixedDeltaTime;
+        UpdateRopeMovement(dt);
         UpdateRopeVisuals();
+
+        SendUpdateEvent(dt);
     }
     
+    public Vector3 RopeVecNorm()
+    {
+        var ropeVec = path.PositionAtPoint(1) - path.PositionAtPoint(0);
+        return Vector3.Normalize(ropeVec);
+    }
 
     void UpdateRopeMovement(float dt)
     {
         var epsilon = 0.005f;
-        var ropeVec = path.points[1] - path.points[0];
+        var ropeVec = path.PositionAtPoint(1) - path.PositionAtPoint(0);
         var ropeVecNorm = Vector3.Normalize(ropeVec);
 
         var down = Vector3.Normalize(Physics.gravity);
 
 
+        // @ TODO @MAYBE Switch to useing this over vecAlongEdgeOfSphere?
+        //var AngleFromDown = Quaternion.FromToRotation(Vector3.down, ropeVecNorm);
+        //var angularRotationOnRope = Quaternion.AngleAxis(ropeRotation, ropeVecNorm) * AngleFromDown;
 
         if (ropeVec.magnitude + epsilon >= length &&
             Vector3.Dot(ropeVec, down) > 0.0f) //  rope is tight (Orbiting)
@@ -84,22 +98,20 @@ public class RopeController : MonoBehaviour
         // Apply springy nature of rope
         if(ropeVec.magnitude >= length)
         {
-            var rightVec = -Vector3.Cross(ropeVecNorm, down);
-            var vecAlongEdgeOfSphere = Vector3.Normalize(Vector3.Cross(ropeVecNorm, rightVec));
-            var delta = ropeVec.magnitude - length;
+            var deltaDist = ropeVec.magnitude - length;
 
             // remove all velocity not inline with currenct direction
             velocity = Vector3.ProjectOnPlane(velocity, Vector3.Normalize(ropeVecNorm));
 
             // Apply spring force
-            velocity += dt * delta * (springForce / 100.0f) * -ropeVecNorm;
+            velocity += deltaDist * (springForce / 100.0f) * -ropeVecNorm;
 
             // Set Rope Position to match radius
             path.points[1] = Vector3.Normalize(ropeVecNorm) * length;
         }
 
         // apply friction
-        //velocity = Vector3.Lerp(velocity, Vector3.zero, friction * dt);
+        velocity = Vector3.Lerp(velocity, Vector3.zero, friction * dt);
 
         // Apply velocity
         path.points[1] += dt * velocity;
@@ -123,14 +135,17 @@ public class RopeController : MonoBehaviour
     void UpdateRopeVisuals()
     {
         Debug.Assert(path.DynamicPath, "Path must be set to dynamic");
-        Debug.Log("UpdateRopeVisuals PathLength: " + path.PathLength);
+        //Debug.Log("UpdateRopeVisuals PathLength: " + path.PathLength);
 
         var ropeVec = path.PositionAtPoint(1) - path.PositionAtPoint(0);
         var ropeVecNorm = Vector3.Normalize(ropeVec);
 
-        var down = Vector3.Normalize(Physics.gravity);
-        var rightVec = -Vector3.Cross(ropeVecNorm, down);
-        var vecAlongEdgeOfSphere = Vector3.Normalize(Vector3.Cross(ropeVecNorm, rightVec));
+        //var down = Vector3.Normalize(Physics.gravity);
+        //var rightVec = -Vector3.Cross(ropeVecNorm, down);
+        //var vecAlongEdgeOfSphere = Vector3.Normalize(Vector3.Cross(ropeVecNorm, rightVec));
+
+        var AngleFromDown = Quaternion.FromToRotation(Vector3.down, ropeVecNorm);
+        var angularRotationOnRope = Quaternion.AngleAxis(ropeRotation, ropeVecNorm) * AngleFromDown;
 
         // Draw visuals along rope
         int indexElement = 0;
@@ -143,7 +158,8 @@ public class RopeController : MonoBehaviour
             element = visualElements[indexElement];
             element.gameObject.SetActive(true);
             element.position = path.PointAlongPath(distAlongPath);
-            element.rotation = Quaternion.LookRotation(vecAlongEdgeOfSphere, -ropeVecNorm);
+            //element.rotation = Quaternion.LookRotation(vecAlongEdgeOfSphere, -ropeVecNorm);
+            element.rotation = angularRotationOnRope;
         }
 
         for(;indexElement < visualElements.Count; ++indexElement)
@@ -159,10 +175,11 @@ public class RopeController : MonoBehaviour
         visualElements.Add(element);
     }
 
-    void SendUpdateEvent()
+    void SendUpdateEvent(float dt)
     {
         RopeChange rc;
         rc.controller = this;
+        rc.dt = dt;
         FFMessageBoard<RopeChange>.SendToLocal(rc, gameObject);
     }
 

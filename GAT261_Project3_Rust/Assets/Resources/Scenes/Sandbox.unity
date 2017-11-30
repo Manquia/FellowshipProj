@@ -504,7 +504,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &703005974
+--- !u!1001 &640673341
 Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -543,11 +543,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 114459083749340386, guid: 949f3d29e1522ff4a8a5ab522d19e0db,
-        type: 2}
-      propertyPath: OnRope.rope
-      value: 
-      objectReference: {fileID: 1395499674}
     - target: {fileID: 4611769571493054, guid: 949f3d29e1522ff4a8a5ab522d19e0db, type: 2}
       propertyPath: m_LocalRotation.x
       value: 0.5326752
@@ -564,6 +559,11 @@ Prefab:
       propertyPath: m_LocalRotation.w
       value: -0.110415146
       objectReference: {fileID: 0}
+    - target: {fileID: 114459083749340386, guid: 949f3d29e1522ff4a8a5ab522d19e0db,
+        type: 2}
+      propertyPath: OnRope.rope
+      value: 
+      objectReference: {fileID: 1395499674}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 949f3d29e1522ff4a8a5ab522d19e0db, type: 2}
   m_IsPrefabParent: 0

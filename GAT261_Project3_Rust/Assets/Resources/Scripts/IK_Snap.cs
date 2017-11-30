@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Animator))]
 public class IK_Snap : MonoBehaviour {
 
     
@@ -19,13 +20,11 @@ public class IK_Snap : MonoBehaviour {
 
     public Vector3 leftHandPos;
     public Vector3 rightHandPos;
-
     public Vector3 leftFootPos;
     public Vector3 rightFootPos;
 
     public Quaternion leftHandRot;
     public Quaternion rightHandRot;
-
     public Quaternion leftFootRot;
     public Quaternion rightFootRot;
 

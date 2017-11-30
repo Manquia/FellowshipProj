@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -26,13 +27,34 @@ public class Player : MonoBehaviour {
         public RopeController rope;
         public float distUpRope;
 
-        public float leftHandOffset;
-        public float rightHandOffset;
-        public float leftFootOffset;
-        public float rightFootOffset;
+        // Offset Along Rope (vertical along rope)
+        public float leftHandOffsetOnRope;
+        public float rightHandOffsetOnRope;
+        public float leftFootOffsetOnRope;
+        public float rightFootOffsetOnRope;
 
-        public Vector3 playerControllerOffset;
-        public Quaternion playerControllerRot;
+        // Left/Right posiition OFfset
+        public Vector3 leftHandOffset;
+        public Vector3 rightHandOffset;
+        public Vector3 leftFootOffset;
+        public Vector3 rightFootOffset;
+
+        // Rotations
+        public Vector3 leftHandRot;
+        public Vector3 rightHandRot;
+        public Vector3 leftFootRot;
+        public Vector3 rightFootRot;
+
+
+        // Functional stuff
+        public float angleOnRope; // in degrees
+        public float distFromRope;
+        public float rotationYaw;
+        public float rotationPitch;
+        
+        // @TODO @Polish
+        public float onRopeAngularVelocity; // <--- Rename...
+
     }
     public RopeConnection OnRope;
 
@@ -49,6 +71,12 @@ public class Player : MonoBehaviour {
 
         if (OnRope != null)
             SetupOnRope();
+        
+    }
+    void OnDestroy()
+    {
+        if (OnRope != null)
+            DestroyOnRope();
     }
 	
 	// Update is called once per frame
@@ -59,39 +87,49 @@ public class Player : MonoBehaviour {
 
     void FixedUpdate()
     {
-        // On rope we have different controls
-        if (OnRope != null)
-        {
-            UpdateRope(Time.fixedDeltaTime);
-        }
     }
 
+    private void OnRopeChange(RopeChange e)
+    {
+        UpdateRope(e.dt);
+    }
     void UpdateRope(float dt)
     {
         var rope = OnRope.rope;
         var ropePath = rope.GetPath();
         var ropeLength = ropePath.PathLength;
+        var ropeVecNorm = rope.RopeVecNorm();
 
         var distOnPath = Mathf.Clamp(ropeLength - OnRope.distUpRope, 0.0f, ropeLength);
         //var velocity = rope.VelocityAtLength(OnRope.distUpRope);
 
         // update Character Position
-        var ropeRot = OnRope.rope.RopeRotation();     // <----------------- THIS SHOULD BE BASED off of a angle at which we 
-                                                      // should be facing the rope that way we can just change that value when
-                                                      // we want to modify relative rotation to the rope for polish stuff.
+        var AngleFromDown = Quaternion.FromToRotation(Vector3.down, ropeVecNorm);
+        var angularRotationOnRope = Quaternion.AngleAxis(OnRope.angleOnRope, ropeVecNorm) * AngleFromDown;
+        var positionOnRope = ropePath.PointAlongPath(distOnPath);
         
-        transform.position = ropePath.PointAlongPath(distOnPath) + (ropeRot * OnRope.playerControllerOffset);
-        // Update Charcter Rotation // @ NEEDS WORK
-        transform.rotation = ropeRot;
+        transform.position = positionOnRope +
+            (angularRotationOnRope * -Vector3.forward * OnRope.distFromRope); // @ TODO: Add charater offset!
+        var vecForward = positionOnRope - transform.position;
+        
+
+        //Debug.DrawLine(positionOnRope, transform.position, Color.yellow);
+        var forwardRot = Quaternion.LookRotation(vecForward, -ropeVecNorm);
+        transform.rotation = forwardRot;
+        var characterRot = forwardRot * Quaternion.AngleAxis(OnRope.rotationPitch, transform.right) * Quaternion.AngleAxis(OnRope.rotationYaw, transform.forward);
+        transform.rotation = characterRot;
 
         // update Snapping IK
         {
-            ikSnap.rightHandPos = ropePath.PointAlongPath(distOnPath - OnRope.rightHandOffset);
-            ikSnap.leftHandPos = ropePath.PointAlongPath(distOnPath - OnRope.leftHandOffset);
-            ikSnap.rightFootPos = ropePath.PointAlongPath(distOnPath - OnRope.rightFootOffset);
-            ikSnap.leftFootPos = ropePath.PointAlongPath(distOnPath - OnRope.leftFootOffset);
+            ikSnap.rightHandPos = ropePath.PointAlongPath(distOnPath - OnRope.rightHandOffsetOnRope) + (angularRotationOnRope * OnRope.rightHandOffset);
+            ikSnap.leftHandPos = ropePath.PointAlongPath(distOnPath - OnRope.leftHandOffsetOnRope) + (angularRotationOnRope * OnRope.leftHandOffset);
+            ikSnap.rightFootPos = ropePath.PointAlongPath(distOnPath - OnRope.rightFootOffsetOnRope) + (angularRotationOnRope * OnRope.rightFootOffset);
+            ikSnap.leftFootPos = ropePath.PointAlongPath(distOnPath - OnRope.leftFootOffsetOnRope) + (angularRotationOnRope * OnRope.leftFootOffset);
             
-            // @TODO, rotation
+            ikSnap.rightHandRot = angularRotationOnRope * Quaternion.Euler(OnRope.rightHandRot);
+            ikSnap.leftHandRot =  angularRotationOnRope * Quaternion.Euler(OnRope.leftHandRot) ;
+            ikSnap.rightFootRot = angularRotationOnRope * Quaternion.Euler(OnRope.rightFootRot);
+            ikSnap.leftFootRot =  angularRotationOnRope * Quaternion.Euler(OnRope.leftFootRot) ;
         }
     }
 
@@ -101,5 +139,14 @@ public class Player : MonoBehaviour {
         SetVelocityRef(new FFRef<Vector3>(
             () => OnRope.rope.VelocityAtDistUpRope(OnRope.distUpRope),
             (v) => {} ));
+
+        FFMessageBoard<RopeChange>.Connect(OnRopeChange, OnRope.rope.gameObject);
     }
+
+    void DestroyOnRope()
+    {
+        if(OnRope.rope != null)
+            FFMessageBoard<RopeChange>.Disconnect(OnRopeChange, OnRope.rope.gameObject);
+    }
+    
 }
