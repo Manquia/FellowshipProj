@@ -27,6 +27,7 @@ public class DynamicAudioPlayer : MonoBehaviour {
 
     private AudioSource audioSrc;
     private FFRef<float> valueRef;
+    public float toleranceThreshold;
     public DynamicAudioElement[] elements;
 
 	// Use this for initialization
@@ -68,8 +69,11 @@ public class DynamicAudioPlayer : MonoBehaviour {
     {
         var src = element.src;
 
-        src.volume = element.volumeCurve.Evaluate(valueRef);
-        src.pitch = element.pitchCurve.Evaluate(valueRef);
+        var value = valueRef;
+        var samplePoint = value / (toleranceThreshold + value);
+        
+        src.volume = element.volumeCurve.Evaluate(samplePoint);
+        src.pitch =  element.pitchCurve.Evaluate(samplePoint);
 
         if(element.fPulse) // check to see if we should play the sound since we aren't looping
         {
