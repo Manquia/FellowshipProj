@@ -346,6 +346,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05a6d33346fdbb64890b633784990d70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1001 &307277613
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4128910676396902, guid: 1abee370f5163b047943c355926e0f09, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -0.02411902
+      objectReference: {fileID: 0}
+    - target: {fileID: 4128910676396902, guid: 1abee370f5163b047943c355926e0f09, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 1.2539995
+      objectReference: {fileID: 0}
+    - target: {fileID: 4128910676396902, guid: 1abee370f5163b047943c355926e0f09, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0.6904392
+      objectReference: {fileID: 0}
+    - target: {fileID: 4128910676396902, guid: 1abee370f5163b047943c355926e0f09, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4128910676396902, guid: 1abee370f5163b047943c355926e0f09, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4128910676396902, guid: 1abee370f5163b047943c355926e0f09, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4128910676396902, guid: 1abee370f5163b047943c355926e0f09, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4128910676396902, guid: 1abee370f5163b047943c355926e0f09, type: 2}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 1abee370f5163b047943c355926e0f09, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &409672340
 GameObject:
   m_ObjectHideFlags: 0
@@ -394,20 +436,6 @@ Light:
   m_Lightmapping: 4
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
-  m_FalloffTable:
-    m_Table[0]: 0
-    m_Table[1]: 0
-    m_Table[2]: 0
-    m_Table[3]: 0
-    m_Table[4]: 0
-    m_Table[5]: 0
-    m_Table[6]: 0
-    m_Table[7]: 0
-    m_Table[8]: 0
-    m_Table[9]: 0
-    m_Table[10]: 0
-    m_Table[11]: 0
-    m_Table[12]: 0
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
   m_ShadowRadius: 0

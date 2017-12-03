@@ -42,11 +42,17 @@ public struct Crime
 
 public class Character : FFComponent, Interactable
 {
+    public enum Gender
+    {
+        Male,
+        Female,
+    }
     [Serializable]
     public struct Details
     {
         public string name;
         public DialogManager.OratorNames oratorMapping;
+        public Gender gender;
     }
     public Details details;
     
@@ -70,7 +76,10 @@ public class Character : FFComponent, Interactable
         dialogManager = GameObject.Find("DialogManager").GetComponent<DialogManager>();
         Debug.Assert(dialogManager != null, "No Dialog manager found");
 
-        dialogManager.SetOrator(details.oratorMapping, transform);
+        DialogManager.OratorData data;
+        data.details = details;
+        data.trans = transform;
+        dialogManager.SetOrator(data);
 
         FFMessageBoard<PersonFinishedMoving>.Connect(OnPersonFinishedMoving, gameObject);
          

@@ -12,6 +12,7 @@ public class QueuedDialog
         Cry,
         Yell,
     }
+    public Character.Details charaterDetails;
     public FFAction.ActionSequence dialogSeq;
     public SpeechController controller;
     public string text;
@@ -50,8 +51,12 @@ public class DialogManager : FFComponent
         public OratorNames name;
         public Transform trans;
     }
-
-    Dictionary<OratorNames, Transform> Orators = new Dictionary<OratorNames, Transform>();
+    public struct OratorData
+    {
+        public Transform trans;
+        public Character.Details details;
+    }
+    Dictionary<OratorNames, OratorData> Orators = new Dictionary<OratorNames, OratorData>();
     
 
     FFAction.ActionSequence updateDialogSeq;
@@ -110,17 +115,17 @@ public class DialogManager : FFComponent
         }
     }
 
-    public void SetOrator(OratorNames name, Transform trans)
+    public void SetOrator(OratorData data)
     {
-        Debug.Assert(trans != null);
+        Debug.Assert(data.trans != null);
 
-        if(Orators.ContainsKey(name))
+        if(Orators.ContainsKey(data.details.oratorMapping))
         {
-            Orators[name] = trans;
+            Orators[data.details.oratorMapping] = data;
         }
         else
         {
-            Orators.Add(name, trans);
+            Orators.Add(data.details.oratorMapping, data);
         }
     }
 
@@ -259,7 +264,8 @@ public class DialogManager : FFComponent
     {
         var echoDisplayTime = Mathf.Max(minDisplayTime, ((float)text.Length / averageLengthPerWord) * displayTimePerWord);
 
-        var speechRoot = Orators[orator].GetComponent<Character>().GetSpeachRoot();
+        var oratorData = Orators[orator];
+        var speechRoot = oratorData.trans.GetComponent<Character>().GetSpeachRoot();
         var speechController = speechRoot.GetComponent<SpeechController>();
 
         var textWithNewLines = AddNewlines(text, charactersPerLine);
@@ -271,7 +277,8 @@ public class DialogManager : FFComponent
             text = textWithNewLines,
             time = echoDisplayTime,
             dialogSeq = dialogSequence,
-            type = type
+            type = type,
+            charaterDetails = oratorData.details
         };
 
         { // Queue the Dialog
@@ -370,23 +377,27 @@ public class DialogManager : FFComponent
             var text = qd.controller.GetDialogText();
             var bubble = qd.controller.BubbleImage();
 
+            string genderTag;
+            if (qd.charaterDetails.gender == Character.Gender.Male)
+                genderTag = "M";
+            else
+                genderTag = "F";
 
             { // Setup text and bubble
-
                 switch (qd.type)
                 {
                     case QueuedDialog.Type.Say:
-                        audioSrc.PlayOneShot(SaySound);
+                        //audioSrc.PlayOneShot(FFResource.Load_AudioClip("Say_" + genderTag));
                         bubble.color = Color.white;
                         text.color = Color.black;
                         break;
                     case QueuedDialog.Type.Cry:
-                        audioSrc.PlayOneShot(CrySound);
+                        audioSrc.PlayOneShot(FFResource.Load_AudioClip("Crying_" + genderTag));
                         bubble.color = CryBubbleColor;
                         text.color = Color.black;
                         break;
                     case QueuedDialog.Type.Yell:
-                        audioSrc.PlayOneShot(YellSound);
+                        audioSrc.PlayOneShot(FFResource.Load_AudioClip("Yell_" + genderTag));
                         bubble.color = YellBubbleColor;
                         text.color = Color.black;
                         break;

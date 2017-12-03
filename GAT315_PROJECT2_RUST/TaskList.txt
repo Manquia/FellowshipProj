@@ -23,3 +23,15 @@ GAT 315 Task List
 - Make door close/open to court room
 - Add Roof to Court room
 - Grips may harm hurt player???
+- Add a cool font for the game's splash screen
+
+
+
+GAT 261 Task List
+
+-+ Character IK!
+-+ Rope Working!
+
+- Audio for dynamic Audio player
+- Particles in the air (leaves, dust, etc...)
+- Nice tree assets to make it feel good!!!
