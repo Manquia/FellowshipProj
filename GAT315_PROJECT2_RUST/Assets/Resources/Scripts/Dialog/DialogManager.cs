@@ -19,6 +19,7 @@ public class QueuedDialog
     public Type type;
 }
 
+[RequireComponent(typeof(AudioSource))]
 public class DialogManager : FFComponent
 {
     private static DialogManager singleton;
@@ -56,6 +57,7 @@ public class DialogManager : FFComponent
     FFAction.ActionSequence updateDialogSeq;
     FFAction.ActionSequence dialogSequence;
 
+    private AudioSource audioSrc;
 
     // Use this for initialization
     void Start ()
@@ -64,6 +66,8 @@ public class DialogManager : FFComponent
         Debug.Assert(singleton == null, "Dialog Manager Singleton already setup. Duplicate Dialog Managers?");
         Debug.Log("Start Dialog Manager");
         singleton = this;
+
+        audioSrc = GetComponent<AudioSource>();
 
         updateDialogSeq = action.Sequence();
         dialogSequence = action.Sequence();
@@ -247,6 +251,10 @@ public class DialogManager : FFComponent
     public Color YellBubbleColor;
     public Color CryBubbleColor;
 
+    public AudioClip SaySound;
+    public AudioClip YellSound;
+    public AudioClip CrySound;
+
     public float CharacterOrate(OratorNames orator, string text, QueuedDialog.Type type)
     {
         var echoDisplayTime = Mathf.Max(minDisplayTime, ((float)text.Length / averageLengthPerWord) * displayTimePerWord);
@@ -272,7 +280,7 @@ public class DialogManager : FFComponent
             dialogSequence.Sync();
         }
 
-        return echoDisplayTime;
+        return echoDisplayTime + FadeInTime + FadeOutTime;
     }
 
 
@@ -355,6 +363,9 @@ public class DialogManager : FFComponent
     {
         QueuedDialog qd = (QueuedDialog)queuedDialog;
 
+        
+
+
         { // Setup text and bubble
             var text = qd.controller.GetDialogText();
             var bubble = qd.controller.BubbleImage();
@@ -365,14 +376,17 @@ public class DialogManager : FFComponent
                 switch (qd.type)
                 {
                     case QueuedDialog.Type.Say:
+                        audioSrc.PlayOneShot(SaySound);
                         bubble.color = Color.white;
                         text.color = Color.black;
                         break;
                     case QueuedDialog.Type.Cry:
+                        audioSrc.PlayOneShot(CrySound);
                         bubble.color = CryBubbleColor;
                         text.color = Color.black;
                         break;
                     case QueuedDialog.Type.Yell:
+                        audioSrc.PlayOneShot(YellSound);
                         bubble.color = YellBubbleColor;
                         text.color = Color.black;
                         break;

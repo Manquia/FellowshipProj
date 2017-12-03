@@ -17,6 +17,10 @@ public class ToolTip : MonoBehaviour
     public string toolTipOver = "Talk";
     public string toolTipUseing = "Skip";
 
+    public Vector3 IdleOffset = Vector3.zero;
+    public Vector3 OverOffset = Vector3.zero;
+    Vector3 usingOffset = new Vector3(0,-0.27f, -0.4f);
+
 
     public enum State
     {
@@ -93,6 +97,7 @@ public class ToolTip : MonoBehaviour
                     toolTip.SetActive(true);
                     title.GetComponent<UnityEngine.UI.Text>().text = toolTipIdle;
                 }
+                toolTip.transform.localPosition = toolTip.transform.rotation * IdleOffset;
                 break;
             case State.Over:
                 if (toolTipOver == null)
@@ -104,6 +109,7 @@ public class ToolTip : MonoBehaviour
                     toolTip.SetActive(true);
                     title.GetComponent<UnityEngine.UI.Text>().text = toolTipOver;
                 }
+                toolTip.transform.localPosition = toolTip.transform.rotation * OverOffset;
                 break;
             case State.Using:
                 if (toolTipUseing == null)
@@ -115,6 +121,7 @@ public class ToolTip : MonoBehaviour
                     toolTip.SetActive(true);
                     title.GetComponent<UnityEngine.UI.Text>().text = toolTipUseing;
                 }
+                toolTip.transform.localPosition = toolTip.transform.rotation * usingOffset;
                 break;
         }
 

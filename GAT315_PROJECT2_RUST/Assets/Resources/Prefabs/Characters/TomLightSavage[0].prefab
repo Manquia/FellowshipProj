@@ -377,7 +377,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   distAlongPath: 0.088
-  movementSpeed: 1.1
   startingIndex: 0
   PathToFollow: {fileID: 0}
 --- !u!114 &114302850119569570
@@ -391,6 +390,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 919a25704d0d2484d8fdfc7c7e186871, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unlimitedTimeWarp: 0
 --- !u!114 &114572489129612446
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -420,11 +420,11 @@ MonoBehaviour:
   - orator: 3
     text: I am very sorry about speeding through the stop-sign. I was very late for
       work and ended up getting fired only last week.
-    type: 0
+    type: 1
   - orator: 3
     text: "I promise I will always obey the rules of the road. Please don\u2019t revoke
       my license. "
-    type: 0
+    type: 2
   crime:
     charges:
     - '- Speeding ticket 10 over in residential area.'
@@ -449,6 +449,8 @@ MonoBehaviour:
       appearsWeeksLater: 9
       stage: 1
       text: Revoke driver's licence
+  witness: {fileID: 0}
+  orateTimes: []
 --- !u!114 &114630283270765282
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -462,6 +464,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   toolTipTitle: Talk
   localOffset: {x: 0, y: 0, z: 0}
+  toolTipIdle: . . .
+  toolTipOver: Talk
+  toolTipUseing: Skip
+  IdleOffset: {x: 0, y: 0, z: 0}
+  OverOffset: {x: 0, y: 0, z: 0}
+  state: 0
 --- !u!114 &114655887459635810
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -73,6 +73,13 @@ public class Character : FFComponent, Interactable
         dialogManager.SetOrator(details.oratorMapping, transform);
 
         FFMessageBoard<PersonFinishedMoving>.Connect(OnPersonFinishedMoving, gameObject);
+         
+        // @HACK Fixes offset bugs with the talk tooltip
+        {
+            var talkToolTip = transform.Find("TalkToolTip");
+            talkToolTip.localPosition = new Vector3(0.0f, talkToolTip.localPosition.y, 0.0f);
+        }
+
     }
 
     private void OnPersonFinishedMoving(PersonFinishedMoving e)
@@ -163,7 +170,7 @@ public class Character : FFComponent, Interactable
     public List<float> orateTimes = new List<float>();
     public void Use()
     {
-        Debug.Log("Use");
+        //Debug.Log("Use");
 
         // If already talking, fast forward
         if(orateTimes.Count > 0)
