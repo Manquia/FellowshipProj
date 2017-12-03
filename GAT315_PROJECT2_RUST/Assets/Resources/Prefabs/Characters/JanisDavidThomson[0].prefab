@@ -425,7 +425,7 @@ MonoBehaviour:
     type: 0
   crime:
     charges:
-    - '- Larceny'
+    - '- Larceny (theft)'
     - '- Resisting Arrest'
     chargesNotes: 'Janis [Age 27] entered TallMart, a grocery store, took a giant
       Plasma TV and headed for the door. Janis was caught trying to load the TV into
@@ -439,11 +439,11 @@ MonoBehaviour:
       are a loved family in their neighborhood and will most certainly be alright
       with how much support we have seen them receive over the course of the investigation."
     sent1:
-      appearsWeeksLater: 11
+      appearsWeeksLater: 22
       stage: 1
       text: 1 week in jail, $750 fine
     sent2:
-      appearsWeeksLater: 9
+      appearsWeeksLater: 24
       stage: 1
       text: 1 Month in jail, $2000 bail
     sent3:

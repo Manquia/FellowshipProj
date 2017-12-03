@@ -444,15 +444,15 @@ MonoBehaviour:
     sent1:
       appearsWeeksLater: -1
       stage: -1
-      text: 4 Years in jail, parole possible after 2 years
+      text: 2 Years in jail, parole possible after 1 years
     sent2:
       appearsWeeksLater: -1
       stage: -1
-      text: 6 Years in jail, parole possible after 3 years
+      text: 3 Years in jail, parole possible after 2 years
     sent3:
       appearsWeeksLater: -1
       stage: -1
-      text: 10 Years in jail, parole possible after 5 years
+      text: 5 Years in jail, parole possible after 3 years
   witness: {fileID: 0}
   orateTimes: []
 --- !u!114 &114630283270765282

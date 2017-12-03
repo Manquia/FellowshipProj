@@ -376,7 +376,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   distAlongPath: 0
-  movementSpeed: 1.1
   startingIndex: 0
   PathToFollow: {fileID: 0}
 --- !u!114 &114572489129612446
@@ -393,6 +392,7 @@ MonoBehaviour:
   details:
     name: CainShyamaMiran
     oratorMapping: 3
+    gender: 0
   mugshot: {fileID: 21300000, guid: 660b14e22fcd8494eac8e1fe2d7c8f90, type: 3}
   enterDialog:
   - orator: 2
@@ -414,10 +414,20 @@ MonoBehaviour:
       pride and joy, please don\u2019t let their father be painted like a villain
       for crimes he didn\u2019t commit."
     type: 0
+  - orator: 3
+    text: I have been enforcing the law in this city for 8 years and have worked hard
+      for more than sixteen thousand hours. I have been shot at, cursed at, even spat
+      at in the call of duty.
+    type: 0
+  - orator: 3
+    text: I have worked with hundreds of other officers and citizens to keep everyone
+      safe. So please don't let some fool off the street prevent me from serving my
+      city.
+    type: 0
   crime:
     charges:
-    - -Extortion
-    - '- Grand Larceny'
+    - '- Extortion'
+    - '- Grand Larceny (theft)'
     chargesNotes: 'Officer Miran Cain [Age 38] has been accused of extortion of multiple
       citizen. Cain has been accused of extorting drivers for incentives to reduce
       the level of a ticket. It is surprising that he has slipped under the radar
@@ -427,12 +437,12 @@ MonoBehaviour:
       hit ticket. Brian complied and his ticket was reduced to a 5 point speeding
       ticket from what he claims would have been a $1000 fine and revoking his licence. '
     characterNameAge: Cain Shyama Miran Age:38
-    Investigation: "Note from investigator: Cain is a personal friend of mine. We
-      worked together on a number of cases and it's surprising that he would commit
-      such crimes. He has a wife and family lets everyone know how much he loves them.
-      That being said, there isn\u2019t any real reason for brian to spend all of
-      this effort. Especially since he will probably lose his licence if Cain is found
-      guilty."
+    Investigation: 'Note from investigator: Cain is a personal friend of mine. We
+      worked together on some cases, and it''s surprising that he would commit such
+      crimes. He has a wife and family lets everyone know how much he loves them.
+      That being said, it''s bizarre for Brian Narm to spend all of this effort to
+      avoid a 5 point ticket. He has put forward a lot of time and work to spite an
+      Officer Cain, and his persistence gives him some level of credit.'
     sent1:
       appearsWeeksLater: -1
       stage: -1
@@ -445,6 +455,8 @@ MonoBehaviour:
       appearsWeeksLater: -1
       stage: -1
       text: Dismiss Officer, 1 year in jail
+  witness: {fileID: 0}
+  orateTimes: []
 --- !u!114 &114630283270765282
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -458,6 +470,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   toolTipTitle: Talk
   localOffset: {x: 0, y: 0, z: 0}
+  toolTipIdle: . . .
+  toolTipOver: Talk
+  toolTipUseing: Skip
+  IdleOffset: {x: 0, y: 0, z: 0}
+  OverOffset: {x: 0, y: 0, z: 0}
+  state: 0
 --- !u!114 &114885396900426398
 MonoBehaviour:
   m_ObjectHideFlags: 1

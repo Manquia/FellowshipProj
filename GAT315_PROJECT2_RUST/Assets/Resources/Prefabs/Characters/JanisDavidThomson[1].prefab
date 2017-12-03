@@ -376,7 +376,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   distAlongPath: 0
-  movementSpeed: 1.1
   startingIndex: 0
   PathToFollow: {fileID: 0}
 --- !u!114 &114334488851505868
@@ -404,6 +403,7 @@ MonoBehaviour:
   details:
     name: JanisDavidThomson
     oratorMapping: 3
+    gender: 0
   mugshot: {fileID: 21300000, guid: f7090580a1fbffb498f67f5515591cb5, type: 3}
   enterDialog:
   - orator: 2
@@ -428,7 +428,7 @@ MonoBehaviour:
     type: 0
   crime:
     charges:
-    - -Larceny
+    - '- Larceny (theft)'
     - '- Resisting Arrest'
     chargesNotes: Janis [Age 28] entered TallMart, a grocery store, and filled a cart
       full of food. Then took the cart out the door. Security was notified and followed
@@ -456,6 +456,7 @@ MonoBehaviour:
       stage: 2
       text: 1 week in jail, $700 bail
   witness: {fileID: 0}
+  orateTimes: []
 --- !u!114 &114630283270765282
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -469,6 +470,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   toolTipTitle: Talk
   localOffset: {x: 0, y: 0, z: 0}
+  toolTipIdle: . . .
+  toolTipOver: Talk
+  toolTipUseing: Skip
+  IdleOffset: {x: 0, y: 0, z: 0}
+  OverOffset: {x: 0, y: 0, z: 0}
+  state: 0
 --- !u!136 &136082163781093550
 CapsuleCollider:
   m_ObjectHideFlags: 1

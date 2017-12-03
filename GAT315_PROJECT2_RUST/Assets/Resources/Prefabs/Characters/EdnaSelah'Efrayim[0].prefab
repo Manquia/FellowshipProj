@@ -376,7 +376,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   distAlongPath: 0
-  movementSpeed: 1.1
   startingIndex: 0
   PathToFollow: {fileID: 0}
 --- !u!114 &114572489129612446
@@ -393,6 +392,7 @@ MonoBehaviour:
   details:
     name: EdnaSelah'Efrayim
     oratorMapping: 3
+    gender: 0
   mugshot: {fileID: 21300000, guid: deb007b13aebe0e44a138edbc6fccefd, type: 3}
   enterDialog:
   - orator: 2
@@ -432,15 +432,17 @@ MonoBehaviour:
     sent1:
       appearsWeeksLater: 12
       stage: 1
-      text: 1 week in jail, bail $500
+      text: Free to go
     sent2:
       appearsWeeksLater: 13
       stage: 1
-      text: 3 week in jail, bail $1000
+      text: 250$ fine
     sent3:
       appearsWeeksLater: 15
       stage: 2
-      text: 6 week in jail, bail $2000
+      text: 1 week in jail, bail $1500
+  witness: {fileID: 0}
+  orateTimes: []
 --- !u!114 &114630283270765282
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -454,6 +456,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   toolTipTitle: Talk
   localOffset: {x: 0, y: 0, z: 0}
+  toolTipIdle: . . .
+  toolTipOver: Talk
+  toolTipUseing: Skip
+  IdleOffset: {x: 0, y: 0, z: 0}
+  OverOffset: {x: 0, y: 0, z: 0}
+  state: 0
 --- !u!114 &114885396900426398
 MonoBehaviour:
   m_ObjectHideFlags: 1

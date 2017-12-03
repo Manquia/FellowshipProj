@@ -376,7 +376,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   distAlongPath: 0
-  movementSpeed: 1.1
   startingIndex: 0
   PathToFollow: {fileID: 0}
 --- !u!114 &114572489129612446
@@ -393,6 +392,7 @@ MonoBehaviour:
   details:
     name: EdnaSelah'Efrayim
     oratorMapping: 3
+    gender: 0
   mugshot: {fileID: 21300000, guid: deb007b13aebe0e44a138edbc6fccefd, type: 3}
   enterDialog:
   - orator: 2
@@ -422,13 +422,16 @@ MonoBehaviour:
     - '- Kidnapping, Assault'
     chargesNotes: "Edna [Age 24] is charged with use kidnapping, assault, and use
       and distribution of illegal drugs Marijuana, Meth. It looks like Edna started
-      up a small distribution network the downtown area. But her partner Samantha,
-      didn\u2019t agree with their business model. Edna then beat, and kidnapped Samantha
-      locking her away in order to try and persuade her to be quiet. After a 2 days,
-      Samantha escaped and got the police involved. "
+      up a small distribution network the downtown area. But her partner Samantha
+      didn\u2019t agree with their business model. Edna then beat and kidnapped Samantha
+      locking her away to try and persuade her to be quiet. After 2 days, Samantha
+      escaped and got the police involved. "
     characterNameAge: Edna Selah' Efrayim Age:24
     Investigation: We found Edna [Age 24] running a drug den in a run-down apartment.
-      The force found the drug den via the instruction of Samantha
+      The force found the drug den via the instruction of Samantha. We found 25.2
+      oz of Marijuana, 10.2 oz of Meth, and 1.2 oz Ecstasy on site. We also found
+      records of clients and distribution details which we handed over to the DEA
+      for further investigation.
     sent1:
       appearsWeeksLater: -1
       stage: -1
@@ -441,6 +444,8 @@ MonoBehaviour:
       appearsWeeksLater: -1
       stage: -1
       text: 20 years in prison, parole possible after 10 years
+  witness: {fileID: 0}
+  orateTimes: []
 --- !u!114 &114630283270765282
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -454,6 +459,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   toolTipTitle: Talk
   localOffset: {x: 0, y: 0, z: 0}
+  toolTipIdle: . . .
+  toolTipOver: Talk
+  toolTipUseing: Skip
+  IdleOffset: {x: 0, y: 0, z: 0}
+  OverOffset: {x: 0, y: 0, z: 0}
+  state: 0
 --- !u!114 &114885396900426398
 MonoBehaviour:
   m_ObjectHideFlags: 1

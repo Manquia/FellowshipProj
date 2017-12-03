@@ -76,7 +76,7 @@ GameObject:
   - component: {fileID: 114572489129612446}
   - component: {fileID: 114050363291459774}
   m_Layer: 0
-  m_Name: TomLightSavage[2]
+  m_Name: OfficerBradley
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -376,6 +376,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   distAlongPath: 0
+  movementSpeed: 1.1
   startingIndex: 0
   PathToFollow: {fileID: 0}
 --- !u!114 &114572489129612446
@@ -390,56 +391,40 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   details:
-    name: TomLightSavage
-    oratorMapping: 3
-    gender: 0
-  mugshot: {fileID: 21300000, guid: f88d06ce247ac824c90fc1193f682eee, type: 3}
-  enterDialog:
-  - orator: 2
-    text: 
-    type: 0
-  - orator: 0
-    text: 
-    type: 0
+    name: OfficerBradley
+    oratorMapping: 2
+  mugshot: {fileID: 0}
+  enterDialog: []
   talkDialog: []
   exitHardSentence: []
   exitSoftSentence: []
   inTrialDialog:
-  - orator: 3
-    text: It all happened so fast. She just ran out into the street.
+  - orator: 2
+    text: Officer Cain was diligent in preventing a possible incident at the protest.
+      His actions were justified.
     type: 0
-  - orator: 3
-    text: "I did everything I could to help after, but I\u2019ll never be able to
-      forgive myself for my carelessness."
+  - orator: 2
+    text: "Officer Cain is a good officer who has worked long and hard over the years
+      to keep this city\u2019s people safe."
     type: 0
   crime:
-    charges:
-    - '- Reckless driving'
-    - '- Manslaughter'
-    - '- Speeding 20 over in residential area'
-    - '- Sped through stop sign'
-    chargesNotes: Tom [Age 55] sped through stop sign killing 5-year-old Emmy Branch
-      Sayman. Tom did everything he could to try and help Emmy make it to emergency
-      services.
-    characterNameAge: Tom Light Savage Age:55
-    Investigation: 'Tom [Age 55] has a record or reckless driving. I am surprised
-      his license wasn''t removed for his last charge. Tom was all in all a nice guy
-      who recently lost his job. Says the morning of the accident he was late for
-      an interview in downtown. '
+    charges: []
+    chargesNotes: 0
+    characterNameAge: 0
+    Investigation: 0
     sent1:
-      appearsWeeksLater: -1
-      stage: -1
-      text: 2 Years in jail, parole possible after 1 years
+      appearsWeeksLater: 0
+      stage: 0
+      text: 0
     sent2:
-      appearsWeeksLater: -1
-      stage: -1
-      text: 3 Years in jail, parole possible after 2 years
+      appearsWeeksLater: 0
+      stage: 0
+      text: 0
     sent3:
-      appearsWeeksLater: -1
-      stage: -1
-      text: 5 Years in jail, parole possible after 3 years
+      appearsWeeksLater: 0
+      stage: 0
+      text: 0
   witness: {fileID: 0}
-  orateTimes: []
 --- !u!114 &114630283270765282
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -453,12 +438,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   toolTipTitle: Talk
   localOffset: {x: 0, y: 0, z: 0}
-  toolTipIdle: . . .
-  toolTipOver: Talk
-  toolTipUseing: Skip
-  IdleOffset: {x: 0, y: 0, z: 0}
-  OverOffset: {x: 0, y: 0, z: 0}
-  state: 0
 --- !u!114 &114885396900426398
 MonoBehaviour:
   m_ObjectHideFlags: 1

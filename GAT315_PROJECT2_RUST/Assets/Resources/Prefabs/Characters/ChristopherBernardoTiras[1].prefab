@@ -376,7 +376,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   distAlongPath: 0
-  movementSpeed: 1.1
   startingIndex: 0
   PathToFollow: {fileID: 0}
 --- !u!114 &114572489129612446
@@ -393,6 +392,7 @@ MonoBehaviour:
   details:
     name: ChristopherBernardoTiras
     oratorMapping: 3
+    gender: 0
   mugshot: {fileID: 21300000, guid: db288a83bc1930945a8d35546c7b7b23, type: 3}
   enterDialog:
   - orator: 2
@@ -419,8 +419,8 @@ MonoBehaviour:
     type: 0
   crime:
     charges:
-    - Aggrivated Sexual Assault
-    - Rape
+    - '- Aggrivated Sexual Assault'
+    - '- Rape'
     chargesNotes: Christopher [Age 30] sexually assaulted Sarah Bitterman under threat
       of violence. Christopher showed up at the Bitterman residence late in the evening
       slightly inebriated. Sarah was alone and briefly talked to him. Once Christopher
@@ -447,6 +447,8 @@ MonoBehaviour:
       appearsWeeksLater: -1
       stage: -1
       text: 35 years in prison, parole possible after 15 years
+  witness: {fileID: 0}
+  orateTimes: []
 --- !u!114 &114630283270765282
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -460,6 +462,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   toolTipTitle: Talk
   localOffset: {x: 0, y: 0, z: 0}
+  toolTipIdle: . . .
+  toolTipOver: Talk
+  toolTipUseing: Skip
+  IdleOffset: {x: 0, y: 0, z: 0}
+  OverOffset: {x: 0, y: 0, z: 0}
+  state: 0
 --- !u!114 &114885396900426398
 MonoBehaviour:
   m_ObjectHideFlags: 1

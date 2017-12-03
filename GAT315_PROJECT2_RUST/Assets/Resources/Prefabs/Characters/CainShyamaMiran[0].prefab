@@ -413,7 +413,7 @@ MonoBehaviour:
     type: 0
   crime:
     charges:
-    - Excessive use of force on civilian protestor
+    - '- Excessive use of force on civilian protestor'
     chargesNotes: 'Officer Miran Cain [Age 38] has been accused of beating a civilian
       protester. The victim, Robert Douse, claims that Officer Miran Cain attacked
       him without cause. '
