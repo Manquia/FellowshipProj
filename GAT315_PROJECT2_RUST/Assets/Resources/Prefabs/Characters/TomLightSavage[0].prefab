@@ -405,6 +405,7 @@ MonoBehaviour:
   details:
     name: TomLightSavage
     oratorMapping: 3
+    gender: 0
   mugshot: {fileID: 21300000, guid: f88d06ce247ac824c90fc1193f682eee, type: 3}
   enterDialog:
   - orator: 2
@@ -430,23 +431,23 @@ MonoBehaviour:
     - '- Speeding ticket 10 over in residential area.'
     - '- Sped through stop-sign at high speed'
     - '- Reckless Driving'
-    chargesNotes: Tom [Age 25] sped through a residential area 10 over the speed limit
+    chargesNotes: Tom [Age 55] sped through a residential area 10 over the speed limit
       and through a stop-sign. Tom was late for work and decided that public safety
       was less important than his job.
-    characterNameAge: Tom Light Savage Age:25
-    Investigation: Tom [Age 25] lives alone in a small apartment in downtown. His
+    characterNameAge: Tom Light Savage Age:55
+    Investigation: Tom [Age 55] lives alone in a small apartment in downtown. His
       friends say he is an alright guy and a cursory check indicates that he is an
       outstanding guy.
     sent1:
-      appearsWeeksLater: 2
-      stage: 1
+      appearsWeeksLater: 5
+      stage: 2
       text: 5 points, 550$ fine
     sent2:
-      appearsWeeksLater: 12
+      appearsWeeksLater: 13
       stage: 1
       text: 10 points, 1000$ fine (next offence lose licence)
     sent3:
-      appearsWeeksLater: 9
+      appearsWeeksLater: 11
       stage: 1
       text: Revoke driver's licence
   witness: {fileID: 0}

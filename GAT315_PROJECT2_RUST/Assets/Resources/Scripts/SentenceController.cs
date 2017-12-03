@@ -82,6 +82,8 @@ public class SentenceController : MonoBehaviour, Interactable {
             ps.sent = curSentence;
             ps.name = curAccused;
             FFMessage<PassSentence>.SendToLocal(ps);
+
+            SetOverColor(false);
         }
     }
 
@@ -106,8 +108,14 @@ public class SentenceController : MonoBehaviour, Interactable {
         if (chosen)
             return;
 
+        SetOverColor(active);
+    }
+   
+    void SetOverColor(bool active)
+    {
+
         var image = GetComponent<UnityEngine.UI.Image>();
-        
+
         if (active)
         {
             image.color = overColor;

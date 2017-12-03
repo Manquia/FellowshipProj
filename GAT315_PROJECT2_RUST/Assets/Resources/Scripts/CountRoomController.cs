@@ -45,7 +45,7 @@ public class CountRoomController : MonoBehaviour {
     public FFPath witnessEnterPath;
     public FFPath witnessExitPath;
 
-    public static float JudgeApprovalRatting = 88.0f;
+    public static float JudgeApprovalRatting = 89.0f;
     public float JudgeFireRating = 39.0f;
 
 	// Use this for initialization

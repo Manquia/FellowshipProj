@@ -376,7 +376,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   distAlongPath: 0
-  movementSpeed: 1.1
   startingIndex: 0
   PathToFollow: {fileID: 0}
 --- !u!114 &114185703718634226
@@ -404,6 +403,7 @@ MonoBehaviour:
   details:
     name: TomLightSavage
     oratorMapping: 3
+    gender: 0
   mugshot: {fileID: 21300000, guid: f88d06ce247ac824c90fc1193f682eee, type: 3}
   enterDialog:
   - orator: 2
@@ -430,13 +430,17 @@ MonoBehaviour:
     - '- Assault with intent to rob'
     - '- Attempted Escape from police custody'
     - '- Assaulting a police officer'
-    chargesNotes: This thug beat up my boys. This fucker deserves some serious time.
-      It doesn't look like he did much harm to the victim but he went crazy when we
-      tried to arrest him.
-    characterNameAge: Tom Light Savage Age:26
-    Investigation: 'Tom [Age 26] tried to extort a citizen on the street for money.
-      Says he just needed some money to pay for rent while he was looking for a new
-      job. '
+    chargesNotes: Tom [Age 55] tried to extort Jeffrey Grader on the street for money.
+      Jeffrey says that he was asked for some cash from Tom as he was heading to the
+      local food market. Jeffrey said no. Tom then threatened Jeffrey with physical
+      force at which point Jeffrey continued walking. Tom pursued Jeffrey 2 blocks
+      persistent in his threats and demands for money. At this point, Jeffrey waved
+      down a police officer who was nearby. Tom made to run away and was later caught.
+    characterNameAge: Tom Light Savage Age:55
+    Investigation: Tom [Age 55] used to work at a local bar as their dishwasher. That
+      was until he was fired recently after being late for work. Without any income,
+      he couldn't pay for rent and began to begging on the streets. It seems like
+      he was having a particularly bad day when he couldn't take no for an answer.
     sent1:
       appearsWeeksLater: -1
       stage: -1
@@ -449,6 +453,8 @@ MonoBehaviour:
       appearsWeeksLater: -1
       stage: -1
       text: 10 Years in jail, parole possible after 5 years
+  witness: {fileID: 0}
+  orateTimes: []
 --- !u!114 &114630283270765282
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -462,6 +468,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   toolTipTitle: Talk
   localOffset: {x: 0, y: 0, z: 0}
+  toolTipIdle: . . .
+  toolTipOver: Talk
+  toolTipUseing: Skip
+  IdleOffset: {x: 0, y: 0, z: 0}
+  OverOffset: {x: 0, y: 0, z: 0}
+  state: 0
 --- !u!136 &136082163781093550
 CapsuleCollider:
   m_ObjectHideFlags: 1

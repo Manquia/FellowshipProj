@@ -57,27 +57,42 @@ public class WeekTransition : FFComponent {
         LockPlayerController();
         var approvalRating = CountRoomController.JudgeApprovalRatting;
         string approvalLetter = "_";
+        string letterMessage = "";
 
         if (approvalRating < 60.0f)
+        {
             approvalLetter = "F";
+            letterMessage = "\nBe sure to talk with the accused and witness\nto make sure your decision was informed.";
+        }
         else if (approvalRating < 70.0f)
+        {
             approvalLetter = "D";
+            letterMessage = "\nBe sure to talk with the accused and witness\nto make sure your decision was informed.";
+        }
         else if (approvalRating < 80.0f)
+        {
             approvalLetter = "C";
+            letterMessage = "\nBe sure to talk with the accused and witness\nto make sure your decision was informed.";
+        }
         else if (approvalRating < 90.0f)
+        {
             approvalLetter = "B";
+        }
         else if (approvalRating <= 93.0f)
+        {
             approvalLetter = "A";
+        }
         else if (approvalRating <= 100.0f)
+        {
             approvalLetter = "A+";
+        }
 
 
         var title = transform.Find("Title");
         var pressToContinue = transform.Find("PressToContinue");
         title.GetComponent<TextMesh>().text = "Week " + weekIndex + "\n";
 
-        pressToContinue.GetComponent<TextMesh>().text = "Approval Rating: " + approvalRating.ToString("0.#") + "\n" +
-            approvalLetter + "\n\n" + "Press any key\n to continue";
+        pressToContinue.GetComponent<TextMesh>().text = "Approval Rating\n" + approvalRating.ToString("0.#") + "% Grade:" + approvalLetter + letterMessage + "\n\n" + "Press any key\n to continue";
 
         // Fade out
         FadeSequence.Sync();

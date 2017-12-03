@@ -376,7 +376,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   distAlongPath: 0
-  movementSpeed: 1.1
   startingIndex: 0
   PathToFollow: {fileID: 0}
 --- !u!114 &114572489129612446
@@ -393,6 +392,7 @@ MonoBehaviour:
   details:
     name: TomLightSavage
     oratorMapping: 3
+    gender: 0
   mugshot: {fileID: 21300000, guid: f88d06ce247ac824c90fc1193f682eee, type: 3}
   enterDialog:
   - orator: 2
@@ -418,11 +418,11 @@ MonoBehaviour:
     - '- Manslaughter'
     - '- Speeding 20 over in residential area'
     - '- Sped through stop sign'
-    chargesNotes: Tom [Age 25] sped through stop sign killing 5 year old Emmy Branch
+    chargesNotes: Tom [Age 55] sped through stop sign killing 5 year old Emmy Branch
       Sayman. Tom did everything he could to try and help Emmy make it to emergency
       services.
-    characterNameAge: Tom Light Savage Age:25
-    Investigation: 'Tom [Age 25] has a record or reckless driving. I am surprise his
+    characterNameAge: Tom Light Savage Age:55
+    Investigation: 'Tom [Age 55] has a record or reckless driving. I am surprise his
       licence wasn''t removed for his last charge. Tom was all in all a nice guy who
       recently lost his job. Says the morning of the accident he was late for an interview
       in downtown. '
@@ -438,6 +438,8 @@ MonoBehaviour:
       appearsWeeksLater: -1
       stage: -1
       text: 5 Years in jail, parole possible after 3 years
+  witness: {fileID: 0}
+  orateTimes: []
 --- !u!114 &114630283270765282
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -451,6 +453,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   toolTipTitle: Talk
   localOffset: {x: 0, y: 0, z: 0}
+  toolTipIdle: . . .
+  toolTipOver: Talk
+  toolTipUseing: Skip
+  IdleOffset: {x: 0, y: 0, z: 0}
+  OverOffset: {x: 0, y: 0, z: 0}
+  state: 0
 --- !u!114 &114885396900426398
 MonoBehaviour:
   m_ObjectHideFlags: 1
