@@ -23,7 +23,7 @@ public class PlayerInteractor : MonoBehaviour {
     public bool active = true;
     // Update is called once per frame
     int lastOverEnumeration = 0;
-	void FixedUpdate ()
+	void Update ()
     {
         if (!active) return;
 

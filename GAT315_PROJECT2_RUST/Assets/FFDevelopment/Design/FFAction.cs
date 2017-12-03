@@ -723,11 +723,11 @@ public class FFAction : MonoBehaviour
 
             while (actionSequenceListCopy[i].seqTime + timeEpsilon <= FFSystem.time)
             {
-                float dt = Mathf.Max(Time.fixedDeltaTime, 0.016f);
-                if(timeRemaining < dt && timeRemaining > dt * 0.01f)
-                {
-                    dt = timeRemaining;
-                }
+                float dt = Time.deltaTime;
+                //if(timeRemaining < dt && timeRemaining > dt * 0.01f)
+                //{
+                //    dt = timeRemaining;
+                //}
 
                 if (!unlimitedTimeWarp && timeoutTimer > timeoutTime)
                 {

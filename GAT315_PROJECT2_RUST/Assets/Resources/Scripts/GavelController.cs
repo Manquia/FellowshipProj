@@ -8,7 +8,7 @@ public class GavelController : FFComponent, Interactable {
 
     FFAction.ActionSequence audioSeq;
 
-    public ToolTip tooltip;
+    public Transform tooltip;
 
     public float delayBetweenActions = 3.5f;
     float delayTimer = 0.0f;
@@ -37,7 +37,6 @@ public class GavelController : FFComponent, Interactable {
 
         chosenSentence = false;
         state = State.Idle;
-        tooltip.toolTipTitle = "Start Session";
         FFMessage<BeginCharacterHearing>.Connect(OnBeginCharacterHearing);
         FFMessage<SentenceChosen>.Connect(OnSentenceChosen);
     }
@@ -63,6 +62,7 @@ public class GavelController : FFComponent, Interactable {
         //Debug.Log("Updaate");
         delayTimer += Time.fixedDeltaTime;
 
+        var tooltipTitle = tooltip.Find("Background").Find("Title").GetComponent<UnityEngine.UI.Text>();
         if (delayTimer < delayBetweenActions || ReadyToPreceed() == false)
         {
             tooltip.gameObject.SetActive(false);
@@ -75,13 +75,24 @@ public class GavelController : FFComponent, Interactable {
                 case State.None:
                     break;
                 case State.Idle:
-                    tooltip.toolTipTitle = "Start Session";
+                    tooltipTitle.text= "Start Session";
                     break;
                 case State.OpenSession:
-                    tooltip.toolTipTitle = "Pass Judgement";
+                    tooltipTitle.text = "Pass Judgement";
                     break;
             }
         }
+
+
+        // tooltip faces player
+        var playerCamera = GameObject.Find("Camera").transform;
+        tooltip.transform.LookAt(playerCamera, Vector3.up);
+        tooltip.transform.Rotate(0, 180, 0);
+        var vecToCamera = tooltip.transform.position - playerCamera.position;
+        var distToCamera = vecToCamera.magnitude;
+
+        tooltip.transform.localScale = new Vector3(1 + distToCamera, 1 + distToCamera, 1 + distToCamera);
+        
     }
 
     public void MouseOver(bool active)

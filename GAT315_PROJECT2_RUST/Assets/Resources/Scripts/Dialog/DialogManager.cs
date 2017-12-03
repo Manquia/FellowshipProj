@@ -9,9 +9,7 @@ public class QueuedDialog
     public enum Type
     {
         Say,
-        Wisper,
-        Scream,
-        Spooky,
+        Cry,
         Yell,
     }
     public FFAction.ActionSequence dialogSeq;
@@ -244,6 +242,11 @@ public class DialogManager : FFComponent
     public float FadeInTime = 0.35f;
     public float FadeOutTime = 0.15f;
 
+
+    public Color SayBubbleColor;
+    public Color YellBubbleColor;
+    public Color CryBubbleColor;
+
     public float CharacterOrate(OratorNames orator, string text, QueuedDialog.Type type)
     {
         var echoDisplayTime = Mathf.Max(minDisplayTime, ((float)text.Length / averageLengthPerWord) * displayTimePerWord);
@@ -285,27 +288,36 @@ public class DialogManager : FFComponent
         Color newBubbleColor;
 
         { // Setup text and bubble
-            if (qd.type == QueuedDialog.Type.Scream)
+
+            switch (qd.type)
             {
-                fadeInTime *= 0.2f;
-                newBubbleColor = Color.red;
-                newTextColor = Color.yellow;
-            }
-            else if (qd.type == QueuedDialog.Type.Spooky)
-            {
-                fadeInTime *= 1.2f;
-                newBubbleColor = Color.magenta;
-                newTextColor = Color.cyan;
-            }
-            else
-            {
-                newBubbleColor = Color.white;
-                newTextColor = Color.black;
+                case QueuedDialog.Type.Say:
+                    newBubbleColor = Color.white;
+                    newTextColor = Color.black;
+                    break;
+                case QueuedDialog.Type.Cry:
+                    newBubbleColor = CryBubbleColor;
+                    newTextColor = Color.black;
+                    break;
+                case QueuedDialog.Type.Yell:
+                    newBubbleColor = YellBubbleColor;
+                    newTextColor = Color.black;
+                    break;
+                default:
+                    newBubbleColor = Color.white;
+                    newTextColor = Color.black;
+                    break;
             }
         }
-        
+
         newTextColor.a = 1.0f;
         newBubbleColor.a = 1.0f;
+
+        // Change start point for properties
+        Color curBubbleColor = bubbleColor;
+        Color curTextColor = textColor;
+        bubbleColor.Setter(newBubbleColor.MakeClear());
+        textColor.Setter(newTextColor.MakeClear());
 
         // Setup sprite,colors
         qd.dialogSeq.Call(SetupSpeak, qd);
@@ -319,6 +331,9 @@ public class DialogManager : FFComponent
         qd.dialogSeq.Delay(qd.time);
         qd.dialogSeq.Sync();
 
+        // Set Value refrence to what it will be for the next point
+        bubbleColor.Setter(newBubbleColor);
+        textColor.Setter(newTextColor);
 
         // Fade out
         newTextColor.a = 0.0f;
@@ -330,6 +345,11 @@ public class DialogManager : FFComponent
         qd.dialogSeq.Sync();
         qd.dialogSeq.Call(EndSpeak, qd);
         qd.dialogSeq.Sync();
+
+
+        // Change back color to match what we were at
+        bubbleColor.Setter(curBubbleColor);
+        textColor.Setter(curTextColor);
     }
     void SetupSpeak(object queuedDialog)
     {
@@ -339,39 +359,36 @@ public class DialogManager : FFComponent
             var text = qd.controller.GetDialogText();
             var bubble = qd.controller.BubbleImage();
 
-            if (qd.type == QueuedDialog.Type.Scream)
-            {
-                bubble.sprite = ScreamTextBubble;
-                bubble.color = Color.red;
-                text.color = Color.yellow;
+
+            { // Setup text and bubble
+
+                switch (qd.type)
+                {
+                    case QueuedDialog.Type.Say:
+                        bubble.color = Color.white;
+                        text.color = Color.black;
+                        break;
+                    case QueuedDialog.Type.Cry:
+                        bubble.color = CryBubbleColor;
+                        text.color = Color.black;
+                        break;
+                    case QueuedDialog.Type.Yell:
+                        bubble.color = YellBubbleColor;
+                        text.color = Color.black;
+                        break;
+                    default:
+                        bubble.color = Color.white;
+                        text.color = Color.black;
+                        break;
+                }
             }
-            else if (qd.type == QueuedDialog.Type.Spooky)
-            {
-                bubble.sprite = SpookyTextBubble;
-                bubble.color = Color.magenta;
-                text.color = Color.cyan;
-            }
-            else
-            {
-                bubble.sprite = DefaultTextBubble;
-                bubble.color = Color.white;
-                text.color = Color.black;
-            }
-            
-            bubble.color = new Color(
-                bubble.color.r,
-                bubble.color.g,
-                bubble.color.b,
-                0);
-            text.color = new Color(
-                text.color.r,
-                text.color.g,
-                text.color.b,
-                0);
+
+            bubble.color = bubble.color.MakeClear();
+            text.color = text.color.MakeClear();
         }
 
         // Get text Item to set text
-        qd.controller.DisableTooltip();
+        //qd.controller.DisableTooltip();
         qd.controller.GetDialogText().text = qd.text;
         
     }
@@ -379,7 +396,7 @@ public class DialogManager : FFComponent
     {
         QueuedDialog qd = (QueuedDialog)queuedDialog;
 
-        qd.controller.EnableTooltip();
+        qd.controller.SendEndedDialogFinishedEvent();
         qd.controller.GetDialogText().color = Color.clear;
         qd.controller.BubbleImage().color = Color.clear;
     }

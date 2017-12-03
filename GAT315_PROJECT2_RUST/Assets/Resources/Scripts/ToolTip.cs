@@ -1,13 +1,30 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ToolTip : MonoBehaviour, Interactable
+
+// DIALOGUE ONLY!!!!
+
+
+public class ToolTip : MonoBehaviour
 {
     public string toolTipTitle;
     public Vector3 localOffset;
     //public string toolTipText;
 
+    public string toolTipIdle = ". . .";
+    public string toolTipOver = "Talk";
+    public string toolTipUseing = "Skip";
+
+
+    public enum State
+    {
+        Idle,
+        Over,
+        Using,
+    }
+    public State state = State.Idle;
 
     GameObject toolTip;
     Transform playerCamera;
@@ -22,36 +39,87 @@ public class ToolTip : MonoBehaviour, Interactable
 
             toolTip.transform.SetParent(transform);
             toolTip.transform.localPosition = localOffset;
-            toolTip.SetActive(false);
-        }
-
-        // Setup Text of tooltip
-        {
-            var background = toolTip.transform.Find("Background");
-            var title = background.Find("Title");
-            //var text = background.Find("Text");
-
-            //text.GetComponent<UnityEngine.UI.Text>().text = toolTipText;
-            title.GetComponent<UnityEngine.UI.Text>().text = toolTipTitle;
         }
 
         // Find player to billboard
         {
             playerCamera = GameObject.Find("Camera").transform;
         }
+        
 
         // Are we a character Dialog Tooltip?
         if (transform.parent.GetComponent<Character>() != null)
             gameObject.AddComponent<DialogueToolTipController>();
 
 
-        // for dialogue tooltips
-	}
-	
-	// Update is called once per frame
-	void Update ()
+        // Make object disabled when you start
+        gameObject.SetActive(false);
+    }
+
+
+    void OnDestoy()
     {
-        if(toolTip.activeSelf)
+    }
+
+    public void ShowTooltip(bool active)
+    {
+        toolTip.SetActive(active);
+    }
+
+
+
+    public void SetState(State s)
+    {
+        state = s;
+        Update();
+    }
+    
+
+    // Update is called once per frame
+    void Update ()
+    {
+        // Update text based on state
+        var background = toolTip.transform.Find("Background");
+        var title = background.Find("Title");
+        switch (state)
+        {
+            case State.Idle:
+                if (toolTipIdle == null)
+                {
+                    toolTip.SetActive(false);
+                }
+                else
+                {
+                    toolTip.SetActive(true);
+                    title.GetComponent<UnityEngine.UI.Text>().text = toolTipIdle;
+                }
+                break;
+            case State.Over:
+                if (toolTipOver == null)
+                {
+                    toolTip.SetActive(false);
+                }
+                else
+                {
+                    toolTip.SetActive(true);
+                    title.GetComponent<UnityEngine.UI.Text>().text = toolTipOver;
+                }
+                break;
+            case State.Using:
+                if (toolTipUseing == null)
+                {
+                    toolTip.SetActive(false);
+                }
+                else
+                {
+                    toolTip.SetActive(true);
+                    title.GetComponent<UnityEngine.UI.Text>().text = toolTipUseing;
+                }
+                break;
+        }
+
+        // Face the player
+        if (toolTip.activeSelf)
         {
             toolTip.transform.LookAt(playerCamera, Vector3.up);
             toolTip.transform.Rotate(0, 180, 0);
@@ -59,19 +127,6 @@ public class ToolTip : MonoBehaviour, Interactable
             var distToCamera = vecToCamera.magnitude;
 
             toolTip.transform.localScale = new Vector3(1 + distToCamera, 1 + distToCamera, 1 + distToCamera);
-
-            var background = toolTip.transform.Find("Background");
-            var title = background.Find("Title");
-            title.GetComponent<UnityEngine.UI.Text>().text = toolTipTitle;
         }
-    }
-
-    public void MouseOver(bool active)
-    {
-        toolTip.SetActive(active);
-    }
-
-    public void Use() // @TODO: Make object temporaryally disappear?
-    {
     }
 }

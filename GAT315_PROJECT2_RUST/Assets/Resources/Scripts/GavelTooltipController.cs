@@ -2,10 +2,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GavelTooltipController : MonoBehaviour {
+public class GavelTooltipController : MonoBehaviour, Interactable
+{
+    public void MouseOver(bool active)
+    {
+        var tooltip = GetComponent<ToolTip>();
+        
 
-	// Use this for initialization
-	void Start () {
+        if(active)
+        {
+            tooltip.SetState(ToolTip.State.Over);
+        }
+        else
+        {
+            tooltip.SetState(ToolTip.State.Idle);
+        }
+    }
+
+    public void Use()
+    {
+    }
+
+    // Use this for initialization
+    void Start () {
 		
 	}
 	

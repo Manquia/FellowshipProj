@@ -72,7 +72,15 @@ public class SpeechController : FFComponent
 
     public void EnableTooltip()
     {
-        transform.parent.Find("TalkToolTip").gameObject.SetActive(true);
+        var tooltip = transform.parent.Find("TalkToolTip");
+        tooltip.gameObject.SetActive(true);
+
+    }
+
+    public void SendEndedDialogFinishedEvent()
+    {
+        Character.DialogueFinished df;
+        FFMessageBoard<Character.DialogueFinished>.SendToLocalToAllConnected(df, gameObject);
     }
 
 }

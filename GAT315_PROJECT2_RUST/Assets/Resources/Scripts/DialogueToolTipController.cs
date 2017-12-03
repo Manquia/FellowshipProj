@@ -3,71 +3,61 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DialogueToolTipController : MonoBehaviour {
+public class DialogueToolTipController : MonoBehaviour, Interactable
+{
 
 	// Use this for initialization
 	void Start ()
     {
-        FFMessageBoard<OrateEvent>.Connect(OnOrateEvent, gameObject);
-        FFMessageBoard<FastForwardOrate>.Connect(OnFastForwardOrate, gameObject);
-        FFMessageBoard<DisableOration>.Connect(OnDiableOration, gameObject);
+        FFMessageBoard<Character.OrateEvent>.Connect(OnOrateEvent, gameObject);
+        FFMessageBoard<Character.DisableOration>.Connect(OnDiableOration, gameObject);
+        FFMessageBoard<Character.DialogueFinished>.Connect(OnDialogueFinished, gameObject);
+    }
+    
 
-		
-	}
     private void OnDestroy()
     {
-        FFMessageBoard<OrateEvent>.Disconnect(OnOrateEvent, gameObject);
-        FFMessageBoard<FastForwardOrate>.Disconnect(OnFastForwardOrate, gameObject);
-        FFMessageBoard<DisableOration>.Disconnect(OnDiableOration, gameObject);
+        FFMessageBoard<Character.OrateEvent>.Disconnect(OnOrateEvent, gameObject);
+        FFMessageBoard<Character.DisableOration>.Disconnect(OnDiableOration, gameObject);
+        FFMessageBoard<Character.DialogueFinished>.Disconnect(OnDialogueFinished, gameObject);
     }
 
-    bool active = true;
-    float timeToShowFastForward = 0;
-    private void FixedUpdate()
+    private void OnOrateEvent(Character.OrateEvent e)
     {
-        if (!active) return;
 
-        if(timeToShowFastForward > 0.0f)
-        {
-            timeToShowFastForward = Mathf.Max(0.0f, timeToShowFastForward - Time.fixedDeltaTime);
-
-            GetComponent<ToolTip>().toolTipTitle = "--->";
-        }
     }
 
-    private void OnOrateEvent(OrateEvent e)
+    private void OnDiableOration(Character.DisableOration e)
     {
-        timeToShowFastForward += e.time;
-    }
-
-    private void OnFastForwardOrate(FastForwardOrate e)
-    {
-        timeToShowFastForward -= e.time;
-    }
-
-    private void OnDiableOration(DisableOration e)
-    {
-        active = false;
+        OnDestroy(); // disconnect immediatly
         gameObject.SetActive(false);
     }
 
+    private void OnDialogueFinished(Character.DialogueFinished e)
+    {
+        GetComponent<ToolTip>().SetState(ToolTip.State.Idle);
+    }
+    
     // Update is called once per frame
     void Update () {
 		
 	}
 
-    public struct OrateEvent
+    public void MouseOver(bool active)
     {
-        public float time;
-        public DialogManager.OratorNames orator;
-        public string text;
-        public QueuedDialog.Type type;
+        if(GetComponent<ToolTip>().state == ToolTip.State.Idle ||
+            GetComponent<ToolTip>().state == ToolTip.State.Over)
+        {
+            if (active)
+                GetComponent<ToolTip>().SetState(ToolTip.State.Over);
+            else
+                GetComponent<ToolTip>().SetState(ToolTip.State.Idle);
+        }
     }
-    public struct FastForwardOrate
+
+    public void Use()
     {
-        public float time;
+        GetComponent<ToolTip>().SetState(ToolTip.State.Using);
     }
-    public struct DisableOration
-    {
-    }
+    
 }

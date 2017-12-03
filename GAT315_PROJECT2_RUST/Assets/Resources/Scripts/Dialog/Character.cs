@@ -65,20 +65,43 @@ public class Character : FFComponent, Interactable
     {
         FFMessageBoard<BeginCharacterHearing>.Connect(OnBeginCharacterHearing, gameObject);
         FFMessageBoard<EndCharacterHearing>.Connect(OnEndCharacterHearing, gameObject);
+        FFMessageBoard<Character.DialogueFinished>.Connect(OnDialogueFinished, gameObject);
         
         dialogManager = GameObject.Find("DialogManager").GetComponent<DialogManager>();
         Debug.Assert(dialogManager != null, "No Dialog manager found");
 
         dialogManager.SetOrator(details.oratorMapping, transform);
+
+        FFMessageBoard<PersonFinishedMoving>.Connect(OnPersonFinishedMoving, gameObject);
     }
-    
+
+    private void OnPersonFinishedMoving(PersonFinishedMoving e)
+    {
+        FFMessageBoard<PersonFinishedMoving>.Disconnect(OnPersonFinishedMoving, gameObject);
+        GetSpeechController().EnableTooltip();
+    }
 
     void OnDestroy()
     {
         FFMessageBoard<BeginCharacterHearing>.Disconnect(OnBeginCharacterHearing, gameObject);
         FFMessageBoard<EndCharacterHearing>.Disconnect(OnEndCharacterHearing, gameObject);
+        FFMessageBoard<Character.DialogueFinished>.Disconnect(OnDialogueFinished, gameObject);
     }
-    
+
+    private void OnDialogueFinished(DialogueFinished e)
+    {
+        // Finished
+        if (inTrialDialogIndex >= inTrialDialog.Length)
+        {
+            DisableOration disOrientation;
+            FFMessageBoard<DisableOration>.SendToLocalToAllConnected(disOrientation, gameObject);
+        }
+        else // set reenable tooltip
+        {
+            transform.Find("SpeechController").GetComponent<SpeechController>().EnableTooltip();
+        }
+    }
+
     // Update is called once per frame
     void Update ()
     {
@@ -134,31 +157,27 @@ public class Character : FFComponent, Interactable
     {
         if (orateTimes.Count > 0)
             orateTimes[0] -= Time.fixedDeltaTime;
-
     }
+
+
     public List<float> orateTimes = new List<float>();
     public void Use()
     {
         Debug.Log("Use");
 
-        // If already talking
+        // If already talking, fast forward
         if(orateTimes.Count > 0)
         {
             float timeRemaining = orateTimes[0];
             dialogManager.TimeWarp(timeRemaining);
             orateTimes.RemoveAt(0);
-
-            FastForwardOrate ffo;
-            ffo.time = timeRemaining;
-            FFMessageBoard<FastForwardOrate>.SendToLocalToAllConnected(ffo, gameObject);
-            return;
         }
 
 
         // in Trial
         if (inTrialDialogIndex < inTrialDialog.Length)
         {
-            Debug.Log("InTrialDialog Queue");
+            //Debug.Log("InTrialDialog Queue");
             string text = "";
 
             if (details.name != null && details.name.Length > 1)
@@ -186,7 +205,7 @@ public class Character : FFComponent, Interactable
                 inTrialDialog[inTrialDialogIndex].type);
 
             orateTimes.Add(time);
-            Debug.Log("time To finish Dialog: " + time);
+            //Debug.Log("time To finish Dialog: " + time);
 
             // for 
             OrateEvent oe;
@@ -198,13 +217,7 @@ public class Character : FFComponent, Interactable
 
             ++inTrialDialogIndex;
         }
-
-        // Finished
-        if(inTrialDialogIndex >= inTrialDialog.Length)
-        {
-            DisableOration disOrientation;
-            FFMessageBoard<DisableOration>.SendToLocalToAllConnected(disOrientation, gameObject);
-        }
+        
     }
 
     public struct OrateEvent
@@ -214,9 +227,8 @@ public class Character : FFComponent, Interactable
         public string text;
         public QueuedDialog.Type type;
     }
-    public struct FastForwardOrate
+    public struct DialogueFinished
     {
-        public float time;
     }
     public struct DisableOration
     {
