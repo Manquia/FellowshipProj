@@ -9,8 +9,8 @@ public class QueuedDialog
     public enum Type
     {
         Say,
-        Cry,
-        Yell,
+        //Cry,
+        //Yell,
     }
     public Character.Details charaterDetails;
     public FFAction.ActionSequence dialogSeq;
@@ -311,14 +311,14 @@ public class DialogManager : FFComponent
                     newBubbleColor = Color.white;
                     newTextColor = Color.black;
                     break;
-                case QueuedDialog.Type.Cry:
-                    newBubbleColor = CryBubbleColor;
-                    newTextColor = Color.black;
-                    break;
-                case QueuedDialog.Type.Yell:
-                    newBubbleColor = YellBubbleColor;
-                    newTextColor = Color.black;
-                    break;
+                //case QueuedDialog.Type.Cry:
+                //    newBubbleColor = CryBubbleColor;
+                //    newTextColor = Color.black;
+                //    break;
+                //case QueuedDialog.Type.Yell:
+                //    newBubbleColor = YellBubbleColor;
+                //    newTextColor = Color.black;
+                //    break;
                 default:
                     newBubbleColor = Color.white;
                     newTextColor = Color.black;
@@ -392,16 +392,16 @@ public class DialogManager : FFComponent
                         bubble.color = Color.white;
                         text.color = Color.black;
                         break;
-                    case QueuedDialog.Type.Cry:
-                        audioSrc.PlayOneShot(FFResource.Load_AudioClip("Crying_" + genderTag));
-                        bubble.color = CryBubbleColor;
-                        text.color = Color.black;
-                        break;
-                    case QueuedDialog.Type.Yell:
-                        audioSrc.PlayOneShot(FFResource.Load_AudioClip("Yell_" + genderTag));
-                        bubble.color = YellBubbleColor;
-                        text.color = Color.black;
-                        break;
+                    //case QueuedDialog.Type.Cry:
+                    //    audioSrc.PlayOneShot(FFResource.Load_AudioClip("Crying_" + genderTag));
+                    //    bubble.color = CryBubbleColor;
+                    //    text.color = Color.black;
+                    //    break;
+                    //case QueuedDialog.Type.Yell:
+                    //    audioSrc.PlayOneShot(FFResource.Load_AudioClip("Yell_" + genderTag));
+                    //    bubble.color = YellBubbleColor;
+                    //    text.color = Color.black;
+                    //    break;
                     default:
                         bubble.color = Color.white;
                         text.color = Color.black;

@@ -376,6 +376,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   distAlongPath: 0
+  movementSpeed: 2
+  offset: {x: 0, y: 0, z: 0}
   startingIndex: 0
   PathToFollow: {fileID: 0}
 --- !u!114 &114185703718634226
@@ -439,8 +441,8 @@ MonoBehaviour:
     characterNameAge: Tom Light Savage Age:55
     Investigation: Tom [Age 55] used to work at a local bar as their dishwasher. That
       was until he was fired recently after being late for work. Without any income,
-      he couldn't pay for rent and began to begging on the streets. It seems like
-      he was having a particularly bad day when he couldn't take no for an answer.
+      he couldn't pay for rent and began begging on the streets. It seems like he
+      was having a particularly bad day when he couldn't take no for an answer.
     sent1:
       appearsWeeksLater: -1
       stage: -1

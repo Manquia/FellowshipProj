@@ -376,6 +376,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   distAlongPath: 0
+  movementSpeed: 2
+  offset: {x: 0, y: 0, z: 0}
   startingIndex: 0
   PathToFollow: {fileID: 0}
 --- !u!114 &114572489129612446
@@ -427,13 +429,13 @@ MonoBehaviour:
     - '- Manslaughter'
     chargesNotes: 'Christopher [Age 31] attacked and killed an assailant at the Tipsy
       South bar. Christopher talking with a woman at the bar he who was being harassed.
-      Christopher engaged the man, Mark Rum Randle in a fight fight. Eyewitnesses
-      did not try and stop the fight out of fear for their own safety. Christopher
-      sustained heavy injuries in the fight as both combatants were taken to the ER. '
+      Christopher engaged the man, Mark Rum Randle in a fight. Eyewitnesses did not
+      try and stop the fight out of fear for their own safety. Christopher sustained
+      substantial injuries in the brawl as both combatants were taken to the ER. '
     characterNameAge: Christopher Bernardo Tiras Age:31
     Investigation: Christopher has been living in a broken down apartment in the suburbs.
-      He lives alone, and recently found work at a local grocery store. This is Christopher's
-      first account of a violent crime, however, he spent a few months in jail for
+      He lives alone and recently found work at a local grocery store. This is Christopher's
+      first account of a violent crime. However, he spent a few months in jail for
       sexual harassment at his old job at Mastercorp.
     sent1:
       appearsWeeksLater: -1

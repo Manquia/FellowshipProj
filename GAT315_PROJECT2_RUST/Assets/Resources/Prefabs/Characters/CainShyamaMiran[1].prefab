@@ -376,6 +376,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   distAlongPath: 0
+  movementSpeed: 2
+  offset: {x: 0, y: 0, z: 0}
   startingIndex: 0
   PathToFollow: {fileID: 0}
 --- !u!114 &114572489129612446
@@ -410,8 +412,8 @@ MonoBehaviour:
       I gave him and doesn\u2019t want to man up to his reckless driving."
     type: 2
   - orator: 3
-    text: "Please hear me out. I\u2019ve got a wife and 2 kids at home. They are my
-      pride and joy, please don\u2019t let their father be painted like a villain
+    text: "Please hear me out. I\u2019ve got a wife and two kids at home. They are
+      my pride and joy, please don\u2019t let their father be painted like a villain
       for crimes he didn\u2019t commit."
     type: 0
   - orator: 3
@@ -428,14 +430,15 @@ MonoBehaviour:
     charges:
     - '- Extortion'
     - '- Grand Larceny (theft)'
-    chargesNotes: 'Officer Miran Cain [Age 38] has been accused of extortion of multiple
-      citizen. Cain has been accused of extorting drivers for incentives to reduce
+    chargesNotes: 'Officer Miran Cain [Age 38] has been accused of extortion of many
+      citizens. Cain has been charged with extorting drivers for incentives to reduce
       the level of a ticket. It is surprising that he has slipped under the radar
-      for so long. Cain denies all charges and we had no witnesses willing to testify
-      or any major evidence. Until now. Brian Narm came forward and relayed that he
-      was given a choice to give Cain $150 or have his Driver''s licence revoked for
-      hit ticket. Brian complied and his ticket was reduced to a 5 point speeding
-      ticket from what he claims would have been a $1000 fine and revoking his licence. '
+      for so long. Cain denies all charges, and we had no witnesses willing to testify
+      or any significant evidence. Until now. Brian Narm came forward and relayed
+      that he was given a choice to provide Cain with $150 or have his Driver''s license
+      revoked for hit ticket. Brian complied, and his ticket was reduced to a 5 point
+      speeding ticket from what he claims would have been a $1000 fine and revoking
+      his license. '
     characterNameAge: Cain Shyama Miran Age:38
     Investigation: 'Note from investigator: Cain is a personal friend of mine. We
       worked together on some cases, and it''s surprising that he would commit such

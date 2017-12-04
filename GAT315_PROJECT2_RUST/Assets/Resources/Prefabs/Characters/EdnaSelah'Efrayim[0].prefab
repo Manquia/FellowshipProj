@@ -376,6 +376,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   distAlongPath: 0
+  movementSpeed: 2
+  offset: {x: 0, y: 0, z: 0}
   startingIndex: 0
   PathToFollow: {fileID: 0}
 --- !u!114 &114572489129612446
@@ -427,7 +429,7 @@ MonoBehaviour:
       finances back these claims.
     characterNameAge: Edna Selah' Efrayim Age:24
     Investigation: 'Edna [Age 23] has been studying at the Ballard University downtown
-      and lives in a small apartment in downtown. This is the first offence she has
+      and lives in a small apartment in the city. This is the first offense she has
       on her record. '
     sent1:
       appearsWeeksLater: 12

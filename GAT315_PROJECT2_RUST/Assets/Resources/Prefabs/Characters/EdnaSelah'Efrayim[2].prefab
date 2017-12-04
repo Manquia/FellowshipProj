@@ -376,6 +376,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   distAlongPath: 0
+  movementSpeed: 2
+  offset: {x: 0, y: 0, z: 0}
   startingIndex: 0
   PathToFollow: {fileID: 0}
 --- !u!114 &114572489129612446
@@ -414,18 +416,18 @@ MonoBehaviour:
     - '- Drug Trafficking'
     - '- Assault'
     - '- Extortion'
-    chargesNotes: "Edna [Age 24] visited multiple residence in the east block of the
-      city to \u201Cclaim\u201D protections fees from other gangs in the area. Residence
-      report assault, extortion, and drug trafficking. Edna became very active in
-      the area and a well known member of The Grips. This was until we busted one
-      of their dens in a strike operation. Since she is new member of the gang, her
-      charges are less than some of the longstanding members we took in. "
+    chargesNotes: "Edna [Age 24] visited multiple residences in the east block of
+      the city to \u201Cclaim\u201D protections fees from other gangs in the area.
+      Residence report assault, extortion, and drug trafficking. Edna became very
+      active in the area and a well-known member of The Grips. This was until we busted
+      one of their dens in a strike operation. Since she is a new member of the gang,
+      her charges are less than some of the longstanding members we took in. "
     characterNameAge: Edna Selah' Efrayim Age:24
     Investigation: Edna [Age 24] was recently charged with prostitution and served
-      a small time in jail. While in jail she joined a street gang known as The Grips.
-      Edna claims she joined the gang because she no longer had any scholarships for
-      school or any rent/food money left after serving time in prison. However, Edna
-      become a very active member of The Grips in a very short time.
+      a small time in jail. While in prison she joined a street gang known as The
+      Grips. Edna claims she joined the gang because she no longer had any scholarships
+      for school or any rent/food money left after serving time in prison. However,
+      Edna has become a very active member of The Grips in a very short time.
     sent1:
       appearsWeeksLater: -1
       stage: -1

@@ -377,6 +377,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   distAlongPath: 0.088
+  movementSpeed: 2
+  offset: {x: 0, y: 0, z: 0}
   startingIndex: 0
   PathToFollow: {fileID: 0}
 --- !u!114 &114302850119569570
@@ -432,7 +434,7 @@ MonoBehaviour:
     - '- Sped through stop-sign at high speed'
     - '- Reckless Driving'
     chargesNotes: Tom [Age 55] sped through a residential area 10 over the speed limit
-      and through a stop-sign. Tom was late for work and decided that public safety
+      and through a stop sign. Tom was late for work and decided that public safety
       was less important than his job.
     characterNameAge: Tom Light Savage Age:55
     Investigation: Tom [Age 55] lives alone in a small apartment in downtown. His

@@ -376,6 +376,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   distAlongPath: 0
+  movementSpeed: 2
+  offset: {x: 0, y: 0, z: 0}
   startingIndex: 0
   PathToFollow: {fileID: 0}
 --- !u!114 &114572489129612446
@@ -421,11 +423,11 @@ MonoBehaviour:
     - '- Use of illegal drugs (Marijuana, Meth)'
     - '- Kidnapping, Assault'
     chargesNotes: "Edna [Age 24] is charged with use kidnapping, assault, and use
-      and distribution of illegal drugs Marijuana, Meth. It looks like Edna started
-      up a small distribution network the downtown area. But her partner Samantha
-      didn\u2019t agree with their business model. Edna then beat and kidnapped Samantha
-      locking her away to try and persuade her to be quiet. After 2 days, Samantha
-      escaped and got the police involved. "
+      and distribution of illegal drugs Marijuana, Meth, and Ecstasy. It looks like
+      Edna started up a small distribution network the downtown area. But her partner
+      Samantha didn\u2019t agree with their business model. Edna then beat and kidnapped
+      Samantha locking her away to try and persuade her to be quiet. After 2 days,
+      Samantha escaped and got the police involved. "
     characterNameAge: Edna Selah' Efrayim Age:24
     Investigation: We found Edna [Age 24] running a drug den in a run-down apartment.
       The force found the drug den via the instruction of Samantha. We found 25.2

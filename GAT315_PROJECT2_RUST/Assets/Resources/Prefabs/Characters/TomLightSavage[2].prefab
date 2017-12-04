@@ -376,6 +376,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   distAlongPath: 0
+  movementSpeed: 2
+  offset: {x: 0, y: 0, z: 0}
   startingIndex: 0
   PathToFollow: {fileID: 0}
 --- !u!114 &114572489129612446
@@ -422,8 +424,8 @@ MonoBehaviour:
       Sayman. Tom did everything he could to try and help Emmy make it to emergency
       services.
     characterNameAge: Tom Light Savage Age:55
-    Investigation: 'Tom [Age 55] has a record or reckless driving. I am surprised
-      his license wasn''t removed for his last charge. Tom was all in all a nice guy
+    Investigation: 'Tom [Age 55] has a record of reckless driving. I am surprised
+      his license wasn''t removed for his last charge. Tom was all-in-all a nice guy
       who recently lost his job. Says the morning of the accident he was late for
       an interview in downtown. '
     sent1:

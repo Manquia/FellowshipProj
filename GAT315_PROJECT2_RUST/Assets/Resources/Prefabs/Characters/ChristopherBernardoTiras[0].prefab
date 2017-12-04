@@ -376,6 +376,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   distAlongPath: 0
+  movementSpeed: 2
+  offset: {x: 0, y: 0, z: 0}
   startingIndex: 0
   PathToFollow: {fileID: 0}
 --- !u!114 &114572489129612446
@@ -406,7 +408,7 @@ MonoBehaviour:
   exitSoftSentence: []
   inTrialDialog:
   - orator: 3
-    text: I Did wrong, I know I should have left Sarah alone, but she was charming
+    text: I did wrong, I know I should have left Sarah alone, but she was charming
       and kind. I thought we could make a great couple.
     type: 0
   - orator: 3
@@ -420,18 +422,18 @@ MonoBehaviour:
   crime:
     charges:
     - '- Sexual Harassment'
-    chargesNotes: 'Christopher repeatedly made advances on a  co-worker who refused
-      his advances. Christopher did not assault the victim, but was persistent. The
-      victim claims he would make an advance once every friday. This behavior lasted
-      for 3 months, until their superior found out and about the unwanted advances.
-      Christopher was promptly fired, and charges were filed 1 week later after. '
+    chargesNotes: 'Christopher [Age 30] repeatedly made unwanted advances on a co-worker.
+      Christopher did not assault the victim but was persistent. The victim claims
+      he would make an advance once every Friday. This behavior lasted for 3 months
+      until their superiors found out and about the unwanted advances. Christopher
+      was promptly fired, and charges were filed 1 week later after. '
     characterNameAge: Christopher Bernardo Tiras Age:30
     Investigation: Christopher [Age 30] is an outstanding worker at Mastercorp who
-      lives alone in his apartment downtown. He has family out of state, but rarely
-      do they visit. Christopher graduated with a Bachelors in Business Management
-      so he should know that this sort of behavior is completely inappropriate. Comments
+      lives alone in his apartment downtown. He has family out of state but rarely
+      does they visit. Christopher graduated with a Bachelors in Business Management
+      and so should know that this sort of behavior is entirely inappropriate. Comments
       from his family indicate that he was never violent but when he wanted something
-      he would give his all to get it regardless of how much time and effort it costed
+      he would give his all to get it regardless of how much time and effort it cost
       him.
     sent1:
       appearsWeeksLater: 2

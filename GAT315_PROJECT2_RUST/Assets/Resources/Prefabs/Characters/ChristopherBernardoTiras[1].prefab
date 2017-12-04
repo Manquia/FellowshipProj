@@ -376,6 +376,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   distAlongPath: 0
+  movementSpeed: 2
+  offset: {x: 0, y: 0, z: 0}
   startingIndex: 0
   PathToFollow: {fileID: 0}
 --- !u!114 &114572489129612446
@@ -406,8 +408,8 @@ MonoBehaviour:
   exitSoftSentence: []
   inTrialDialog:
   - orator: 3
-    text: "My lawyer has advised me to remain silent. But I want to say 1 thing. I
-      didn\u2019t mean to make Sarah feel like her life was in danger."
+    text: "My lawyer has advised me to remain silent. But I want to say one thing.
+      I didn\u2019t mean to make Sarah feel like her life was in danger."
     type: 0
   - orator: 3
     text: I had the weapon on my person because I was moving through a rough part

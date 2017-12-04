@@ -376,6 +376,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   distAlongPath: 0
+  movementSpeed: 2
+  offset: {x: 0, y: 0, z: 0}
   startingIndex: 0
   PathToFollow: {fileID: 0}
 --- !u!114 &114572489129612446
@@ -422,11 +424,12 @@ MonoBehaviour:
       something from within his jacket. Cain reacted by using his taser to stunning
       the man. Once on the ground with the taser spent, Robert continued to try and
       reach inside his jacket. Officer Cain became violent with Robert in an attempt
-      to place him in cuffs. A second officer on-site can verify his story.  Cain
-      is one of the most respected officers in the downtown office. He has worked
-      for many years dutifully with this encounter being his first notable offense
-      in 8 years of service. Cain has a wife and two kids who frequently visit the
-      station and are known by the other officers.  '
+      to place him in cuffs. A second officer on-site can verify his story. Later
+      investigation found nothing inside Robert''s jacket. Cain is one of the most
+      respected officers in the downtown office. He has worked for many years dutifully
+      with this encounter being his first notable offense in 8 years of service. Cain
+      has a wife and two kids who frequently visit the station and are known by the
+      other officers.  '
     sent1:
       appearsWeeksLater: 6
       stage: 1

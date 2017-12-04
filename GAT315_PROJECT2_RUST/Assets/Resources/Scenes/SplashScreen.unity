@@ -913,23 +913,13 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1537193621}
-  m_Text: 'Judge and Jury is an adult game which contains several trigger warnings
-    because of
-
-    its references to theft, alcohol, murder, and sexual themes. The author recommends
-
-    that if you are under the age of 18 that you do NOT play this game. This game
-    was
-
-    not created to have fun but gives the experience of being a judge who has to make
-
-    the hard choices. If this doesn''t sound like you, feel free to press the escape
-    key to
-
-    quit the game at any time. If you still wish to continue press Shift + S to start
-    the
-
-    experience and best of luck in court. '
+  m_Text: "Judge and Jury is an adult game which contains triggers because of\r\nits
+    references to theft, alcohol, murder, and sexual themes. The author recommends\r\nthat
+    if you are under the age of 18 that you do NOT play this game. This game was\r\nnot
+    created to have fun but gives the experience of being a judge who has to make\r\nhard
+    choices. If this doesn't sound like you, feel free to press the escape key to\r\nquit
+    the game at any time. If you still wish to continue press Shift + S to start the\r\nexperience:
+    and best of luck in court. "
   m_OffsetZ: 0
   m_CharacterSize: 1
   m_LineSpacing: 1
