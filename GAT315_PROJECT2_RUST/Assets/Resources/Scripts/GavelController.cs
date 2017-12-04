@@ -25,8 +25,11 @@ public class GavelController : FFComponent, Interactable {
     bool chosenSentence = false;
     Transform GavelRoot;
     float crowdNoiseVolumeSave;
+    float adjustedVolume;
     AudioSource CrowdNoise;
 
+
+    CrowdManager crowdManager;
 	// Use this for initialization
 	void Start ()
     {
@@ -39,6 +42,11 @@ public class GavelController : FFComponent, Interactable {
         state = State.Idle;
         FFMessage<BeginCharacterHearing>.Connect(OnBeginCharacterHearing);
         FFMessage<SentenceChosen>.Connect(OnSentenceChosen);
+
+        CrowdVolumeRef().Setter(0.0f); // set crowd volume to zero
+        crowdManager = GameObject.Find("CrowdManager").GetComponent<CrowdManager>();
+        UpdateCrowd(); // use crowd manager to setup audience crowd
+
     }
     void OnDestroy()
     {
@@ -173,19 +181,28 @@ public class GavelController : FFComponent, Interactable {
 
 
                 var courtRoomController = GameObject.Find("CourtRoomController").GetComponent<CountRoomController>();
-                if (courtRoomController.MoreCriminalsThisWeek() == false) // are
+                if (courtRoomController.MoreCriminalsThisWeek() == false) // are finished for the week
                 {
                     // Trigger end week in court room
                     SendInNextCharacter sinc;
                     FFMessage<SendInNextCharacter>.SendToLocal(sinc);
                 }
-                else
-                {
-                    FadeInCrowdNoise();
-                }
+
+                UpdateCrowd();
             }
             break;
         }
+    }
+
+    void UpdateCrowd()
+    {
+        int sizeofCrowd = crowdManager.SwapCrowd();
+
+        float volumeScale = sizeofCrowd / crowdManager.maxCrowdSize;
+        adjustedVolume = Mathf.Min(1.0f,volumeScale * crowdNoiseVolumeSave + 0.5f);
+
+        if (sizeofCrowd > 1)
+            FadeInCrowdNoise();
     }
 
     void FadeOutCrowdNoise()
@@ -200,7 +217,7 @@ public class GavelController : FFComponent, Interactable {
         audioSeq.ClearSequence();
         audioSeq.Delay(1.4f);
         audioSeq.Sync();
-        audioSeq.Property(CrowdVolumeRef(), crowdNoiseVolumeSave, FFEase.E_SmoothEnd, 2.0f);
+        audioSeq.Property(CrowdVolumeRef(), adjustedVolume, FFEase.E_SmoothEnd, 2.0f);
     }
 
     FFRef<float> CrowdVolumeRef()

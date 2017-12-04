@@ -76,7 +76,7 @@ GameObject:
   - component: {fileID: 114572489129612446}
   - component: {fileID: 114050363291459774}
   m_Layer: 0
-  m_Name: OfficerBradley
+  m_Name: BrianNarm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -376,7 +376,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   distAlongPath: 0
-  movementSpeed: 1.1
   startingIndex: 0
   PathToFollow: {fileID: 0}
 --- !u!114 &114572489129612446
@@ -391,8 +390,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   details:
-    name: OfficerBradley
+    name: BrianNarm
     oratorMapping: 2
+    gender: 0
   mugshot: {fileID: 0}
   enterDialog: []
   talkDialog: []
@@ -400,12 +400,22 @@ MonoBehaviour:
   exitSoftSentence: []
   inTrialDialog:
   - orator: 2
-    text: Officer Cain was diligent in preventing a possible incident at the protest.
-      His actions were justified.
+    text: 'Officer Cain pulled me over and told me that my driving offense was very
+      severe and that I would need to play a lot of money to not lose my license.
+      I told him I would never pay him and I''d see him in court.  '
     type: 0
   - orator: 2
-    text: "Officer Cain is a good officer who has worked long and hard over the years
-      to keep this city\u2019s people safe."
+    text: He then gave me a 5 point ticket because I scared him enough to get him
+      off my case. He then has the gall to say I made it all up.
+    type: 0
+  - orator: 2
+    text: Officer Cain is a prime example of how this city's police have been rotting
+      in their own filth and corruption. I demand that officer can be dismissed from
+      his position immediately.
+    type: 0
+  - orator: 2
+    text: In fact, it would be wise to start a city-wide investigation to everyone
+      in the police force to find and exterminate the rats in the system.
     type: 0
   crime:
     charges: []
@@ -425,6 +435,7 @@ MonoBehaviour:
       stage: 0
       text: 0
   witness: {fileID: 0}
+  orateTimes: []
 --- !u!114 &114630283270765282
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -438,6 +449,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   toolTipTitle: Talk
   localOffset: {x: 0, y: 0, z: 0}
+  toolTipIdle: . . .
+  toolTipOver: Talk
+  toolTipUseing: Skip
+  IdleOffset: {x: 0, y: 0, z: 0}
+  OverOffset: {x: 0, y: 0, z: 0}
+  state: 0
 --- !u!114 &114885396900426398
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -151,13 +151,6 @@ public class Character : FFComponent, Interactable
 
     public void MouseOver(bool active)
     {
-        if(active)
-        {
-        }
-        else
-        {
-
-        }
     }
 
     bool CapitalLetter(char character)
@@ -168,6 +161,21 @@ public class Character : FFComponent, Interactable
             return false;
     }
 
+    public void DisableDialogue()
+    {
+        var speechController = transform.Find("SpeechController").GetComponent<SpeechController>();
+        speechController.DisableTooltip();
+        speechController.gameObject.SetActive(false);
+        active = false;
+    }
+    public void EnableDialogue()
+    {
+        var speechController = transform.Find("SpeechController").GetComponent<SpeechController>();
+        speechController.EnableTooltip();
+        speechController.gameObject.SetActive(true);
+        active = true;
+    }
+
 
     private void FixedUpdate()
     {
@@ -175,18 +183,20 @@ public class Character : FFComponent, Interactable
             orateTimes[0] -= Time.fixedDeltaTime;
     }
 
-
+    bool active = true;
     public List<float> orateTimes = new List<float>();
     public void Use()
     {
-        //Debug.Log("Use");
-
+        if (!active)
+            return;
+        
         // If already talking, fast forward
-        if(orateTimes.Count > 0)
+        if (orateTimes.Count > 0)
         {
             float timeRemaining = orateTimes[0];
             dialogManager.TimeWarp(timeRemaining);
             orateTimes.RemoveAt(0);
+            return;
         }
 
 

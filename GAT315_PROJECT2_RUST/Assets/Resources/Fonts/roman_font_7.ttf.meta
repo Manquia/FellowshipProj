@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 3e7a6885e209db84c9eeb7dcc9902904
+timeCreated: 1512350415
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Roman Font 7
+  fontNames:
+  - Roman Font 7
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

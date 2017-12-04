@@ -421,11 +421,11 @@ MonoBehaviour:
   - orator: 3
     text: I am very sorry about speeding through the stop-sign. I was very late for
       work and ended up getting fired only last week.
-    type: 1
+    type: 0
   - orator: 3
     text: "I promise I will always obey the rules of the road. Please don\u2019t revoke
       my license. "
-    type: 2
+    type: 0
   crime:
     charges:
     - '- Speeding ticket 10 over in residential area.'

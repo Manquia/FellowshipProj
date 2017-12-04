@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: d0225d4ab55aaea4191f7fd1f20ad278
+timeCreated: 1512350195
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Schindler?s Font
+  fontNames:
+  - Schindler?s Font
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

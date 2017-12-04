@@ -415,11 +415,11 @@ MonoBehaviour:
       but I thought she finally realized that we were meant to be together.
     type: 0
   - orator: 3
-    text: I love her and I fucked it up.
+    text: I love her, and I fucked it up.
     type: 0
   crime:
     charges:
-    - '- Aggrivated Sexual Assault'
+    - '- Sexual Assault'
     - '- Rape'
     chargesNotes: Christopher [Age 30] sexually assaulted Sarah Bitterman under threat
       of violence. Christopher showed up at the Bitterman residence late in the evening
@@ -427,27 +427,27 @@ MonoBehaviour:
       was inside the house, Sarah noticed a gun holstered which she took as a show
       of lethal force. Sarah resisted and argued until she saw this weapon at which
       point she everything she could to survive the evening. Once Christopher fell
-      asleep, Sarah feld the house and called the police. Sarah was violently raped,
+      asleep, Sarah fled the house and called the police. Sarah was violently raped
       and physically was unable to work for 2 weeks.
     characterNameAge: Christopher Bernardo Tiras Age:30
     Investigation: "Christopher was charged with sexual harassment only a few weeks
       previous. He lost his job and received a fine, but no jail time was given. Christopher\u2019s
-      family was shocked about hearing the news and has no defence for his actions.
+      family was shocked about hearing the news and has no defense for his actions.
       Sarah is devastated by the attack and feels like she may never fully recover
       the terror of being raped by a previous co-worker."
     sent1:
       appearsWeeksLater: -1
       stage: -1
-      text: 15 years in prison, parole possible after 7 years
+      text: 8 years in prison, parole possible after 4 years
     sent2:
       appearsWeeksLater: -1
       stage: -1
-      text: 25 years in prison, parole possible after 10 years
+      text: 15 years in prison, parole possible after 7 years
     sent3:
       appearsWeeksLater: -1
       stage: -1
-      text: 35 years in prison, parole possible after 15 years
-  witness: {fileID: 0}
+      text: 27 years in prison, parole possible after 15 years
+  witness: {fileID: 1240050105488208, guid: b739eb091aaf015469aec56c49c7a6fd, type: 2}
   orateTimes: []
 --- !u!114 &114630283270765282
 MonoBehaviour:

@@ -403,7 +403,7 @@ MonoBehaviour:
   details:
     name: JanisDavidThomson
     oratorMapping: 3
-    gender: 0
+    gender: 1
   mugshot: {fileID: 21300000, guid: f7090580a1fbffb498f67f5515591cb5, type: 3}
   enterDialog:
   - orator: 2

@@ -408,7 +408,7 @@ MonoBehaviour:
   - orator: 3
     text: "Brian is making everything up. He is simply unhappy with the 5 point ticket
       I gave him and doesn\u2019t want to man up to his reckless driving."
-    type: 0
+    type: 2
   - orator: 3
     text: "Please hear me out. I\u2019ve got a wife and 2 kids at home. They are my
       pride and joy, please don\u2019t let their father be painted like a villain
@@ -455,7 +455,7 @@ MonoBehaviour:
       appearsWeeksLater: -1
       stage: -1
       text: Dismiss Officer, 1 year in jail
-  witness: {fileID: 0}
+  witness: {fileID: 1240050105488208, guid: 897d5c9c59da4f74899d8e80806bf3ca, type: 2}
   orateTimes: []
 --- !u!114 &114630283270765282
 MonoBehaviour:

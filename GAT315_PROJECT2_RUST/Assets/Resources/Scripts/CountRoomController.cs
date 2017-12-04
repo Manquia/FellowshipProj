@@ -90,6 +90,7 @@ public class CountRoomController : MonoBehaviour {
             PersonMover personMover = personTrans.GetComponent<PersonMover>();
             Character personCharacter = personTrans.GetComponent<Character>();
 
+            personCharacter.DisableDialogue();
             personMover.PathToFollow = accusedExitPath;
             personMover.distAlongPath = 0.0f;
             personMover.Move(accusedExitPath.points.Length - 1);

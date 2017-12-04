@@ -2,6 +2,7 @@
 
 public struct PersonFinishedMoving
 {
+    public Transform trans;
 }
 
 public class PersonMover : FFComponent
@@ -10,8 +11,9 @@ public class PersonMover : FFComponent
 
     public float distAlongPath = 0;
 
-    float movementSpeed = 12.0f;
+    public float movementSpeed = 2.0f;
 
+    public Vector3 offset;
     public int startingIndex = 0;
     int currentPointIndex = 0;
     public FFPath PathToFollow;
@@ -42,14 +44,15 @@ public class PersonMover : FFComponent
         float lengthToNextPoint = PathToFollow.LengthAlongPathToPoint(currentPointIndex);
         if (distAlongPath >= lengthToNextPoint) // reached next point
         {
-            transform.position = PathToFollow.PointAlongPath(lengthToNextPoint); // goto point
+            transform.position = PathToFollow.PointAlongPath(lengthToNextPoint) + offset; // goto point
             PersonFinishedMoving pfm;
+            pfm.trans = transform;
             FFMessageBoard<PersonFinishedMoving>.SendToLocal(pfm, gameObject);
             return;
         }
         else // keep moving along path
         {
-            transform.position = PathToFollow.PointAlongPath(distAlongPath);
+            transform.position = PathToFollow.PointAlongPath(distAlongPath) + offset;
         }
 
         distAlongPath += Time.deltaTime * movementSpeed;
@@ -63,14 +66,15 @@ public class PersonMover : FFComponent
         float lengthToPrevPoint = PathToFollow.LengthAlongPathToPoint(currentPointIndex);
         if (distAlongPath <= lengthToPrevPoint) // reached begining
         {
-            transform.position = PathToFollow.PointAlongPath(lengthToPrevPoint); // goto point
+            transform.position = PathToFollow.PointAlongPath(lengthToPrevPoint) + offset; // goto point
             PersonFinishedMoving pfm;
+            pfm.trans = transform;
             FFMessageBoard<PersonFinishedMoving>.SendToLocal(pfm, gameObject);
             return;
         }
         else // keep moving along path
         {
-            transform.position = PathToFollow.PointAlongPath(distAlongPath);
+            transform.position = PathToFollow.PointAlongPath(distAlongPath) + offset;
         }
 
         distAlongPath -= Time.deltaTime * movementSpeed;
