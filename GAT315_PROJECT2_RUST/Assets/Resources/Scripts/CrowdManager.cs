@@ -60,6 +60,7 @@ public class CrowdManager : MonoBehaviour {
             crowdPerson.position = new Vector3(0.0f, -100f, 0.0f);
             crowdPerson.localScale = new Vector3(scale, scale, scale);
 
+            // Set offset of position to match scale
             var mover = crowdPerson.GetComponent<PersonMover>();
             mover.offset = new Vector3(
                 UnityEngine.Random.Range(-0.1f, 0.1f),
@@ -106,7 +107,7 @@ public class CrowdManager : MonoBehaviour {
             UnityEngine.Random.Range(0, 15) +
             UnityEngine.Random.Range(-2, 14);
 
-        for (int i = 0; i < numberInCrownd && waitingPeople.Count > 0; ++i)
+        for (int i = 0; i < numberInCrownd && waitingPeople.Count > 0 && SeatsAreAvailable() > 4; ++i)
         {
             // Find an open seat
             int randomSeatNumber;
@@ -156,6 +157,7 @@ public class CrowdManager : MonoBehaviour {
         FFMessageBoard<PersonFinishedMoving>.Connect(OnCrowdPersonExitCourt, person.gameObject);
     }
     
+    
     void SendPersonIn(Transform person, FFPath path, int index, int seatNumber)
     {
         var mover = person.GetComponent<PersonMover>();
@@ -173,6 +175,17 @@ public class CrowdManager : MonoBehaviour {
         FFMessageBoard<PersonFinishedMoving>.Connect(OnCrowdPersonReachedSeat, person.gameObject);
     }
 
+    int SeatsAreAvailable()
+    {
+        int counter = maxCrowdSize;
+        foreach (var seat in seatTaken)
+        {
+            if (seat.Value == true)
+                --counter;
+        }
+
+        return counter;
+    }
     bool SeatOccupied(int seatNumber)
     {
         if(seatTaken.ContainsKey(seatNumber))

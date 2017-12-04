@@ -1,18 +1,17 @@
 GAT 315 Task List
 
 
-- Add Roof to Court room
-- Add a cool font for the game's splash screen + Credits
-- Add cheat codes to move between levels
-- Add sprites to charcter faces
-- show approval ratting at end of game
+-+ Add a cool font for the game's splash screen + Credits
+-+ show approval ratting at end of game
+-+ Add cheat codes to move between levels
+-+ Test game
+-+ Add sprites to charcter faces
+-+ Bake lighting
+-+ Add Roof to Court room
+
+- Build project + Submit
 - Need to do an age pass on all of the characters based on mugshots
 - Add Edna[1] Samanta Witness
-Add cheat code to fix approval rating to massive numbers (Level Changes???)
-- Add doodads
--- Flags in the courtroom USA  (American legal system, OR state flag texas)
--- Fire Alarm + Fire Extinguisher
-
 
 [MAYBE]
 - Weeks Notification shown with Months (January, Febuary, March, etc…)

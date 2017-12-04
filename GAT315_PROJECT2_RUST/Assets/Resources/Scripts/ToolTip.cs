@@ -19,8 +19,11 @@ public class ToolTip : MonoBehaviour
 
     public Vector3 IdleOffset = Vector3.zero;
     public Vector3 OverOffset = Vector3.zero;
-    Vector3 usingOffset = new Vector3(0,-0.27f, -0.4f);
-
+    Vector3 usingOffset = new Vector3(0,-1.12f, -0.35f);
+    
+    //Vector3 Idlescale  = new Vector3(1.0f,1.0f,1.0f);
+    //Vector3 Overscale  = new Vector3(1.0f,1.0f,1.0f);
+    //Vector3 Usingscale = new Vector3(0.1f,0.1f,0.1f);
 
     public enum State
     {
@@ -54,24 +57,8 @@ public class ToolTip : MonoBehaviour
         // Are we a character Dialog Tooltip?
         if (transform.parent.GetComponent<Character>() != null)
             gameObject.AddComponent<DialogueToolTipController>();
-
-
-        // Make object disabled when you start
-        gameObject.SetActive(false);
     }
-
-
-    void OnDestoy()
-    {
-    }
-
-    public void ShowTooltip(bool active)
-    {
-        toolTip.SetActive(active);
-    }
-
-
-
+    
     public void SetState(State s)
     {
         state = s;
@@ -98,6 +85,7 @@ public class ToolTip : MonoBehaviour
                     title.GetComponent<UnityEngine.UI.Text>().text = toolTipIdle;
                 }
                 toolTip.transform.localPosition = toolTip.transform.rotation * IdleOffset;
+                //toolTip.transform.localScale = Idlescale;
                 break;
             case State.Over:
                 if (toolTipOver == null)
@@ -110,6 +98,7 @@ public class ToolTip : MonoBehaviour
                     title.GetComponent<UnityEngine.UI.Text>().text = toolTipOver;
                 }
                 toolTip.transform.localPosition = toolTip.transform.rotation * OverOffset;
+                //toolTip.transform.localScale = Overscale;
                 break;
             case State.Using:
                 if (toolTipUseing == null)
@@ -122,17 +111,17 @@ public class ToolTip : MonoBehaviour
                     title.GetComponent<UnityEngine.UI.Text>().text = toolTipUseing;
                 }
                 toolTip.transform.localPosition = toolTip.transform.rotation * usingOffset;
+                //toolTip.transform.localScale = Usingscale;
                 break;
         }
 
         // Face the player
         if (toolTip.activeSelf)
         {
-            toolTip.transform.LookAt(playerCamera, Vector3.up);
-            toolTip.transform.Rotate(0, 180, 0);
             var vecToCamera = toolTip.transform.position - playerCamera.position;
             var distToCamera = vecToCamera.magnitude;
 
+            toolTip.transform.LookAt(transform.position + (vecToCamera * 3.0f), Vector3.up);
             toolTip.transform.localScale = new Vector3(1 + distToCamera, 1 + distToCamera, 1 + distToCamera);
         }
     }

@@ -579,7 +579,7 @@ TextMesh:
   m_FontSize: 64
   m_FontStyle: 0
   m_RichText: 1
-  m_Font: {fileID: 0}
+  m_Font: {fileID: 12800000, guid: d0225d4ab55aaea4191f7fd1f20ad278, type: 3}
   m_Color:
     serializedVersion: 2
     rgba: 4294967295
@@ -596,7 +596,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 10100, guid: 0000000000000000e000000000000000, type: 0}
+  - {fileID: 2100000, guid: d0225d4ab55aaea4191f7fd1f20ad278, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -699,6 +699,52 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1532528981
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4852637505548330, guid: 40829807bc70f8e47af85529e3db53d9, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -2.8453631
+      objectReference: {fileID: 0}
+    - target: {fileID: 4852637505548330, guid: 40829807bc70f8e47af85529e3db53d9, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -1.0110831
+      objectReference: {fileID: 0}
+    - target: {fileID: 4852637505548330, guid: 40829807bc70f8e47af85529e3db53d9, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -3.3546915
+      objectReference: {fileID: 0}
+    - target: {fileID: 4852637505548330, guid: 40829807bc70f8e47af85529e3db53d9, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4852637505548330, guid: 40829807bc70f8e47af85529e3db53d9, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4852637505548330, guid: 40829807bc70f8e47af85529e3db53d9, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4852637505548330, guid: 40829807bc70f8e47af85529e3db53d9, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4852637505548330, guid: 40829807bc70f8e47af85529e3db53d9, type: 2}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1997710022584628, guid: 40829807bc70f8e47af85529e3db53d9, type: 2}
+      propertyPath: m_Name
+      value: CheatCodes
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 40829807bc70f8e47af85529e3db53d9, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &1991148000
 GameObject:
   m_ObjectHideFlags: 0

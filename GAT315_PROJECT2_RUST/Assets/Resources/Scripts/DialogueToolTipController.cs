@@ -29,6 +29,7 @@ public class DialogueToolTipController : MonoBehaviour, Interactable
 
     private void OnDiableOration(Character.DisableOration e)
     {
+        Debug.Log("DiableOration");
         OnDestroy(); // disconnect immediatly
         gameObject.SetActive(false);
     }

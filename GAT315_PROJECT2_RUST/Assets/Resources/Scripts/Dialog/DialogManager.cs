@@ -268,13 +268,14 @@ public class DialogManager : FFComponent
         var speechRoot = oratorData.trans.GetComponent<Character>().GetSpeachRoot();
         var speechController = speechRoot.GetComponent<SpeechController>();
 
-        var textWithNewLines = AddNewlines(text, charactersPerLine);
+        // removed because UI.text can handle the wrapping stuff.
+        // var textWithNewLines = AddNewlines(text, charactersPerLine);
 
 
         QueuedDialog qd = new QueuedDialog
         {
             controller = speechController,
-            text = textWithNewLines,
+            text = text,
             time = echoDisplayTime,
             dialogSeq = dialogSequence,
             type = type,

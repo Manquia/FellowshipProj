@@ -106,6 +106,7 @@ public class CountRoomController : MonoBehaviour {
                 PersonMover witnessMover = witnessTrans.GetComponent<PersonMover>();
                 Character witnessCharacter = witnessGO.GetComponent<Character>();
 
+                witnessCharacter.DisableDialogue();
                 witnessMover.PathToFollow = witnessExitPath;
                 witnessMover.distAlongPath = 0.0f;
                 witnessMover.Move(accusedExitPath.points.Length - 1);
@@ -172,6 +173,10 @@ public class CountRoomController : MonoBehaviour {
             accusedTrans = nextPerson.transform;
             accusedCharacter = nextPerson.GetComponent<Character>();
 
+            // Setup to enable dialogue when finished moving.
+            accusedCharacter.DisableDialogue();
+            FFMessageBoard<PersonFinishedMoving>.Connect(OnFinishEnteringCourtRoom, accusedTrans.gameObject);
+
             // Set starting Position
             accusedTrans.position = accusedEnterPath.PositionAtPoint(0);
 
@@ -198,6 +203,10 @@ public class CountRoomController : MonoBehaviour {
                 // Set starting Position
                 witnessTrans.position = witnessEnterPath.PositionAtPoint(0);
 
+                // Setup future events to startup dialogue stuff
+                witnessTrans.GetComponent<Character>().DisableDialogue();
+                FFMessageBoard<PersonFinishedMoving>.Connect(OnFinishEnteringCourtRoom, witnessTrans.gameObject);
+
                 // Set path
                 witnessMover.PathToFollow = witnessEnterPath;
                 witnessMover.Move(witnessEnterPath.points.Length - 1);
@@ -223,6 +232,13 @@ public class CountRoomController : MonoBehaviour {
             }
         }
         
+    }
+
+    void OnFinishEnteringCourtRoom(PersonFinishedMoving e)
+    {
+        //Debug.Log("FinishedEnteringCourtRoom");
+        FFMessageBoard<PersonFinishedMoving>.Disconnect(OnFinishEnteringCourtRoom, e.trans.gameObject);
+        e.trans.GetComponent<Character>().EnableDialogue();
     }
     
     public bool MoreCriminalsThisWeek()

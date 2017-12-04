@@ -67,11 +67,14 @@ public class SpeechController : FFComponent
 
     public void DisableTooltip()
     {
-        transform.parent.Find("TalkToolTip").gameObject.SetActive(false);
+        Debug.Log("Disable Tooltip");
+        var tooltip = transform.parent.Find("TalkToolTip");
+        tooltip.gameObject.SetActive(false);
     }
 
     public void EnableTooltip()
     {
+        Debug.Log("Enable Tooltip");
         var tooltip = transform.parent.Find("TalkToolTip");
         tooltip.gameObject.SetActive(true);
 

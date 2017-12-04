@@ -89,6 +89,19 @@ public class Character : FFComponent, Interactable
             talkToolTip.localPosition = new Vector3(0.0f, talkToolTip.localPosition.y, 0.0f);
         }
 
+
+        ConfigureConfigureSpriteFace();
+    }
+
+    private void ConfigureConfigureSpriteFace()
+    {
+        if(mugshot != null)
+        {
+            var faceSprite = Instantiate(FFResource.Load_Prefab("CharacterFace"));
+            faceSprite.transform.Find("Sprite").GetComponent<SpriteRenderer>().sprite = mugshot;
+            faceSprite.transform.SetParent(transform);
+            faceSprite.transform.localPosition = new Vector3(0, 0.85f, 0.0f);
+        }
     }
 
     private void OnPersonFinishedMoving(PersonFinishedMoving e)
@@ -101,7 +114,7 @@ public class Character : FFComponent, Interactable
     {
         FFMessageBoard<BeginCharacterHearing>.Disconnect(OnBeginCharacterHearing, gameObject);
         FFMessageBoard<EndCharacterHearing>.Disconnect(OnEndCharacterHearing, gameObject);
-        FFMessageBoard<Character.DialogueFinished>.Disconnect(OnDialogueFinished, gameObject);
+        FFMessageBoard<DialogueFinished>.Disconnect(OnDialogueFinished, gameObject);
     }
 
     private void OnDialogueFinished(DialogueFinished e)
@@ -114,7 +127,7 @@ public class Character : FFComponent, Interactable
         }
         else // set reenable tooltip
         {
-            transform.Find("SpeechController").GetComponent<SpeechController>().EnableTooltip();
+            GetSpeechController().EnableTooltip();
         }
     }
 
@@ -180,7 +193,7 @@ public class Character : FFComponent, Interactable
     private void FixedUpdate()
     {
         if (orateTimes.Count > 0)
-            orateTimes[0] -= Time.fixedDeltaTime;
+            orateTimes[0] -= Time.deltaTime;
     }
 
     bool active = true;
@@ -189,6 +202,12 @@ public class Character : FFComponent, Interactable
     {
         if (!active)
             return;
+
+        // no longer orating?
+        if(orateTimes.Count > 0 && orateTimes[0] < 0.0f)
+        {
+            orateTimes.RemoveAt(0);
+        }
         
         // If already talking, fast forward
         if (orateTimes.Count > 0)
