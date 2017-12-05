@@ -2589,7 +2589,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.13
+  near clip plane: 0.12
   far clip plane: 1000
   field of view: 60
   orthographic: 0
@@ -2651,7 +2651,215 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1bd2ce3b7f6cf7428bfd8244a3e3550, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  elements: []
+  toleranceThreshold: 4
+  elements:
+  - fPulse: 0
+    pulseCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 0
+      m_PostInfinity: 0
+      m_RotationOrder: 0
+    volumeCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 2
+        time: 0
+        value: 0
+        inSlope: -0.18336886
+        outSlope: -0.18336886
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 0.29723802
+        value: 0.09005132
+        inSlope: 0.8639252
+        outSlope: 0.8639252
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 0.6402086
+        value: 1.1242388
+        inSlope: 5.8092566
+        outSlope: 5.8092566
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 1.0111587
+        value: 1.4263871
+        inSlope: -1.1717029
+        outSlope: -1.1717029
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 0
+    pitchCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 2
+        time: -0.005380855
+        value: -0.28837487
+        inSlope: 1.3210104
+        outSlope: 1.3210104
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 0.996465
+        value: 0.815166
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 0
+    clip: {fileID: 8300000, guid: c29f2e53356d7954c8d5b0193486385b, type: 3}
+    src: {fileID: 0}
+  - fPulse: 0
+    pulseCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 2
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 0.19532341
+        value: 0.9234887
+        inSlope: 0.38229334
+        outSlope: 0.38229334
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 0
+    volumeCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 2
+        time: 0
+        value: 0
+        inSlope: -0.033037283
+        outSlope: -0.033037283
+        tangentMode: 34
+      - serializedVersion: 2
+        time: 0.1962997
+        value: -0.006485209
+        inSlope: -0.0057666865
+        outSlope: -0.0057666865
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 0.2991743
+        value: 0.8979783
+        inSlope: 0.9940351
+        outSlope: 0.9940351
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 1
+        value: 1
+        inSlope: 0.14557357
+        outSlope: 0.14557357
+        tangentMode: 34
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 0
+    pitchCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 2
+        time: 0
+        value: 0.0020046234
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 1
+        value: 0.0020046234
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 0
+    clip: {fileID: 8300000, guid: d25addac09b58454a861bde0d03ebffa, type: 3}
+    src: {fileID: 0}
+  - fPulse: 0
+    pulseCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 2
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 0.12929997
+        value: 0.8578472
+        inSlope: 0.2768767
+        outSlope: 0.2768767
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 0
+    volumeCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 2
+        time: 0
+        value: 0
+        inSlope: 0.004969408
+        outSlope: 0.004969408
+        tangentMode: 34
+      - serializedVersion: 2
+        time: 0.1989617
+        value: 0.0009887218
+        inSlope: 0.5035559
+        outSlope: 0.5035559
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 0.3008845
+        value: 0.9012017
+        inSlope: 0.49796775
+        outSlope: 0.49796775
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 1
+        value: 1
+        inSlope: 0.10379469
+        outSlope: 0.10379469
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 0
+    pitchCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 2
+        time: 0
+        value: -0.0048217773
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 1
+        value: -0.0048217773
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 0
+    clip: {fileID: 8300000, guid: 95b6f34a3f659734ab78bd476ca5483d, type: 3}
+    src: {fileID: 0}
 --- !u!114 &114459083749340386
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2663,11 +2871,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d17daf2550e668f439f20cbf2b437ddc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cameraController: {fileID: 114874898962032172}
   dynAudioPlayer: {fileID: 114117001911241068}
   ikSnap: {fileID: 114934917912765560}
   OnRope:
     rope: {fileID: 0}
+    pumpSpeed: 0.02
+    pumpAcceleration: 1.8
+    pumpResetSpeed: 0.1
+    climbSpeed: 0.5
+    rotateSpeed: 90
+    leanSpeed: 0.9
     distUpRope: 0
+    distPumpUp: 0
+    maxPumpUpDist: 0.03
+    maxPumpDownDist: 0
     leftHandOffsetOnRope: 1.2
     rightHandOffsetOnRope: 1.3
     leftFootOffsetOnRope: 0.23
@@ -2699,7 +2917,7 @@ MonoBehaviour:
   lookSensitivity: {x: 5, y: 5}
   maxPitchUpAngle: 85
   maxPitchDownAngle: 52
-  maxTurnAngle: 75
+  maxTurnAngle: 35
 --- !u!114 &114934917912765560
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -32,17 +32,34 @@ public class CameraController : MonoBehaviour {
     {
         UpdateRotation();
     }
-    // Store this becuase Unity's rotation isn't 
-    private float cameraTurn = 0.0f;
+    
+    // return look vector
+    public float turnVector()
+    {
+        //if(lookVec.x > 0.0f /*|| cameraTurn == maxTurnAngle*/)
+        //{
+        //    return 1.0f;
+        //}
+        //if(lookVec.x < 0.0f /*|| cameraTurn == -maxTurnAngle*/)
+        //{
+        //    return -1.0f;
+        //}
+        return lookVec.x;
+    }
+
+
+    internal Vector2 lookVec;
+    // Store this becuase Unity's rotation isn't good
+    internal float cameraTurn = 0.0f;
     private float cameraPitch = 0.0f;
     private void UpdateRotation()
     {
-        float lookVecX = lookSensitivity.x * Input.GetAxis("Mouse X");
-        float lookVecY = lookSensitivity.y * Input.GetAxis("Mouse Y");
+        lookVec.x = lookSensitivity.x * Input.GetAxis("Mouse X");
+        lookVec.y = lookSensitivity.y * Input.GetAxis("Mouse Y");
 
         { // rotate player relative to mouse movement
             // Limit rotation
-            var turnAngle = Mathf.Clamp(cameraTurn + lookVecX, -maxTurnAngle, maxTurnAngle);
+            var turnAngle = Mathf.Clamp(cameraTurn + lookVec.x, -maxTurnAngle, maxTurnAngle);
 
             var turnRot = Quaternion.AngleAxis(turnAngle, Vector3.up);
             transform.localRotation = turnRot;
@@ -52,7 +69,7 @@ public class CameraController : MonoBehaviour {
 
         { // Pitch Camera
             // Limit rotation
-            var pitchAngle = Mathf.Clamp(cameraPitch + lookVecY, -maxPitchDownAngle, maxPitchUpAngle);
+            var pitchAngle = Mathf.Clamp(cameraPitch + lookVec.y, -maxPitchDownAngle, maxPitchUpAngle);
 
             var pitchRot = Quaternion.AngleAxis(pitchAngle, -Vector3.right);
             CameraTrans.localRotation = pitchRot;

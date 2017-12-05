@@ -1,30 +1,12 @@
-GAT 315 Task List
-
-
--+ Add a cool font for the game's splash screen + Credits
--+ show approval ratting at end of game
--+ Add cheat codes to move between levels
--+ Test game
--+ Add sprites to charcter faces
--+ Bake lighting
--+ Add Roof to Court room
-
-- Build project + Submit
-- Need to do an age pass on all of the characters based on mugshots
-- Add Edna[1] Samanta Witness
-
-[MAYBE]
-- Weeks Notification shown with Months (January, Febuary, March, etc…)
-- Add an option to let the person go free for most criminals
-- Sentence freedom isn’t quite good enough. Allow always to go free.
-
 GAT 261 Task List
 
 -+ Character IK!
 -+ Rope Working!
 -+ Audio for dynamic Audio player
+-+ Nice tree assets to make it feel good!!!
+-+ Setup controls to move on the rope
+-+ make world look cool
+-+ Rope model instead of capsule
 
-- Setup controls to move on the rope
-- make world look cool
-- Particles in the air (leaves, dust, etc...)
-- Nice tree assets to make it feel good!!!
+-~ Splash Screen (Level switching instructions)
+-~ Particles in the air (leaves, dust, etc...)

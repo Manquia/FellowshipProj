@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour {
 
-
+    public CameraController cameraController;
     public DynamicAudioPlayer dynAudioPlayer;
     public IK_Snap ikSnap;
 
@@ -25,7 +25,20 @@ public class Player : MonoBehaviour {
     public class RopeConnection
     {
         public RopeController rope;
+
+        public float pumpSpeed = 0.003f;
+        public float pumpAcceleration = 0.5f;
+        public float pumpResetSpeed = 0.05f;
+
+        public float climbSpeed = 0.5f;
+        public float rotateSpeed = 20.0f;
+        public float leanSpeed = 0.9f;
+        
         public float distUpRope;
+        public float distPumpUp = 0.0f;
+        
+        public float maxPumpUpDist = 0.1f;
+        public float maxPumpDownDist = 0.0f;
 
         // Offset Along Rope (vertical along rope)
         public float leftHandOffsetOnRope;
@@ -44,8 +57,7 @@ public class Player : MonoBehaviour {
         public Vector3 rightHandRot;
         public Vector3 leftFootRot;
         public Vector3 rightFootRot;
-
-
+        
         // Functional stuff
         public float angleOnRope; // in degrees
         public float distFromRope;
@@ -54,7 +66,7 @@ public class Player : MonoBehaviour {
         
         // @TODO @Polish
         public float onRopeAngularVelocity; // <--- Rename...
-
+        
     }
     public RopeConnection OnRope;
 
@@ -78,12 +90,136 @@ public class Player : MonoBehaviour {
         if (OnRope != null)
             DestroyOnRope();
     }
-	
+    
 	// Update is called once per frame
 	void Update ()
     {
-		
-	}
+        bool modifier = Input.GetKey(KeyCode.LeftShift);
+        float dt = Time.deltaTime;
+
+        float pumpAmount = OnRope.pumpSpeed * dt;
+        float climbAmount = OnRope.climbSpeed * dt;
+        float rotateAmount = OnRope.rotateSpeed * dt;
+        float leanAmount = OnRope.leanSpeed * dt;
+        
+        {
+            bool up = Input.GetKey(KeyCode.W);
+            bool down = Input.GetKey(KeyCode.S);
+            bool left = Input.GetKey(KeyCode.A);
+            bool right = Input.GetKey(KeyCode.D);
+            bool space = Input.GetKey(KeyCode.Space);
+
+
+            Vector3 leanVec = Vector3.zero;
+            float climbVec = 0.0f;
+
+            if (space)
+            {
+                RopePump(pumpAmount);
+            }
+
+            bool flipClimbMod = false;
+            // going up
+            if (up)
+            {
+                if (modifier == flipClimbMod)
+                    leanVec += new Vector3(0.0f, 0.0f, 1.0f);
+                else
+                    climbVec += 1.0f;
+            }
+            // going down
+            if (down)
+            {
+                if (modifier == flipClimbMod)
+                    leanVec += new Vector3(0.0f, 0.0f, -1.0f);
+                else
+                    climbVec += -1.0f;
+            }
+
+            bool flipRotateMod = false;
+            // going right
+            if (right && !left)
+            {
+                if (modifier == flipRotateMod)
+                    leanVec += new Vector3(1.0f, 0.0f, 0.0f);
+            }
+            // going left
+            if (left && !right)
+            {
+                if (modifier == flipRotateMod)
+                    leanVec += new Vector3(-1.0f, 0.0f, 0.0f);
+            }
+
+            // Pump
+            if (space)
+            {
+                RopePump(pumpAmount);
+            }
+            else
+            {
+                var vecToRestingPump = Mathf.Clamp(
+                    -OnRope.distPumpUp,
+                    -OnRope.pumpResetSpeed * dt,
+                     OnRope.pumpResetSpeed * dt);
+
+                RopePump(vecToRestingPump);
+            }
+
+            //Debug.Log("Lean Vec:" + leanVec);
+
+            if(leanVec != Vector3.zero)
+                RopeLean(Vector3.Normalize(leanVec) * leanAmount);
+
+            RopeClimb(climbVec * climbAmount);
+
+
+
+            // Rotate based on mouse look
+            {
+                float lookVec = cameraController.lookVec.x;
+                float sensitivityRotate = Mathf.Abs(cameraController.cameraTurn / cameraController.maxTurnAngle);
+                sensitivityRotate = sensitivityRotate * sensitivityRotate;
+
+                float turnAmount = lookVec * sensitivityRotate;
+
+                RopeRotateOn(-turnAmount * OnRope.rotateSpeed * dt);
+            }
+        }
+        
+    }
+    
+    void RopeClimb(float amountUp)
+    {
+        OnRope.distUpRope = Mathf.Clamp(
+            amountUp + OnRope.distUpRope,
+            0.0f,
+            OnRope.rope.GetPath().PathLength);
+    }
+    void RopeRotateOn(float amountRight)
+    {
+        OnRope.angleOnRope += amountRight;
+    }
+    void RopePump(float amountUp)
+    {
+        var epsilon = 0.00001f;
+        var oldDist = OnRope.distPumpUp;
+        OnRope.distPumpUp = Mathf.Clamp(OnRope.distPumpUp + amountUp, -OnRope.maxPumpDownDist, OnRope.maxPumpUpDist);
+
+        // Done with the pump
+        if (OnRope.distPumpUp + epsilon > OnRope.maxPumpUpDist)
+            return;
+        if (OnRope.distPumpUp - epsilon < -OnRope.maxPumpDownDist)
+            return;
+
+        if (oldDist != OnRope.distFromRope)
+            OnRope.rope.velocity += OnRope.rope.velocity * (amountUp * OnRope.pumpAcceleration);
+    }
+    void RopeLean(Vector3 amountVec)
+    {
+        OnRope.rope.velocity += transform.rotation * amountVec;
+        //Debug.DrawLine(transform.position, transform.position + amountVec * 20.0f, Color.grey);
+    }
+
 
     void FixedUpdate()
     {
@@ -100,16 +236,19 @@ public class Player : MonoBehaviour {
         var ropeLength = ropePath.PathLength;
         var ropeVecNorm = rope.RopeVecNorm();
 
-        var distOnPath = Mathf.Clamp(ropeLength - OnRope.distUpRope, 0.0f, ropeLength);
+        var distOnPath = Mathf.Clamp(ropeLength - (OnRope.distUpRope), 0.0f, ropeLength);
         //var velocity = rope.VelocityAtLength(OnRope.distUpRope);
 
         // update Character Position
         var AngleFromDown = Quaternion.FromToRotation(Vector3.down, ropeVecNorm);
         var angularRotationOnRope = Quaternion.AngleAxis(OnRope.angleOnRope, ropeVecNorm) * AngleFromDown;
         var positionOnRope = ropePath.PointAlongPath(distOnPath);
+
+        // @ TODO: Add charater offset!
+        transform.position = positionOnRope +                                   // Position on rope
+            (angularRotationOnRope * -Vector3.forward * OnRope.distFromRope) +  // set offset out from rope based on rotation
+            (ropeVecNorm * -OnRope.distPumpUp);                                  // vertical offset from pumping
         
-        transform.position = positionOnRope +
-            (angularRotationOnRope * -Vector3.forward * OnRope.distFromRope); // @ TODO: Add charater offset!
         var vecForward = positionOnRope - transform.position;
         
 
